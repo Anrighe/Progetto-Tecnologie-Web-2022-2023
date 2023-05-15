@@ -2,7 +2,7 @@ from django.db import models
 
 
 class PortaleF1(models.Model):
-    titolo = models.CharField(max_length=100)
+    pass
 
 
 class News(models.Model):
