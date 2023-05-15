@@ -1,4 +1,5 @@
 from django.db import models
+from store.models import Utente
 
 
 class PortaleF1(models.Model):
@@ -19,8 +20,13 @@ class Highlight(models.Model):
     
 
 News.contiene = models.OneToOneField(PortaleF1, on_delete=models.PROTECT)
+
 PortaleF1.contiene_news = models.ManyToManyField(News, blank=True)
+
 Highlight.contiene = models.OneToOneField(PortaleF1, on_delete=models.PROTECT)
+
 PortaleF1.contiene_highlight = models.ManyToManyField(Highlight, blank=True)
 
+# Al portale di F1 appartengono da 0 a N utenti
+PortaleF1.appartiene = models.ManyToManyField(Utente, null=True, blank=True)
 

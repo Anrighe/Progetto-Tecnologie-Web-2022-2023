@@ -1,5 +1,6 @@
 from django.db import models
 from F1.validators import valida_non_negativi
+from store.models import Gestore_Circuito
 
 
 class Pilota(models.Model):
@@ -41,6 +42,10 @@ Pilota.ingaggia = models.OneToOneField(Scuderia, on_delete=models.PROTECT)
 
 Pilota.partecipa = models.ManyToManyField(Partecipazione, blank=True)
 Partecipazione.partecipa_pilota = models.OneToOneField(Pilota, on_delete=models.PROTECT)
+
+# Un circuito è gestito da uno e un solo gestore di un circuito
+# Se viene cancellato un gestore di un circuito, il circuito dev'essere cancellato
+Circuito.gestisce = models.OneToOneField(Gestore_Circuito)
 
 Circuito.partecipa = models.ManyToManyField(Partecipazione, blank=True)
 Partecipazione.partecipa_circuito = models.OneToOneField(Circuito, on_delete=models.PROTECT)
