@@ -1,5 +1,7 @@
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
+
+class PortaleF1(models.Model):
+    titolo = models.CharField(max_length=100)
 
 
 class News(models.Model):
@@ -7,4 +9,9 @@ class News(models.Model):
     data = models.DateField()
     contenuto = models.CharField(max_length=500)
     autore = models.CharField(max_length=50)
-    #tag = ArrayField(models.CharField(max_length=25), size=10,)
+    tags = models.CharField(max_length=250)  # tag separati dal carattere ,
+    
+
+News.contiene = models.OneToOneField(PortaleF1, on_delete=models.PROTECT)
+PortaleF1.contiene = models.ManyToManyField(News, blank=True)
+
