@@ -8,10 +8,15 @@ class Notifica(models.Model):
     descrizione = models.CharField(max_length=100)
     data = models.DateField()
 
+    class Meta:
+        verbose_name_plural = 'Notifiche'
+
 
 class Ordine(models.Model):
     data = models.DateField()
-    
+
+    class Meta:
+        verbose_name_plural = 'Ordini'   
 
 class Gestore_Circuito(models.Model):
     nome = models.CharField(max_length=50)
@@ -21,15 +26,21 @@ class Gestore_Circuito(models.Model):
     iban = models.CharField(max_length=34, validators=[valida_iban])
     e_mail = models.CharField(max_length=25, unique=True)
 
+    class Meta:
+        verbose_name_plural = 'Gestori circuiti'
 
 class Biglietto(models.Model):
     titolo = models.CharField(max_length=50)
     prezzo = models.FloatField(validators=[valida_non_negativi])
     numero_posto = models.PositiveIntegerField()
 
+    class Meta:
+        verbose_name_plural = 'Bliglietti'
 
 class Carrello(models.Model):
-    pass
+
+    class Meta:
+        verbose_name_plural = 'Carrelli'
 
 
 class Utente(models.Model):
@@ -51,6 +62,9 @@ class Utente(models.Model):
 
     def controlla_password(self, raw_password):
         return check_password(raw_password, self.password)
+
+    class Meta:
+        verbose_name_plural = 'Utenti'
 
 # Un ordine genera da 0 a N notifiche
 # Una notifica è generata al più da un ordine 

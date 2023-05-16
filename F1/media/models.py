@@ -3,8 +3,9 @@ from store.models import Utente, Gestore_Circuito
 
 
 class PortaleF1(models.Model):
-    pass
-
+    
+    class Meta:
+        verbose_name_plural = 'PortaliF1'
 
 class News(models.Model):
     titolo = models.CharField(max_length=100)
@@ -12,6 +13,9 @@ class News(models.Model):
     contenuto = models.CharField(max_length=500)
     autore = models.CharField(max_length=50)
     tags = models.CharField(max_length=250)  # tag separati dal carattere ,
+
+    class Meta:
+        verbose_name_plural = 'News'
 
 
 class Highlight(models.Model):

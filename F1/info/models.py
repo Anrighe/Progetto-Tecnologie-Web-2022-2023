@@ -8,6 +8,9 @@ class Pilota(models.Model):
     data = models.DateField()
     foto = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name_plural = 'Piloti'
+
 
 class Circuito(models.Model):
     nome = models.CharField(max_length=50)
@@ -17,15 +20,24 @@ class Circuito(models.Model):
     giro_veloce = models.DurationField()
     inaugurazione = models.DateField()
 
+    class Meta:
+        verbose_name_plural = 'Circuiti'
+
 
 class Sessione(models.Model):
     tipo = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name_plural = 'Sessioni'
 
 
 class Partecipazione(models.Model):
     # null=True perché un pilota potrebbe non avere un tempo o partecipare a una determinata sessione
     miglior_tempo = models.DurationField(null=True)  
     data = models.DateField(null=True)
+
+    class Meta:
+        verbose_name_plural = 'Partecipazioni'
 
 
 class Scuderia(models.Model):
@@ -34,6 +46,9 @@ class Scuderia(models.Model):
     modello_vettura = models.CharField(max_length=50)
     immagine_vettura = models.CharField(max_length=100)
     logo = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = 'Scuderie'
 
 # Una scuderia ingaggia da 0 a N piloti e un pilota è ingaggiato da una sola scuderia
 Scuderia.ingaggia = models.ForeignKey(Pilota, on_delete=models.PROTECT, null=True, blank=True)
