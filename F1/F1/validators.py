@@ -9,9 +9,17 @@ def valida_iban(val):
         raise ValidationError("L'IBAN inseriro non contiene 34 caratteri")
     
 def valida_carta_credito(val):
-    if val.length() < 10 or val.length() > 20:
+    if val.length() >= 10 or val.length() <= 19:
+        for element in val:
+            if not element.isdigit():
+                raise ValidationError("Il codice carta non contiene solamente numeri")
+    else:
         raise ValidationError("Codice carta inserito non valido")
     
 def valida_cvv(val):
-    if val.length() != 3:
+    if val.length() == 3:
+        for element in val:
+            if not element.isdigit():
+                raise ValidationError("Il cvv non contiene 3 numeri")
+    else:
         raise ValidationError("Il cvv non contiene 3 caratteri")

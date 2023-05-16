@@ -13,7 +13,7 @@ class Pilota(models.Model):
 class Circuito(models.Model):
     nome = models.CharField(max_length=50)
     paese = models.CharField(max_length=50)
-    capienza_persone = models.PositiveSmallIntegerField()
+    capienza_persone = models.PositiveIntegerField()
     lunghezza = models.FloatField(validators=[valida_non_negativi])
     giro_veloce = models.DurationField()
     inaugurazione = models.DateField()
@@ -37,7 +37,7 @@ class Scuderia(models.Model):
     logo = models.CharField(max_length=100)
 
 
-Scuderia.ingaggia = models.ForeignKey(Pilota, blank=True, on_delete=models.PROTECT)
+Scuderia.ingaggia = models.ForeignKey(Pilota, on_delete=models.PROTECT)
 Pilota.ingaggia = models.OneToOneField(Scuderia, on_delete=models.PROTECT)
 
 Pilota.partecipa = models.ManyToManyField(Partecipazione, blank=True)
@@ -45,7 +45,7 @@ Partecipazione.partecipa_pilota = models.OneToOneField(Pilota, on_delete=models.
 
 # Un circuito è gestito da uno e un solo gestore di un circuito
 # Se viene cancellato un gestore di un circuito, il circuito dev'essere cancellato
-Circuito.gestisce = models.OneToOneField(Gestore_Circuito)
+Circuito.gestisce = models.OneToOneField(Gestore_Circuito, on_delete=models.CASCADE)
 
 Circuito.partecipa = models.ManyToManyField(Partecipazione, blank=True)
 Partecipazione.partecipa_circuito = models.OneToOneField(Circuito, on_delete=models.PROTECT)

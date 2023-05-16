@@ -16,16 +16,17 @@ class Ordine(models.Model):
 
 class Gestore_Circuito(models.Model):
     nome = models.CharField(max_length=50)
-    sito_web = models.CharField(max_length=50)
+    sito_web = models.CharField(max_length=100)
     indirizzo = models.CharField(max_length=50)
     telefono = models.CharField(max_length=25)
     iban = models.CharField(max_length=34, validators=[valida_iban])
+    e_mail = models.CharField(max_length=25, unique=True)
 
 
 class Biglietto(models.Model):
     titolo = models.CharField(max_length=50)
     prezzo = models.FloatField(validators=[valida_non_negativi])
-    numero_posto = models.PositiveSmallIntegerField()
+    numero_posto = models.PositiveIntegerField()
 
 
 class Carrello(models.Model):
@@ -42,7 +43,7 @@ class Utente(models.Model):
     password = models.CharField(max_length=128)
     immagine_profilo = models.CharField(max_length=100)
     premium = models.DateField(null=True)
-    carta_credito = models.CharField(max_length=20, validators=[valida_carta_credito], null=True)
+    carta_credito = models.CharField(max_length=19, validators=[valida_carta_credito], null=True)
     cvv = models.CharField(max_length=3, validators=[valida_cvv], null=True)
     scadenza_carta = models.DateField(null=True)
 
@@ -71,7 +72,7 @@ Gestore_Circuito.appartiene = models.OneToOneField(PortaleF1)
 
 # Un gestore di un circuito gestisce uno e un solo circuito
 # Se viene cancellato un circuito, il gestore di un circuito non dev'essere cancellato
-Gestore_Circuito.gestisce = models.OneToOneField(Circuito, on_delete=models.PROTECT)
+Gestore_Circuito.gestisce = models.OneToOneField(Circuito, on_delete=models.PROTECT, null=True)
 
 # Un ordine contiene da 1 a N biglietti
 Ordine.contiene = models.ManyToManyField(Biglietto)
