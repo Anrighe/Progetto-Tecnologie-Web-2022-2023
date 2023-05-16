@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+
+{% block head %} 
+{% endblock %}
+
+{% block title %}News{% endblock %}
+
+{% block content %}
+<h1>
+    {{titolo}}
+</h1>
+
+{% for utente in query_utenti %}
+<b>
+    {{utente.nome}}, {{utente.cognome}}
+</b>
+{% endfor %}
+
+{% for news in object_list %}
+<ul>
+    {{news.titolo}}<br>{{news.contenuto}}<br><br>
+</ul>
+{% endfor %}
+
+
+<form method="post">{% csrf_token %}
+    
+    <input type="submit" value="Save">
+</form>  
+
+{% endblock %}

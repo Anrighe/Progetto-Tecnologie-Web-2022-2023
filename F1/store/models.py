@@ -52,7 +52,7 @@ class Utente(models.Model):
     e_mail = models.CharField(max_length=25, unique=True)
     password = models.CharField(max_length=128)
     immagine_profilo = models.CharField(max_length=100)
-    premium = models.DateField(null=True)
+    premium = models.DateField(null=True, blank=True)
     carta_credito = models.CharField(max_length=19, validators=[valida_carta_credito], null=True)
     cvv = models.CharField(max_length=3, validators=[valida_cvv], null=True)
     scadenza_carta = models.DateField(null=True)

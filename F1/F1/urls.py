@@ -22,6 +22,7 @@ from .views import prova
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('media/', include('media.urls')),
     path('prova/', prova, name='prova'),
 
 ]

@@ -14,6 +14,9 @@ class News(models.Model):
     autore = models.CharField(max_length=50)
     tags = models.CharField(max_length=250)  # tag separati dal carattere ,
 
+    #def __str__(self):
+        #return f'{self.titolo} - {self.contenuto} - {self.data}'
+
     class Meta:
         verbose_name_plural = 'News'
 
