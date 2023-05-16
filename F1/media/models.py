@@ -1,5 +1,5 @@
 from django.db import models
-from store.models import Utente
+from store.models import Utente, Gestore_Circuito
 
 
 class PortaleF1(models.Model):
@@ -13,20 +13,22 @@ class News(models.Model):
     autore = models.CharField(max_length=50)
     tags = models.CharField(max_length=250)  # tag separati dal carattere ,
 
+
 class Highlight(models.Model):
     titolo = models.CharField(max_length=100)
     video = models.CharField(max_length=100)
     visualizzazioni = models.PositiveIntegerField()
     
+# Al portale di F1 appartengono da 0 a N utenti, e ogni utente appartiene al portale di F1
+PortaleF1.appartiene_utente = models.ForeignKey(Utente, on_delete=models.PROTECT, null=True, blank=True)
 
-News.contiene = models.OneToOneField(PortaleF1, on_delete=models.PROTECT)
+# Al portale di F1 appartengono da 0 a N gestori di un circuito, e ogni gestore appartiene al portale di F1
+PortaleF1.appartiene_gestore = models.ForeignKey(Gestore_Circuito, on_delete=models.PROTECT, null=True, blank=True)
 
-PortaleF1.contiene_news = models.ManyToManyField(News, blank=True)
+# Il portale di F1 contiene da 0 a N highlight e un highlight è contenuto nel portale di F1
+PortaleF1.contiene_highlight = models.ForeignKey(Highlight, on_delete=models.PROTECT, null=True, blank=True)
 
-Highlight.contiene = models.OneToOneField(PortaleF1, on_delete=models.PROTECT)
+# Il portale di F1 contiene da 0 a N news e una news è contenuta nel portale di F1
+PortaleF1.contiene_news = models.ForeignKey(News, on_delete=models.PROTECT, null=True, blank=True)
 
-PortaleF1.contiene_highlight = models.ManyToManyField(Highlight, blank=True)
-
-# Al portale di F1 appartengono da 0 a N utenti
-PortaleF1.appartiene = models.ManyToManyField(Utente, null=True, blank=True)
 

@@ -1,6 +1,5 @@
 from django.db import models
 from F1.validators import valida_non_negativi
-from store.models import Gestore_Circuito
 
 
 class Pilota(models.Model):
@@ -36,22 +35,17 @@ class Scuderia(models.Model):
     immagine_vettura = models.CharField(max_length=100)
     logo = models.CharField(max_length=100)
 
+# Una scuderia ingaggia da 0 a N piloti e un pilota è ingaggiato da una sola scuderia
+Scuderia.ingaggia = models.ForeignKey(Pilota, on_delete=models.PROTECT, null=True, blank=True)
 
-Scuderia.ingaggia = models.ForeignKey(Pilota, on_delete=models.PROTECT)
-Pilota.ingaggia = models.OneToOneField(Scuderia, on_delete=models.PROTECT)
+# In una sessione ci sono da 0 a N partecipazioni e una partecipazione si riferisce a una e una sola sessione
+Sessione.vanta = models.ForeignKey(Partecipazione, on_delete=models.CASCADE, null=True, blank=True)
 
-Pilota.partecipa = models.ManyToManyField(Partecipazione, blank=True)
-Partecipazione.partecipa_pilota = models.OneToOneField(Pilota, on_delete=models.PROTECT)
+# In un circuito ci sono da 0 a N partecipazioni e una partecipazione si riferisce a uno e un solo circuito
+Sessione.vanta = models.ForeignKey(Partecipazione, on_delete=models.CASCADE, null=True, blank=True)
 
-# Un circuito è gestito da uno e un solo gestore di un circuito
-# Se viene cancellato un gestore di un circuito, il circuito dev'essere cancellato
-Circuito.gestisce = models.OneToOneField(Gestore_Circuito, on_delete=models.CASCADE)
-
-Circuito.partecipa = models.ManyToManyField(Partecipazione, blank=True)
-Partecipazione.partecipa_circuito = models.OneToOneField(Circuito, on_delete=models.PROTECT)
-
-Sessione.partecipa = models.ManyToManyField(Partecipazione, blank=True)
-Partecipazione.partecipa_sessione = models.OneToOneField(Sessione, on_delete=models.PROTECT)
+# Un pilota effettua da 0 a N partecipazioni e una partecipazione si riferisce a uno e un solo pilota
+Pilota.effettua = models.ForeignKey(Partecipazione, on_delete=models.CASCADE, null=True, blank=True)
 
 
 
