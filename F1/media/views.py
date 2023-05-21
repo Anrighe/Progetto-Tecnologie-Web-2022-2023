@@ -13,15 +13,6 @@ def crispy(request):
 
 
 
-
-
-
-
-
-
-
-
-
 class HomePageView(ListView):
     model = News
     template_name = 'media/homepage.html'
@@ -40,6 +31,8 @@ class HomePageView(ListView):
         context['query_utenti'] = query_utenti
         context['form'] = form
         return context
+    
+    
     
 
 

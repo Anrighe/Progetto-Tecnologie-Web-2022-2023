@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 from F1.validators import valida_non_negativi, valida_iban, valida_carta_credito, valida_cvv
+from django.contrib.auth.models import User
 from info.models import Circuito
 
 
@@ -19,12 +20,13 @@ class Ordine(models.Model):
         verbose_name_plural = 'Ordini'   
 
 class Gestore_Circuito(models.Model):
-    nome = models.CharField(max_length=50)
     sito_web = models.CharField(max_length=100)
     indirizzo = models.CharField(max_length=50)
     telefono = models.CharField(max_length=25)
     iban = models.CharField(max_length=34, validators=[valida_iban])
-    e_mail = models.CharField(max_length=25, unique=True)
+
+    # Connette i gestori dei circuiti con la table User
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = 'Gestori circuiti'
@@ -44,24 +46,17 @@ class Carrello(models.Model):
 
 
 class Utente(models.Model):
-    nome = models.CharField(max_length=50)
-    cognome = models.CharField(max_length=50)
     indirizzo = models.CharField(max_length=50)
     paese = models.CharField(max_length=50)
     telefono = models.CharField(max_length=25)
-    e_mail = models.CharField(max_length=25, unique=True)
-    password = models.CharField(max_length=128)
     immagine_profilo = models.CharField(max_length=100)
     premium = models.DateField(null=True, blank=True)
     carta_credito = models.CharField(max_length=19, validators=[valida_carta_credito], null=True)
     cvv = models.CharField(max_length=3, validators=[valida_cvv], null=True)
     scadenza_carta = models.DateField(null=True)
 
-    def imposta_password(self, raw_password):
-        self.password = make_password(raw_password)
-
-    def controlla_password(self, raw_password):
-        return check_password(raw_password, self.password)
+    # Connette gli utenti con la table User
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = 'Utenti'
@@ -94,6 +89,8 @@ Carrello.contiene = models.ManyToManyField(Biglietto, null=True, blank=True)
 # Un preciso carrello è posseduto da uno e un solo utente
 # In caso di cancellazione dell'utente è necessario cancellare anche il carrello
 Carrello.possiede = models.OneToOneField(Utente, on_delete=models.CASCADE)
+
+
 
 
 

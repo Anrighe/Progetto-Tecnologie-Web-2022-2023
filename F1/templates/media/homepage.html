@@ -7,26 +7,24 @@
 {% block title %}News{% endblock %}
 
 {% block content %}
-<h1>
-    {{titolo}}
-</h1>
+<center>
+    <h1>
+        {{titolo}}
+    </h1>
 
-{% for utente in query_utenti %}
-<b>
-    {{utente.nome}}, {{utente.cognome}}
-</b>
-{% endfor %}
+    {% for utente in query_utenti %}
+    <b>
+        {{utente.nome}}, {{utente.cognome}}
+    </b>
+    {% endfor %}
 
-{% for news in object_list %}
-<ul>
-    {{news.titolo}}<br>{{news.contenuto}}<br><br>
-</ul>
-{% endfor %}
+    {% for news in object_list %}
+    <ul>
+        {{news.titolo}}<br>{{news.contenuto}}<br><br>
+    </ul>
+    {% endfor %}
+    {% crispy form %}
+</center>
 
-
-<form method="post">{% csrf_token %}
-    
-    <input type="submit" value="Save">
-</form>  
 
 {% endblock %}
