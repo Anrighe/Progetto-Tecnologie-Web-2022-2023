@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    {% load static %}
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -17,10 +19,72 @@
     {% block head %} {% endblock %}
     <title>{% block title %} {% endblock %}</title>
 
+    <style>
+        .top-background-div 
+        {
+            background-image: url("{% static '/images/background.png' %}");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height:285px;
+            background-size: cover;
+            background-position: 0% 270%; /* Show the bottom part of the image */
+
+            object-fit: contain'
+        }
+        body 
+        {
+            background-color: #343a40; /* Bootstrap "bg-dark" color */
+        }
+    </style>
 
 </head>
+
+
 <body>
-{% block content %}
-{% endblock %}
+
+    <!-- Top wallpaper 
+    <div class="top-background-div">
+        <div class="container text-center">
+        </div>
+    </div>-->
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
+        <a class="navbar-brand" href="">F1</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav" style="font-family: Arial;">
+    
+                <li class="nav-item" >
+                    <a class="nav-link" href="">Highlight</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Sessioni</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Circuito</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Scuderia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Pilota</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Store</a>
+                </li>
+                <!-- Bisogna allineare profilo completamente a destra-->
+                <li class="nav-item">
+                    <a class="nav-link" href="">Profilo</a>
+                </li>
+
+            </ul>
+        </div> 
+    </nav>
+
+    {% block content %}
+    {% endblock %}
 </body>
 </html>

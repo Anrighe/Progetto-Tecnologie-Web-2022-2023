@@ -22,8 +22,8 @@ from django.contrib.auth import views as auth_views
 from .views import prova
 
 urlpatterns = [
+    path('', include('media.urls')),
     path('admin/', admin.site.urls),
-    path('media/', include('media.urls')),
     path('prova/', prova, name='prova'),
     path("login/", auth_views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),

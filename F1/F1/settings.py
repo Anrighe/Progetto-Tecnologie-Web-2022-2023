@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'media',
     'info',
-    'store'
+    'store',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +128,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR,"static")]

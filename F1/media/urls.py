@@ -7,7 +7,7 @@ from media.views import crispy, HomePageView
 app_name = 'media'
 
 urlpatterns = [
+    path('', HomePageView.as_view(), name='homepage'),
     path('news/', views.HomePageView.as_view(), name='news'),
-    path('crispy/', crispy, name='crispy'),
-    path('homepage/', HomePageView.as_view(), name='homepage')
+    path('crispy/', crispy, name='crispy')
 ]
