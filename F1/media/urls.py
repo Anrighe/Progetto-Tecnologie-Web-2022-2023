@@ -8,6 +8,5 @@ app_name = 'media'
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='homepage'),
-    path('news/', views.HomePageView.as_view(), name='news'),
     path('crispy/', crispy, name='crispy')
 ]
