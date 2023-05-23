@@ -33,7 +33,7 @@
         <a class="navbar-brand" href=""><img class="logo" src="{% static 'images/F1-Logo.png' %}" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <div class="container" onclick="myFunction(this)">
+            <div class="container" onclick="navbar_toggle(this)">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
@@ -41,15 +41,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="">Highlight<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="">Highlight</a>
                 <a class="nav-item nav-link" href="">Sessioni</a>
                 <a class="nav-item nav-link" href="">Circuito</a>
                 <a class="nav-item nav-link" href="">Scuderia</a>
                 <a class="nav-item nav-link" href="">Pilota</a>
                 <a class="nav-item nav-link" href="">Store</a>
             </div>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <ul class="navbar-nav ml-auto">
+            <div class="collapse navbar-collapse navbar-nav" id="navbarNavAltMarkup">
+                <ul class="ml-auto navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href=""><i class="fa fa-fw fa-user"></i></a>
                     </li>
