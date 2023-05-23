@@ -1,0 +1,27 @@
+#bg
+{
+    background-repeat: no-repeat;
+    /*-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;*/
+    background-size: cover;
+}
+
+.logo
+{
+    height: 50px;
+    width: 80px;
+}
+
+.navbar
+{
+    background-color: #221c43;
+    margin: 0%;
+    padding: 0%;
+}
+
+.nav-link 
+{
+    color:white !important;
+}

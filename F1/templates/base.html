@@ -9,6 +9,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="{%static 'css/style.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -19,73 +21,40 @@
     {% block head %} {% endblock %}
     <title>{% block title %} {% endblock %}</title>
 
-    <style>
-        /* Probabilmente da eliminare ? */
-        .top-background-div 
-        {
-            background-image: url("{% static '/images/background.png' %}");
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            height:285px;
-            background-size: cover;
-            background-position: 0% 270%; /* Show the bottom part of the image */
-            object-fit: contain'
-        }
-        
-        body 
-        {
-            background-color: #343a40; /* Bootstrap "bg-dark" color */
-        } 
-             
-    </style>
-
 </head>
 
 
-<body>
-
-    <!-- Top wallpaper 
-    <div class="top-background-div">
-        <div class="container text-center">
-        </div>
-    </div>-->
-
+<body id='bg' style="background-image: url('{%static 'images/background.png'%}');
+        background-repea: no-repeat;">
+    
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
-        <a class="navbar-brand" href="">F1</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#"><img class="logo" src="{% static 'images/F1-Logo.png' %}" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav" style="font-family: Arial;">
-                <li class="nav-item" >
-                    <a class="nav-link" href="">Highlight</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Sessioni</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Circuito</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Scuderia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Pilota</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Store</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav  ml-auto" style="font-family: Arial;">
-                <div>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="">Highlight<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="">Sessioni</a>
+                <a class="nav-item nav-link" href="">Circuito</a>
+                <a class="nav-item nav-link" href="">Scuderia</a>
+                <a class="nav-item nav-link" href="">Pilota</a>
+                <a class="nav-item nav-link" href="">Store</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="">Profilo</a>
+                        <a class="nav-link" href=""><i class="fa fa-fw fa-user"></i></a>
                     </li>
-                </div>
-            </ul>
-        </div> 
-    </nav>        
+                    <li class="nav-item">
+                        <a class="nav-link" href=""><i class="fa fa-fw fa-shopping-cart"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     {% block content %}
     {% endblock %}
