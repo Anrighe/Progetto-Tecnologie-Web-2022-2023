@@ -9,8 +9,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{%static 'css/style_base.css'%}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{%static 'css/style_base.css'%}">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -18,7 +18,7 @@
     <script src="https://unpkg.com/htmx.org@1.6.1"></script>
 
     <script src="{%static 'js/wallpaper.js'%}"></script>
-    <script src="{%static 'js/toggle.js'%}"></script>
+    <script src="{%static 'js/navbar.js'%}"></script>
 
     {% block head %} {% endblock %}
     <title>{% block title %} {% endblock %}</title>
@@ -31,8 +31,8 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="/"><img class="logo" src="{% static 'images/F1-Logo.png' %}" alt=""></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" id="toggler">
             <div class="container" onclick="navbar_toggle(this)">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
@@ -49,12 +49,12 @@
                 <a class="nav-item nav-link" href="">Store</a>
             </div>
             <div class="collapse navbar-collapse navbar-nav" id="navbarNavAltMarkup">
-                <ul class="ml-auto navbar-nav">
+                <ul class="ml-auto navbar-nav" id="navbar-icons">
                     <li class="nav-item">
-                        <a class="nav-link" href=""><i class="fa fa-fw fa-user"></i></a>
+                        <a class="nav-link" href=""><i class="fa fa-fw fa-user" id="user-icon"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=""><i class="fa fa-fw fa-shopping-cart"></i></a>
+                        <a class="nav-link" href=""><i class="fa fa-fw fa-shopping-cart" id="cart-icon"></i></a>
                     </li>
                 </ul>
             </div>

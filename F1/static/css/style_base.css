@@ -6,7 +6,6 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: auto;*/
-    
 }
 
 .logo
@@ -56,3 +55,4 @@
 {
     transform: translate(0, -11px) rotate(45deg);
 }
+

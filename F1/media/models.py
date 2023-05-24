@@ -13,6 +13,7 @@ class News(models.Model):
     contenuto = models.CharField(max_length=500)
     autore = models.CharField(max_length=50)
     tags = models.CharField(max_length=250)  # tag separati dal carattere ,
+    link = models.CharField(max_length=250)
 
     #def __str__(self):
         #return f'{self.titolo} - {self.contenuto} - {self.data}'
