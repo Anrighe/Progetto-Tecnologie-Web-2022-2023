@@ -86,3 +86,37 @@
 {
     background: #750d51; 
 }
+
+
+  
+#container 
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    padding: 20px;
+}
+  
+#news 
+{
+    height: calc(60vh); /* Adjust padding value as needed */
+    overflow-y: auto;
+}
+  
+img 
+{
+    max-width: 100%;
+    height: auto;
+}
+  
+table 
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+  
+th, td 
+{
+    padding: 10px;
+    border: 1px solid black;
+}
