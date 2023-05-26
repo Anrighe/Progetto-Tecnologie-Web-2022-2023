@@ -88,7 +88,7 @@
 }
 
 
-  
+
 #container 
 {
     display: grid;
@@ -99,7 +99,7 @@
   
 #news 
 {
-    height: calc(60vh); /* Adjust padding value as needed */
+    height: calc(65vh); /* Adjust padding value as needed */
     overflow-y: auto;
 }
   
@@ -108,10 +108,17 @@ img
     max-width: 100%;
     height: auto;
 }
-  
+
+#table 
+{
+    border-collapse: collapse;
+    height: calc(60vh)
+}
+
 table 
 {
     border-collapse: collapse;
+    height: calc(60vh)
 }
   
 th, td 
