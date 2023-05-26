@@ -77,14 +77,14 @@
 /* Handle */
 ::-webkit-scrollbar-thumb 
 {
-    background: #720c4e; 
+    background: #8d0f61; 
     border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover 
 {
-    background: #3b0729; 
+    background: #570a3c; 
 }
 
 
