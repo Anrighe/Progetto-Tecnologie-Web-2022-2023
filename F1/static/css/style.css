@@ -77,14 +77,14 @@
 /* Handle */
 ::-webkit-scrollbar-thumb 
 {
-    background: #8d0f61; 
+    background: rgba(255, 255, 255, 0.507); 
     border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover 
 {
-    background: #570a3c; 
+    background: rgba(122, 122, 122, 0.507); 
 }
 
 
@@ -119,12 +119,16 @@ img
 table 
 {
     border-collapse: collapse;
-    height: calc(60vh);
-    
+    height: calc(60vh);    
 }
   
 th, td 
 {
     padding: 10px;
     border: 1px solid black;
+}
+
+.white-cell
+{
+    border: 2px solid rgba(255, 255, 255, 0.507);
 }
