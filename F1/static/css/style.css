@@ -113,7 +113,7 @@ img
 {
     border-collapse: collapse;
     max-height: calc(65vh);
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 table 
