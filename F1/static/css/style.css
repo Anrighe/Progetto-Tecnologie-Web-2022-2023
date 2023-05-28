@@ -1,4 +1,4 @@
-#bg
+body
 {
     background-repeat: no-repeat;
     background-size: cover;
@@ -102,6 +102,11 @@
     height: calc(65vh); /* Adjust padding value as needed */
     overflow-y: auto;
 }
+
+.divisore-news
+{
+    background: white;
+}
   
 img 
 {
@@ -109,19 +114,21 @@ img
     height: auto;
 }
 
-#table 
+#homepage-table-div
 {
     border-collapse: collapse;
     max-height: calc(65vh);
     overflow-y: auto;
 }
 
-table 
+.risultati-ultima-sessione
 {
     border-collapse: collapse;
     height: calc(60vh);    
+    text-align: center; 
+    border: 1px solid white;
 }
-  
+
 th, td 
 {
     padding: 10px;
@@ -139,11 +146,11 @@ th, td
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 2.5rem;
+    height: 2rem;
     text-align: center;
 }
 
-@media (max-width: 768px), (max-height: 768px) 
+@media (max-width: 768px), (max-height: 860px) 
 {
     #footer 
     {

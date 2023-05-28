@@ -19,22 +19,22 @@
 		<div class="container-fluid">
 			<div id="carousel-example" class="carousel slide" data-ride="carousel" data-interval="false">
 				<div class="carousel-inner row w-75 mx-auto" role="listbox">
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active" style="margin: auto;">
+					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
 						<img src="https://media.formula1.com/content/dam/fom-website/races/2023/Monaco_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img1">
 					</div>
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3" style="margin: auto;">
+					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
 						<img src="https://media.formula1.com/content/dam/fom-website/races/2023/Spanish_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img2">
 					</div>
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3" style="margin: auto;">
+					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
 						<img src="https://media.formula1.com/content/dam/fom-website/races/2023/Canadian_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img3">
 					</div>
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3" style="margin: auto;">
+					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
 						<img src="https://media.formula1.com/content/dam/fom-website/races/2023/Austrian_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img4">
 					</div>
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 " style="margin: auto;">
+					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
 						<img src="https://media.formula1.com/content/dam/fom-website/races/2023/Austrian_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img5">
 					</div>
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3" style="margin: auto;">
+					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
 						<img src="https://media.formula1.com/content/dam/fom-website/races/2023/Austrian_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img6">
 					</div>
 				</div>
@@ -55,19 +55,19 @@
 		<div id="container" class="text-white">
 		  	<div id="news" class="card">
 				<h1 class="mx-auto">News</h2>
-				<hr class="solid ml-4 mr-4" style="background: white;"></hr>
+				<hr class="solid ml-4 mr-4 divisore-news"></hr>
 				<div class="article ml-4">
 					<h3>News 1</h3>
 			  		<img src="https://www.bootstrapdash.com/demo/world-time/assets/images/dashboard/home_1.jpg" alt="News 1">
 			  		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 				</div>
-				<hr class="solid ml-4 mr-4" style="background: white;"></hr>
+				<hr class="solid ml-4 mr-4 divisore-news"></hr>
 				<div class="article ml-4">
 					<h3>News 2</h3>
 			  		<img src="https://www.bootstrapdash.com/demo/world-time/assets/images/dashboard/home_2.jpg" alt="News 2">
 			  		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 				</div>
-				<hr class="solid ml-4 mr-4" style="background: white;"></hr>
+				<hr class="solid ml-4 mr-4 divisore-news"></hr>
 				<div class="article ml-4">
 					<h3>News 3</h3>
 					<img src="https://www.bootstrapdash.com/demo/world-time/assets/images/dashboard/home_3.jpg" alt="News 2">
@@ -76,9 +76,9 @@
 			</div>
 		
 			<!-- Risultati ultima sessione -->
-			<div id="table" class="card">
+			<div id="homepage-table-div" class="card">
 				<h1 class="mx-auto">Risultati ultima sessione</h1>
-				<table style="text-align: center; border: 1px solid white;">
+				<table class="risultati-ultima-sessione">
 					<tr>
 						<th class="white-cell">Posizione</th>
 						<th class="white-cell">Pilota</th>
@@ -128,25 +128,25 @@
 
 
 
-<!--
-<center>
-    <h1>
-        {{titolo}}
-    </h1>
+	<!--
+	<center>
+		<h1>
+			{{titolo}}
+		</h1>
 
-    {% for utente in query_utenti %}
-    <b>
-        {{utente.nome}}, {{utente.cognome}}
-    </b>
-    {% endfor %}
+		{% for utente in query_utenti %}
+		<b>
+			{{utente.nome}}, {{utente.cognome}}
+		</b>
+		{% endfor %}
 
-    {% for news in object_list %}
-    <ul>
-        {{news.titolo}}<br>{{news.contenuto}}<br><br>
-    </ul>
-    {% endfor %}
-    {% crispy form %}
-</center>-->
+		{% for news in object_list %}
+		<ul>
+			{{news.titolo}}<br>{{news.contenuto}}<br><br>
+		</ul>
+		{% endfor %}
+		{% crispy form %}
+	</center>-->
 
 
 {% endblock %}
