@@ -113,7 +113,7 @@ body
     overflow-y: auto;
 }
 
-.divisore-news
+.divisore
 {
     background: white;
 }
@@ -167,3 +167,30 @@ th, td
         display: none;
     }
 }
+
+.highlight-container
+{
+    background-color: #221c43d2;
+}
+
+.video-preview-container
+{
+    text-align: center;
+}
+
+.card-video-preview
+{
+    border-radius: 10px;
+    background: white;
+    font-weight: bold;
+    color: black;
+    
+}
+
+.video-preview 
+{
+    width: 30%;
+    height: 30%;
+    display: inline-block;
+}
+

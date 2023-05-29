@@ -43,7 +43,7 @@
         </a>
 
         <!-- Logo -->
-        <a class="navbar-logo mx-auto" href="/">
+        <a class="navbar-logo mx-auto" href="{% url 'media:homepage' %}">
           	<img src="{% static 'images/F1-Logo.png' %}" alt="Logo" width="90" height="60">
         </a>
         <!-- Menu a tre barre (collassato) -->
@@ -59,19 +59,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           	<ul class="navbar-nav mr-auto">
             	<li class="nav-item active">
-              		<a class="nav-link" href="">Highlight</a>
+              		<a class="nav-link" href="{% url 'media:highlight' %}">Highlight</a>
             	</li>
             	<li class="nav-item">
               		<a class="nav-link" href="">Sessioni</a>
             	</li>
             	<li class="nav-item">
-              		<a class="nav-link" href="">Circuito</a>
+              		<a class="nav-link" href="">Circuiti</a>
             	</li>
             	<li class="nav-item">
-              		<a class="nav-link" href="">Scuderia</a>
+              		<a class="nav-link" href="">Scuderie</a>
             	</li>
             	<li class="nav-item">
-                	<a class="nav-link" href="">Pilota</a>
+                	<a class="nav-link" href="">Piloti</a>
             	</li>
             	<li class="nav-item">
                 	<a class="nav-link" href="">Store</a>
@@ -103,11 +103,7 @@
     {% endblock %}
 
 
-        <footer id="footer">
-            <div id="footer-content">
-                <a href="https://moodle.unimore.it/pluginfile.php/664168/mod_amanote/content/1/Progetti_esame.pdf" target="_blank">Traccia d'esame</a>
-            </div>
-        </footer>
+
 
 </body>
 </html>
