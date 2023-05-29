@@ -17,7 +17,9 @@ class Circuito(models.Model):
     paese = models.CharField(max_length=50)
     capienza_persone = models.PositiveIntegerField()
     lunghezza = models.FloatField(validators=[valida_non_negativi])
+    immagine = models.CharField(max_length=100)
     giro_veloce = models.DurationField()
+    numero_giri = models.PositiveIntegerField()
     inaugurazione = models.DateField()
 
     class Meta:

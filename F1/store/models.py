@@ -54,6 +54,7 @@ class Utente(models.Model):
     carta_credito = models.CharField(max_length=19, validators=[valida_carta_credito], null=True)
     cvv = models.CharField(max_length=3, validators=[valida_cvv], null=True)
     scadenza_carta = models.DateField(null=True)
+    notifiche = models.BooleanField(null=False, default=False)
 
     # Connette gli utenti con la table User
     user = models.OneToOneField(User, on_delete=models.CASCADE)
