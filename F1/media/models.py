@@ -25,7 +25,8 @@ class News(models.Model):
 class Highlight(models.Model):
     titolo = models.CharField(max_length=100)
     video = models.CharField(max_length=100)
-    visualizzazioni = models.PositiveIntegerField()
+    visualizzazioni = models.PositiveIntegerField(default=0)
+    preview = models.CharField(max_length=200)
     
 # Al portale di F1 appartengono da 0 a N utenti, e ogni utente appartiene al portale di F1
 PortaleF1.appartiene_utente = models.ForeignKey(Utente, on_delete=models.PROTECT, null=True, blank=True)

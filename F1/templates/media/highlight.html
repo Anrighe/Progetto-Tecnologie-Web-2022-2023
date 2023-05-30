@@ -13,82 +13,72 @@
 {% block content %}
 
 <div class="highlight-container mt-4 ml-4 mr-4 mb-4 text-white">
-    <h1 class="ml-4">Highlight</h1>
+    <div class="query-page-selector-container" align="right">
+    <h1 class="ml-4 f1-font-bold">Highlight</h1> 
+        <div class="query-page-selector-container" align="right">
+            <button class="query-page-selector-button mr-2 f1-font-regular">Precedente</button>  
+            <h2 class="ml-auto mt-2 mr-2 f1-font-regular">[ 1 ]</h2>
+            <button class="query-page-selector-button ml-auto mr-4 f1-font-regular">Prossimo</button>    
+        </div>
+    </div>
     <hr class="solid ml-4 mr-4 divisore"></hr>
     <div class="video-preview-container">
 
-        <a href="" class="card-video-preview video-preview ml-4 mr-4 mt-2 mb-2">
-            <div class=" f1-cc--image">
-                <img src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/1e4721c4-1168-4fc8-a830-21427ef6dc02/e78e28f0-4192-494d-b90a-21a8e174139a/997x516/match/image.jpg">
+        <a href="{% url 'media:highlight_video' pk=query.0.id %}" class="card-video-preview video-preview ml-4 mr-4 mb-2">
+            <div>
+                <img class="video-highlight" src="{{query.0.preview}}">
                 <i class="icon icon-play video-icon"></i>
             </div>
             <div class="mt-2">
-                <p class="">Fastest Pit Stop - Monaco Grand Prix</p>
+                <p class="highlight-name f1-font-regular">{{query.0.titolo}}</p>
             </div>
         </a>
-        <a href="" class="card-video-preview video-preview ml-4 mr-4 mt-2 mb-2">
-            <div class=" f1-cc--image">
-                <img src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/2f997ef2-e16d-436b-b908-22acad035625/e32c8b87-68d2-402d-a732-3953eeb562b9/1316x740/match/image.jpg">
+        <a href="" class="card-video-preview video-preview ml-4 mr-4 mb-2">
+            <div>
+                <img class="video-highlight" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/2f997ef2-e16d-436b-b908-22acad035625/e32c8b87-68d2-402d-a732-3953eeb562b9/1316x740/match/image.jpg">
                 <i class="icon icon-play video-icon"></i>
             </div>
             <div class="mt-2">
-                <p class="">Highlight 2</p>
+                <p class="f1-font-regular">Highlight 2</p>
             </div>
         </a>
-        <a href="" class="card-video-preview video-preview ml-4 mr-4 mt-2 mb-2">
-            <div class=" f1-cc--image">
-                <img src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/0926b0ea-20b5-4242-a4cc-8250f6ca8739/4dab6f11-b2cd-460b-8e6a-cb18b493c422/997x516/match/image.jpg">
+        <a href="" class="card-video-preview video-preview ml-4 mr-4 mb-2">
+            <div>
+                <img class="video-highlight" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/0926b0ea-20b5-4242-a4cc-8250f6ca8739/4dab6f11-b2cd-460b-8e6a-cb18b493c422/997x516/match/image.jpg">
                 <i class="icon icon-play video-icon"></i>
             </div>
             <div class="mt-2">
-                <p class="">Highlight 3</p>
+                <p class="f1-font-regular">Highlight 3</p>
             </div>
         </a>
         <a href="" class="card-video-preview video-preview ml-4 mr-4 mt-2 mb-2">
-            <div class=" f1-cc--image">
-                <img src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/865a081e-0616-41aa-b66e-d3e4a9a0ce0d/8a7f6c90-83cf-4fd7-b81d-1f8fc3d690d5/1316x740/match/image.jpg">
+            <div>
+                <img class="video-highlight" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/865a081e-0616-41aa-b66e-d3e4a9a0ce0d/8a7f6c90-83cf-4fd7-b81d-1f8fc3d690d5/1316x740/match/image.jpg">
                 <i class="icon icon-play video-icon"></i>
             </div>
             <div class="mt-2">
-                <p class="">Highlight 4</p>
+                <p class="f1-font-regular">Highlight 4</p>
             </div>
         </a>
         <a href="" class="card-video-preview video-preview ml-4 mr-4 mt-2 mb-2">
-            <div class=" f1-cc--image">
-                <img src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/16f1259e-58f6-4df3-b3ad-01d1446dd7da/8eb5a74e-1bb0-48ec-84bb-f40485f2675f/1316x740/match/image.jpg">
+            <div>
+                <img class="video-highlight" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/16f1259e-58f6-4df3-b3ad-01d1446dd7da/8eb5a74e-1bb0-48ec-84bb-f40485f2675f/1316x740/match/image.jpg">
                 <i class="icon icon-play video-icon"></i>
             </div>
             <div class="mt-2">
-                <p class="">Highlight 5</p>
+                <p class="f1-font-regular">Highlight 5</p>
             </div>
         </a>
         <a href="" class="card-video-preview video-preview ml-4 mr-4 mt-2 mb-2">
-            <div class=" f1-cc--image">
-                <img src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/b786c8d9-87b9-479f-b150-16d02595551b/a8e32f2b-1290-4968-baf0-797239dcf6bd/1316x740/match/image.jpg">
+            <div>
+                <img class="video-highlight" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/b786c8d9-87b9-479f-b150-16d02595551b/a8e32f2b-1290-4968-baf0-797239dcf6bd/1316x740/match/image.jpg">
                 <i class="icon icon-play video-icon"></i>
             </div>
             <div class="mt-2">
-                <p class="">Highlight 6</p>
+                <p class="f1-font-regular">Highlight 6</p>
             </div>
         </a>
-
-        <!--
-        <div >
-            <img class="video-preview mt-4 mb-4 ml-2 mr-2" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/0926b0ea-20b5-4242-a4cc-8250f6ca8739/4dab6f11-b2cd-460b-8e6a-cb18b493c422/997x516/match/image.jpg">
-            <p class="image-caption">Caption for Image 1</p>
-        </div>
-
-        <div class="video-preview-item">
-        <img class="video-preview mt-4 mb-4 ml-2 mr-2" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/7545811b-7431-4cfd-9cc9-d5f381dc0f63/5da0217e-1964-440f-afe8-c949955493bf/638x359/match/image.jpg">
-        <p class="image-caption">Caption for Image 1</p>
-    </div>    
-        <img class="video-preview mt-4 mb-4 ml-2 mr-2" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/865a081e-0616-41aa-b66e-d3e4a9a0ce0d/8a7f6c90-83cf-4fd7-b81d-1f8fc3d690d5/432x243/match/image.jpg">
-
-        <img class="video-preview mt-4 mb-4 ml-2 mr-2" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/bb802c18-0e51-4ecd-ab5a-6ff5bd253ffc/96144cdf-2a06-4588-a628-cca0f929f51d/432x243/match/image.jpg">
-        <img class="video-preview mt-4 mb-4 ml-2 mr-2" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/2f997ef2-e16d-436b-b908-22acad035625/e32c8b87-68d2-402d-a732-3953eeb562b9/432x243/match/image.jpg">
-        <img class="video-preview mt-4 mb-4 ml-2 mr-2" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/1e4721c4-1168-4fc8-a830-21427ef6dc02/e78e28f0-4192-494d-b90a-21a8e174139a/638x359/match/image.jpg">
-        
-    </div>-->
+    </div>
 </div>
     
 {% endblock %}

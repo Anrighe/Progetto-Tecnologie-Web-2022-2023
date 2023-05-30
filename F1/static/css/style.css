@@ -1,7 +1,6 @@
 body
 {
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-repeat: no-repeat;    
     /*-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -181,10 +180,9 @@ th, td
 .card-video-preview
 {
     border-radius: 10px;
-    background: white;
+    background: black;
     font-weight: bold;
-    color: black;
-    
+    color: white;
 }
 
 .video-preview 
@@ -192,5 +190,84 @@ th, td
     width: 30%;
     height: 30%;
     display: inline-block;
+}
+
+.video-highlight:hover
+{
+    filter: blur(1px);
+    -webkit-transition: all 2000ms ease;
+    -moz-transition: all 2000ms ease;
+    -ms-transition: all 2000ms ease;
+    -o-transition: all 2000ms ease;
+    transition: all 2000ms ease;
+    transform: scale(1.015);
+}
+
+.video-highlight:not(:hover)
+{
+    filter: blur(0px);
+    -webkit-transition: all 2000ms ease;
+    -moz-transition: all 2000ms ease;
+    -ms-transition: all 2000ms ease;
+    -o-transition: all 2000ms ease;
+    transition: all 2000ms ease;
+    transform: scale(1);
+}
+
+.card-video-preview:hover
+{
+    text-decoration: none;
+    color: white;
+}
+
+.query-page-selector-container
+{
+    justify-content: space-between;
+    align-items: right;
+    display: flex;
+}
+
+.query-page-selector-button
+{
+    background-color: #5144a0; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    max-height: 50px;
+    height: 40px;
+}
+
+.query-page-selector-button:hover
+{
+    filter: brightness(70%); /* I bottoni per muoversi tra le pagine delle query diventano scuri se ci si mette il mouse sopra */
+}
+
+
+@font-face 
+{
+    font-family: "F1-font-bold";
+    src: url('../font/Formula1-Bold_web_0.ttf');
+}
+
+@font-face 
+{
+    font-family: "F1-font-regular";
+    src: url('../font/Formula1-Regular_web_0.ttf');
+}
+
+.f1-font-regular
+{
+    font-family: "F1-font-regular";
+}
+
+.f1-font-bold
+{
+    font-family: "F1-font-bold";
 }
 
