@@ -1,6 +1,9 @@
 body
 {
-    background-repeat: no-repeat;    
+    background-repeat: no-repeat;   
+    overflow-y: auto;
+    overflow-x: hidden; 
+    background-attachment: fixed;
     /*-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -194,7 +197,8 @@ th, td
 
 .video-highlight:hover
 {
-    filter: blur(1px);
+    border-radius: 20px;
+    filter: brightness(125%);
     -webkit-transition: all 2000ms ease;
     -moz-transition: all 2000ms ease;
     -ms-transition: all 2000ms ease;
@@ -205,7 +209,8 @@ th, td
 
 .video-highlight:not(:hover)
 {
-    filter: blur(0px);
+    border-radius: 0px;
+    filter: brightness(100%);
     -webkit-transition: all 2000ms ease;
     -moz-transition: all 2000ms ease;
     -ms-transition: all 2000ms ease;
@@ -247,7 +252,6 @@ th, td
 {
     filter: brightness(70%); /* I bottoni per muoversi tra le pagine delle query diventano scuri se ci si mette il mouse sopra */
 }
-
 
 @font-face 
 {
