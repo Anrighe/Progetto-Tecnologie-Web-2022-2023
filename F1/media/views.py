@@ -1,4 +1,5 @@
 from django.views.generic.list import ListView
+from django.views.generic import DetailView
 from media.models import News, Highlight
 from store.models import Utente
 
@@ -49,6 +50,8 @@ class VideoHighlightPageView(ListView):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
         video = Highlight.objects.get(pk=pk)
+        video.visualizzazioni += 1
+        video.save()
         context['video'] = video
         return context
 

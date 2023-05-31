@@ -14,8 +14,9 @@
 
 <div class="highlight-container mt-4 ml-4 mr-4 mb-4 text-white">
     <div class="query-page-selector-container" align="right">
-    <h1 class="ml-4 f1-font-bold">{{video.titolo}}</h1> 
+    <h1 class="ml-4 mt-1 f1-font-bold">{{video.titolo}}</h1> 
         <div class="query-page-selector-container" align="right">
+            <h2 class="f1-font-bold mr-4 mt-3" style="text-align: right;">{{video.visualizzazioni}} visualizzazioni</h2>
             <a href="{% url 'media:highlight' %}" class="mt-2">
                 <button class="query-page-selector-button mr-2 f1-font-regular">Torna agli Highlight</button>     
             </a>
@@ -24,12 +25,12 @@
     <hr class="solid ml-4 mr-4 divisore"></hr>
     <div class="video-preview-container">
 
-        <video controls>
+        <video controls class="mb-3 mt-1">
             <source src="{{video.video}}" type="video/mp4">
-            Your browser does not support HTML video.
+            Il tuo browser non supporta i video HTML.
         </video>
-
         
+
     </div>
 </div>
     
