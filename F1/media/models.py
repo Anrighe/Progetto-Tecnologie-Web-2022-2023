@@ -1,5 +1,4 @@
 from django.db import models
-from store.models import Utente, Gestore_Circuito
 
 
 class PortaleF1(models.Model):
@@ -12,8 +11,13 @@ class News(models.Model):
     data = models.DateField()
     contenuto = models.CharField(max_length=500)
     autore = models.CharField(max_length=50)
-    tags = models.CharField(max_length=250)  # tag separati dal carattere ,
-    link = models.CharField(max_length=250)
+    tags = models.CharField(max_length=250)  # I tag sono separati dal carattere ,
+    link_news = models.CharField(max_length=250, default='')
+    immagine = models.CharField(max_length=250, default='')
+
+    
+    # Il portale di F1 contiene da 0 a N news e una news è contenuta nel portale di F1
+    portale_f1 = models.ForeignKey(PortaleF1, on_delete=models.PROTECT, null=True, blank=True)
 
     #def __str__(self):
         #return f'{self.titolo} - {self.contenuto} - {self.data}'
@@ -27,17 +31,16 @@ class Highlight(models.Model):
     video = models.CharField(max_length=100)
     visualizzazioni = models.PositiveIntegerField(default=0)
     preview = models.CharField(max_length=200)
+
+    # Il portale di F1 contiene da 0 a N highlight e un highlight è contenuto nel portale di F1
+    portale_f1 = models.ForeignKey(PortaleF1, on_delete=models.PROTECT, null=True, blank=True)
     
-# Al portale di F1 appartengono da 0 a N utenti, e ogni utente appartiene al portale di F1
-PortaleF1.appartiene_utente = models.ForeignKey(Utente, on_delete=models.PROTECT, null=True, blank=True)
+    
 
-# Al portale di F1 appartengono da 0 a N gestori di un circuito, e ogni gestore appartiene al portale di F1
-PortaleF1.appartiene_gestore = models.ForeignKey(Gestore_Circuito, on_delete=models.PROTECT, null=True, blank=True)
 
-# Il portale di F1 contiene da 0 a N highlight e un highlight è contenuto nel portale di F1
-PortaleF1.contiene_highlight = models.ForeignKey(Highlight, on_delete=models.PROTECT, null=True, blank=True)
 
-# Il portale di F1 contiene da 0 a N news e una news è contenuta nel portale di F1
-PortaleF1.contiene_news = models.ForeignKey(News, on_delete=models.PROTECT, null=True, blank=True)
+
+
+
 
 

@@ -2,6 +2,7 @@ from django.db import models
 from F1.validators import valida_non_negativi, valida_iban, valida_carta_credito, valida_cvv
 from django.contrib.auth.models import User
 from info.models import Circuito
+from media.models import PortaleF1
 
 
 class Gestore_Circuito(models.Model):
@@ -15,6 +16,9 @@ class Gestore_Circuito(models.Model):
 
     # Connette i gestori dei circuiti con la table User
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    # Al portale di F1 appartengono da 0 a N gestori di un circuito, e ogni gestore appartiene al portale di F1
+    portale_f1 = models.ForeignKey(PortaleF1, on_delete=models.PROTECT, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'Gestori circuiti'
@@ -33,6 +37,9 @@ class Utente(models.Model):
 
     # Connette gli utenti con la table User
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    # Al portale di F1 appartengono da 0 a N utenti, e ogni utente appartiene al portale di F1
+    portale_f1 = models.ForeignKey(PortaleF1, on_delete=models.PROTECT, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'Utenti'
