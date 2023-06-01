@@ -170,3 +170,25 @@ th, td
         display: none;
     }
 }
+
+@font-face 
+{
+    font-family: "F1-font-bold";
+    src: url('../font/Formula1-Bold_web_0.ttf');
+}
+
+@font-face 
+{
+    font-family: "F1-font-regular";
+    src: url('../font/Formula1-Regular_web_0.ttf');
+}
+
+.f1-font-regular
+{
+    font-family: "F1-font-regular";
+}
+
+.f1-font-bold
+{
+    font-family: "F1-font-bold";
+}
