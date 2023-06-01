@@ -1,0 +1,137 @@
+.f1-center
+{
+    text-align: center;
+}
+
+@font-face
+{
+    font-family: 'F1-font';
+    src: url(/static/font/Formula1-Bold_web_0.ttf);
+}
+
+@font-face
+{
+    font-family: 'F1-font-r';
+    src: url(/static/font/Formula1-Regular_web_0.ttf);
+}
+
+.f1-font
+{
+    font-family: 'F1-font';
+    font-size: 100px;
+    line-height: 23px;
+    letter-spacing: .2px;
+}
+
+#img-p
+{
+    max-width: 100%;
+    height: auto;
+}
+
+.margin-m
+{
+    margin-top: 100px;
+}
+
+.margin-i
+{
+    margin-top: 50px;
+}
+
+.bg-image
+{
+    border-bottom-style: solid;
+    border-bottom-width: 10px;
+    border-color: white;
+    background-size: cover;
+    display: block;
+}
+
+.f1-font-r
+{
+    font-family: 'F1-font-r';
+}
+
+#hub
+{
+    background-color: #221c43d2;
+    padding: 20px;
+    display: grid;
+    max-width: 60%;
+}
+
+.f1-stat
+{
+    border-bottom-right-radius: 15px;
+    border-right-color: white;
+    border-bottom-color: white;
+    border-bottom-style: solid;
+    border-right-style: solid;
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+}
+
+.misc--label
+{
+    font-family: 'F1-font-r';
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: .5px;
+}
+
+.margin-top
+{
+    margin-top: 50px;
+}
+
+.f1-border--top-right
+{
+    border-top-right-radius: 25px;
+    padding-top: 20px;
+    padding-right: 20px;
+    border-top: solid 10px #e10600;
+    border-right: solid 10px #e10600;
+}
+
+.f1-font-leg
+{
+    font-family: 'F1-font';
+    font-size: 30px;
+    line-height: 23px;
+    letter-spacing: .2px;
+    box-sizing: border-box;
+    width: 55%;
+}
+
+.font-story 
+{
+    border-top-right-radius: 25px;
+    padding-top: 20px;
+    padding-right: 20px;
+    border-top: solid 5px #ffffffc9;
+    border-right: solid 5px #ffffffc9;
+    border-bottom: solid 5px #ffffffc9;
+    border-bottom-right-radius: 25px;
+    padding-bottom: 20px;
+    margin-top: 40px;
+}
+
+.leg-story
+{
+    font-family: 'F1-font';
+    font-size: 30px;
+    line-height: 23px;
+    letter-spacing: .2px;
+    box-sizing: border-box;
+    width: 40%;
+}
+
+.f1-bold-stat
+{
+    font-family: 'F1-font';
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: .5px;
+}
