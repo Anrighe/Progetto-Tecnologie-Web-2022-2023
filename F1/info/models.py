@@ -33,7 +33,7 @@ class Circuito(models.Model):
     lunghezza = models.FloatField(validators=[valida_non_negativi])
     immagine_circuito = models.CharField(max_length=100)
     immagine_mappa = models.CharField(max_length=100)
-    giro_veloce = models.CharField()
+    giro_veloce = models.CharField(max_length=100)
     numero_giri = models.PositiveIntegerField()
     inaugurazione = models.DateField()
     storia = models.CharField(max_length=10000, default='')
