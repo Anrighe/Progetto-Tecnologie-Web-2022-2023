@@ -29,6 +29,7 @@ class News(models.Model):
 class Highlight(models.Model):
     titolo = models.CharField(max_length=100)
     video = models.CharField(max_length=100)
+    data = models.DateField()
     visualizzazioni = models.PositiveIntegerField(default=0)
     preview = models.CharField(max_length=200)
 

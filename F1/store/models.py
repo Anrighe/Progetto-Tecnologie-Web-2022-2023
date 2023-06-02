@@ -80,6 +80,7 @@ class Carrello(models.Model):
 
 class Biglietto(models.Model):
     titolo = models.CharField(max_length=50)
+    data_evento = models.DateField()
     prezzo = models.FloatField(validators=[valida_non_negativi])
     numero_posto = models.PositiveIntegerField()
 
