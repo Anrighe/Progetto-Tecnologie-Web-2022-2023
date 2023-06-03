@@ -11,5 +11,5 @@ def crispy(request):
 
 
 def monaco_view(request):
-    ctx = {"obj": get_object_or_404(Circuito, nome='MONACO')}
+    ctx = {"obj": get_object_or_404(Circuito, nome='Circuit de Monaco')}
     return render(request, template_name='info/circuito.html', context=ctx)

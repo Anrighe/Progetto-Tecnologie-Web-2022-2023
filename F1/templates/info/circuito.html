@@ -6,6 +6,8 @@
 
     <link rel="stylesheet" type="text/css" href="{%static 'css/style_circuito.css'%}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/style_highlight.css'%}">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/style.css'%}">
 
 {% endblock %}
 
@@ -21,7 +23,7 @@
         <div class="mask">
             <div class="d-flex justify-content-center align-items-center h-100">
             <div class="text-white f1-center">
-                <h1 class="margin-m f1-font">{{ obj.nome }}</h1>
+                <h1 class="margin-m f1-font">{{ obj.paese }}</h1>
                 <h2 class="margin-i"><img src="{% static 'images/circuits/2023.png' %}" width="200" height="70"></h2>
             </div>
             </div>
@@ -35,14 +37,20 @@
 
 
             <div class="row">
-                <div class="col-xl-15 col-lg-10 col-md-10 col-12">
-                <p class="f1-font-r text-white">FORMULA 1 GRAND PRIX DE {{ obj.nome }} 2023</p>
+                <div class="col-xl-6 col-lg-10 col-md-10 col-12">
+                    <p class="f1-font-r text-white">FORMULA 1 GRAND PRIX DE {{ obj.paese }} 2023</p>
                 </div>
+                <div class="col-xl-6 col-lg-10 col-md-10 col-12" style="text-align: right;">
+                    <a href="{% url 'media:homepage' %}" class="mt-2">
+                        <button class="query-page-selector-button mr-2 f1-font-regular">Torna ai Circuiti</button>
+                    </a>
+                </div>
+
             </div>
 
             <fieldset class="f1-border--top-right">
                 <legend class="f1-font-leg">
-                    <span class="text-white">{{ obj.paese }}</span>
+                    <span class="text-white">{{ obj.nome }}</span>
                 </legend>
                     <div class="row">
                         <div class="col-xl-8 col-lg-10 col-md-10 col-12">

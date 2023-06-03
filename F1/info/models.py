@@ -8,6 +8,7 @@ class Scuderia(models.Model):
     modello_vettura = models.CharField(max_length=50)
     immagine_vettura = models.CharField(max_length=100)
     logo = models.CharField(max_length=100)
+    punti = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name_plural = 'Scuderie'
@@ -31,6 +32,7 @@ class Circuito(models.Model):
     paese = models.CharField(max_length=50)
     capienza_persone = models.PositiveIntegerField()
     lunghezza = models.FloatField(validators=[valida_non_negativi])
+    preview = models.CharField(max_length=100)
     immagine_circuito = models.CharField(max_length=100)
     immagine_mappa = models.CharField(max_length=100)
     giro_veloce = models.CharField(max_length=100)
@@ -51,7 +53,7 @@ class Sessione(models.Model):
 
 class Partecipazione(models.Model):
     # null=True perché un pilota potrebbe non avere un tempo o partecipare a una determinata sessione
-    miglior_tempo = models.DurationField(null=True)  
+    miglior_tempo = models.CharField(max_length=100, null=True)  
     data = models.DateField(null=True)
 
     # Una partecipazione si riferisce a una e una sola sessione
