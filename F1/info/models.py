@@ -55,6 +55,7 @@ class Partecipazione(models.Model):
     # null=True perché un pilota potrebbe non avere un tempo o partecipare a una determinata sessione
     miglior_tempo = models.CharField(max_length=100, null=True)  
     data = models.DateField(null=True)
+    posizione = models.PositiveIntegerField(default=0)
 
     # Una partecipazione si riferisce a una e una sola sessione
     sessione = models.ForeignKey(Sessione, on_delete=models.PROTECT, null=True, blank=True)

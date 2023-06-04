@@ -54,5 +54,3 @@ class VideoHighlightPageView(ListView):
         video.save()
         context['video'] = video
         return context
-
-

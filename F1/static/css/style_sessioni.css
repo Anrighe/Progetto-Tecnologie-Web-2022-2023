@@ -1,0 +1,37 @@
+.sessioni-container
+{
+    background-color: #221c43d2;
+    height:90%; 
+    overflow-y: auto;
+}
+
+.query-page-selector-container
+{
+    justify-content: space-between;
+    align-items: right;
+    display: flex;
+}
+
+.query-page-selector-button
+{
+    background-color: #5144a0;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    max-height: 50px;
+    height: 40px;
+}
+
+.risultati-sessioni
+{
+    border-collapse: collapse;
+    height: calc(40vh);    
+    text-align: center; 
+    border: 1px solid white;
+}

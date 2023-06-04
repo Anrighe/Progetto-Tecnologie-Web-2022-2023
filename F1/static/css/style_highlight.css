@@ -62,7 +62,7 @@
 
 .query-page-selector-button
 {
-    background-color: #5144a0; /* Green */
+    background-color: #5144a0;
     border: none;
     color: white;
     text-align: center;
@@ -79,4 +79,10 @@
 .query-page-selector-button:hover
 {
     filter: brightness(70%); /* I bottoni per muoversi tra le pagine delle query diventano scuri se ci si mette il mouse sopra */
+}
+
+.video
+{
+    width: 67%; 
+    height: auto;
 }

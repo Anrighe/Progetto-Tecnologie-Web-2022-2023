@@ -13,7 +13,7 @@
 
 {% block content %}
 
-<div class="highlight-container mt-4 ml-4 mr-4 mb-4 text-white" style="height:auto;">
+<div class="highlight-container mt-4 ml-4 mr-4 mb-4 text-white">
     <div class="query-page-selector-container" align="right">
     <h1 class="ml-4 mt-1 f1-font-bold">{{video.titolo}}</h1> 
         <div class="query-page-selector-container" align="right">
@@ -26,7 +26,7 @@
     <hr class="solid ml-4 mr-4 divisore"></hr>
     <div class="video-preview-container" >
 
-        <video controls class="mb-3 mt-1" style="width: 67%; height: auto;">
+        <video controls class="video mb-3 mt-1">
             <source src="{{video.video}}" type="video/mp4" >
             Il tuo browser non supporta i video HTML.
         </video>

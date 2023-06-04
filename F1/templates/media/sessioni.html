@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+{% load static %}
+
+{% block head %} 
+
+	<link rel="stylesheet" type="text/css" href="{%static 'css/style.css'%}">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/style_sessioni.css'%}">
+
+{% endblock %}
+
+{% block title %}F1 - Sessioni{% endblock %}
+
+{% block content %}
+
+<div class="sessioni-container mt-4 ml-4 mr-4 mb-4 text-white">
+    <div class="query-page-selector-container" align="right">
+    <h1 class="ml-4 mt-2 f1-font-bold mt-2">Sessioni</h1> 
+        <div class="query-page-selector-container mt-2" align="right">
+        </div>
+    </div>
+    <hr class="solid ml-4 mr-4 divisore"></hr>
+        <!-- Tabella sessioni -->
+        <div id="sessioni-table-div" class="card ml-4 mr-4 mb-4 mt-4">
+            <table class="risultati-sessioni">
+                <tr>
+                    <th class="white-cell f1-font-bold">Gran Premio</th>
+                    <th class="white-cell f1-font-bold">Data</th>
+                    <th class="white-cell f1-font-bold">Vincitore</th>
+                    <th class="white-cell f1-font-bold">Scuderia</th>
+                    <th class="white-cell f1-font-bold">Giri</th>
+                </tr>
+                {% for partecipazione in partecipazioni %}
+                    <tr>
+                        <th class="white-cell f1-font-regular">{{ partecipazione.circuito.nome }}</td>
+                        <th class="white-cell f1-font-regular">{{ partecipazione.data }}</td>
+                        <th class="white-cell f1-font-regular">{{ partecipazione.pilota.nome }}</td>
+                        <th class="white-cell f1-font-regular">{{ partecipazione.pilota.scuderia.nome }}</td>
+                        <th class="white-cell f1-font-regular">{{ partecipazione.circuito.numero_giri }}</td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>  
+</div>
+    
+{% endblock %}
