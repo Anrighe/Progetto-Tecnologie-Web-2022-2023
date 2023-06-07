@@ -33,7 +33,7 @@ class ScuderiaView(ListView):
 
 class SessioniPageView(ListView):
     model = Partecipazione
-    template_name = 'media/sessioni.html' 
+    template_name = 'info/sessioni.html' 
 
     def get_context_data(self):
         context = super().get_context_data()
@@ -43,7 +43,5 @@ class SessioniPageView(ListView):
 
         partecipazioni = Partecipazione.objects.filter(posizione=1, sessione__tipo='gara').order_by('-data')
         context['partecipazioni'] = partecipazioni
-
-        #for partecipazione in partecipazioni:
-            #print(partecipazione.pilota.nome)
+        
         return context

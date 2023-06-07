@@ -154,3 +154,12 @@
 {
     border: 3px solid rgba(255, 255, 255, 0.712);
 }
+
+.risultati-ultima-sessione
+{
+    border-collapse: collapse;
+    height: calc(12vh);    
+    text-align: center; 
+    border: 1px solid white;
+    overflow-y: scroll;
+}

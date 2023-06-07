@@ -2,7 +2,7 @@ from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from media.models import News, Highlight
 from store.models import Utente
-
+from info.models import Partecipazione, Sessione, Circuito
 from media.forms import FormUtente
 
 from django.shortcuts import render
@@ -11,23 +11,36 @@ def crispy(request):
     context = {'form': FormUtente()}
     return render(request, 'media/crispy.html', context)
 
+
 class HomePageView(ListView):
     model = News
     template_name = 'media/homepage.html' 
 
-    #def get_queryset(self):
-        #return self.model.objects.exclude(autore='Enrico')
+    def trova_data_ultima_sessione():
+        ultima_partecipazione = Partecipazione.objects.order_by('-data').first()
+
+        if ultima_partecipazione:
+            ultima_sessione = ultima_partecipazione.data
+            return ultima_sessione
+        else:
+            return None
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titolo'] = 'News'
+    def get_context_data(self):
+        context = super().get_context_data()
 
-        form = FormUtente()
+        data_ultima_sessione = HomePageView.trova_data_ultima_sessione()
 
-        query_utenti = Utente.objects.all()
-        context['query_utenti'] = query_utenti
-        context['form'] = form
+        if data_ultima_sessione:
+            partecipazioni = Partecipazione.objects.filter(data=data_ultima_sessione).order_by('-posizione')
+            sessione = Sessione.objects.filter(partecipazione__in=partecipazioni).first()
+            circuito = Circuito.objects.filter(partecipazione__in=partecipazioni).first()
+
+        context['partecipazioni'] = partecipazioni
+        context['tipo_sessione'] = sessione.tipo
+        context['nome_circuito'] = circuito.nome
+
         return context
+    
     
 class HighlightPageView(ListView):
     model = Highlight
@@ -42,6 +55,7 @@ class HighlightPageView(ListView):
         context['query'] = query
         return context
     
+
 class VideoHighlightPageView(ListView):
     model = Highlight
     template_name = 'media/video_highlight.html'

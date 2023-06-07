@@ -79,48 +79,20 @@
 		
 			<!-- Risultati ultima sessione -->
 			<div id="homepage-table-div" class="card">
-				<h1 class="mx-auto f1-font-bold">Risultati ultima sessione</h1>
+				<h2 class="mx-auto f1-font-bold">Risultati {{ tipo_sessione }} - {{ nome_circuito }}</h2>
 				<table class="risultati-ultima-sessione">
 					<tr>
 						<th class="white-cell f1-font-bold">Posizione</th>
 						<th class="white-cell f1-font-bold">Pilota</th>
 						<th class="white-cell f1-font-bold">Miglior tempo</th>
 					</tr>
-					<tr>
-						<th class="white-cell f1-font-regular">Row 1, Cell 1</td>
-						<th class="white-cell f1-font-regular">Row 1, Cell 2</td>
-						<th class="white-cell f1-font-regular">Row 1, Cell 3</td>
-					</tr>
-					<tr>
-						<th class="white-cell f1-font-regular">Row 2, Cell 1</td>
-						<th class="white-cell f1-font-regular">Row 2, Cell 2</td>
-						<th class="white-cell f1-font-regular">Row 2, Cell 3</td>
-					</tr>
-					<tr>
-						<th class="white-cell f1-font-regular">Row 3, Cell 1</td>
-						<th class="white-cell f1-font-regular">Row 3, Cell 2</td>
-						<th class="white-cell f1-font-regular">Row 3, Cell 3</td>
-					</tr>
-					<tr>
-						<th class="white-cell f1-font-regular">Row 4, Cell 1</td>
-						<th class="white-cell f1-font-regular">Row 4, Cell 2</td>
-						<th class="white-cell f1-font-regular">Row 4, Cell 3</td>
-					</tr>
-					<tr>
-						<th class="white-cell f1-font-regular">Row 5, Cell 1</td>
-						<th class="white-cell f1-font-regular">Row 5, Cell 2</td>
-						<th class="white-cell f1-font-regular">Row 5, Cell 3</td>
-					</tr>
-					<tr>
-						<th class="white-cell f1-font-regular">Row 5, Cell 1</td>
-						<th class="white-cell f1-font-regular">Row 5, Cell 2</td>
-						<th class="white-cell f1-font-regular">Row 5, Cell 3</td>
-					</tr>
-					<tr>
-						<th class="white-cell f1-font-regular">Row 6, Cell 1</td>
-						<th class="white-cell f1-font-regular">Row 6, Cell 2</td>
-						<th class="white-cell f1-font-regular">Row 6, Cell 3</td>
-					</tr>
+					{% for partecipazione in partecipazioni %}
+                    <tr>
+                        <th class="white-cell f1-font-regular">{{ partecipazione.posizione }}</td>
+                        <th class="white-cell f1-font-regular">{{ partecipazione.pilota.nome }}</td>
+                        <th class="white-cell f1-font-regular">{{ partecipazione.miglior_tempo }}</td>
+                    </tr>
+                	{% endfor %}
 				</table>
 			</div>
 		</div>
@@ -130,25 +102,7 @@
 
 
 
-	<!--
-	<center>
-		<h1>
-			{{titolo}}
-		</h1>
 
-		{% for utente in query_utenti %}
-		<b>
-			{{utente.nome}}, {{utente.cognome}}
-		</b>
-		{% endfor %}
-
-		{% for news in object_list %}
-		<ul>
-			{{news.titolo}}<br>{{news.contenuto}}<br><br>
-		</ul>
-		{% endfor %}
-		{% crispy form %}
-	</center>-->
 	<footer id="footer">
 		<div id="footer-content">
 			<a class="f1-font-regular" href="https://moodle.unimore.it/pluginfile.php/664168/mod_amanote/content/1/Progetti_esame.pdf" target="_blank">Traccia d'esame</a>

@@ -134,13 +134,7 @@ img
     overflow-y: auto;
 }
 
-.risultati-ultima-sessione
-{
-    border-collapse: collapse;
-    height: calc(60vh);    
-    text-align: center; 
-    border: 1px solid white;
-}
+
 
 th, td 
 {
