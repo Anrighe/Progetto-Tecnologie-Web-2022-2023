@@ -31,7 +31,7 @@ class HomePageView(ListView):
         data_ultima_sessione = HomePageView.trova_data_ultima_sessione()
 
         if data_ultima_sessione:
-            partecipazioni = Partecipazione.objects.filter(data=data_ultima_sessione).order_by('-posizione')
+            partecipazioni = Partecipazione.objects.filter(data=data_ultima_sessione).order_by('posizione')
             sessione = Sessione.objects.filter(partecipazione__in=partecipazioni).first()
             circuito = Circuito.objects.filter(partecipazione__in=partecipazioni).first()
 
