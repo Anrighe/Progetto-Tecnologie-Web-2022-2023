@@ -35,3 +35,17 @@
     text-align: center; 
     border: 1px solid white;
 }
+
+.link-sessione
+{
+    text-decoration: none;
+    color: white;
+}
+
+.link-sessione:hover
+{
+    filter: brightness(70%);
+
+    color: white;
+    text-decoration: none;
+}
