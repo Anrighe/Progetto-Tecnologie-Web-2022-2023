@@ -9,6 +9,8 @@ class Scuderia(models.Model):
     immagine_vettura = models.CharField(max_length=100)
     logo = models.CharField(max_length=100)
     punti = models.PositiveIntegerField(default=0)
+    immagine1 = models.CharField(max_length=100, default='')
+    immagine2 = models.CharField(max_length=100, default='')
 
     class Meta:
         verbose_name_plural = 'Scuderie'
