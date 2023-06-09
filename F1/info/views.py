@@ -1,5 +1,5 @@
 from django.views.generic.list import ListView
-from info.models import Circuito, Partecipazione, Scuderia
+from info.models import Circuito, Partecipazione, Scuderia, Sessione
 
 from media.forms import FormUtente
 
@@ -49,9 +49,17 @@ class SessioniView(ListView):
         
         return context
     
+
 class RisultatoSessioneView(ListView):
     model = Partecipazione
     template_name = 'info/risultato_sessione.html' 
+
+    #TODO: implementare il sistema dei punti
+    #The winner receives 25 points, the second-place finisher 18 points, 
+    # with 15, 12, 10, 8, 6, 4, 2 and 1 points for positions 
+    # 3 through 10, respectively. One additional point is awarded 
+    # to the driver and team with the fastest lap of the race, 
+    # but only if this driver finishes in the top 10 positions.
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
@@ -59,6 +67,10 @@ class RisultatoSessioneView(ListView):
         pk = self.kwargs.get('pk')
         tipo_sessione = self.kwargs.get('tipo_sessione')
         partecipazioni = Partecipazione.objects.filter(circuito__pk=pk, sessione__tipo=tipo_sessione).order_by('posizione')
+        sessioni_effettuate = Partecipazione.objects.filter(circuito__pk=pk).values_list('sessione__tipo', flat=True).distinct()
+        
         context['partecipazioni'] = partecipazioni
+        context['sessioni_effettuate'] = sessioni_effettuate
+        context['pk'] = pk
         
         return context

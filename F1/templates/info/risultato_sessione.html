@@ -17,8 +17,21 @@
     <div class="query-page-selector-container" align="right">
         <h1 class="ml-4 mt-2 f1-font-bold mt-2">Risultati {{partecipazioni.0.sessione.tipo}} - {{partecipazioni.0.circuito.nome}}</h1> 
         <div class="query-page-selector-container mr-3" align="right">
+            
+            <div class="dropdown f1-font-regular">
+                <button class="query-page-selector-button mt-3 mr-3">Sessioni disputate</button>
+                <div class="dropdown-content" align="left">
+                    
+                    {% for sessione_effettuata in sessioni_effettuate %}
+                        <a href="{% url 'info:risultato_sessione' pk=pk tipo_sessione=sessione_effettuata %}">{{ sessione_effettuata }}</a>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+
             <a href="{% url 'info:sessioni' %}">
-                <button class="query-page-selector-button mr-2 f1-font-regular mt-3">Torna alle sessioni</button>     
+                <button class="query-page-selector-button f1-font-regular mt-3 mr-2">Torna alle sessioni</button>     
             </a>
         </div>
     </div>

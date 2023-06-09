@@ -47,7 +47,7 @@ class HighlightPageView(ListView):
     template_name = 'media/highlight.html' 
     
     def get_queryset(self):
-        return self.model.objects.filter(titolo="Max Verstappen's Incredible Pole Lap | 2023 Monaco Grand Prix")
+        return self.model.objects.filter(titolo="Verstappen Pole Lap | 2023 Monaco")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
