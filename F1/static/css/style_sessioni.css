@@ -50,7 +50,6 @@
 .link-sessione:hover
 {
     filter: brightness(70%);
-
     color: white;
     text-decoration: none;
 }

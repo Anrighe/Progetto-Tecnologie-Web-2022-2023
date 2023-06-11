@@ -35,9 +35,13 @@ class HomePageView(ListView):
             sessione = Sessione.objects.filter(partecipazione__in=partecipazioni).first()
             circuito = Circuito.objects.filter(partecipazione__in=partecipazioni).first()
 
-        context['partecipazioni'] = partecipazioni
-        context['tipo_sessione'] = sessione.tipo
-        context['nome_circuito'] = circuito.nome
+            context['partecipazioni'] = partecipazioni
+            context['tipo_sessione'] = sessione.tipo
+            context['nome_circuito'] = circuito.nome
+
+        # aggiungere [:n] con n = numero massimo di elementi da mostrare per ridurre le news caricate
+        news = News.objects.filter().order_by('-data')
+        context['news'] = news
 
         return context
     

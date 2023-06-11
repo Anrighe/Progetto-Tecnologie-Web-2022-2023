@@ -9,8 +9,6 @@ class PortaleF1(models.Model):
 class News(models.Model):
     titolo = models.CharField(max_length=100)
     data = models.DateField()
-    contenuto = models.CharField(max_length=500)
-    autore = models.CharField(max_length=50)
     tags = models.CharField(max_length=250)  # I tag sono separati dal carattere ,
     link_news = models.CharField(max_length=250, default='')
     immagine = models.CharField(max_length=250, default='')

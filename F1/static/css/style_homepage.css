@@ -163,3 +163,34 @@
     border: 1px solid white;
     overflow-y: scroll;
 }
+
+.testo-news
+{
+    display: flex; 
+    align-items: center;
+    text-align: justify;
+    text-justify: inter-word;
+    text-decoration: none;
+    color: white;
+}
+
+.testo-news:hover
+{
+    filter: brightness(70%);
+    color: white;
+    text-decoration: none;
+}
+
+.immagine-news:hover
+{
+    filter: brightness(70%);
+}
+
+.f1-border--top-right 
+{
+    border-top-right-radius: 25px;
+    padding-top: 20px;
+    padding-right: 20px;
+    border-top: solid 10px #e10600;
+    border-right: solid 10px #e10600;
+}
