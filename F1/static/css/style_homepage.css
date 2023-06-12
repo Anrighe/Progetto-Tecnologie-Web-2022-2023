@@ -155,6 +155,26 @@
     border: 3px solid rgba(255, 255, 255, 0.712);
 }
 
+.carousel-image:hover
+{
+    filter: brightness(135%);
+    -webkit-transition: all 2000ms ease;
+    -moz-transition: all 2000ms ease;
+    -ms-transition: all 2000ms ease;
+    -o-transition: all 2000ms ease;
+    transition: all 2000ms ease;
+}
+
+.carousel-image:not(:hover)
+{
+    filter: brightness(100%);
+    -webkit-transition: all 2000ms ease;
+    -moz-transition: all 2000ms ease;
+    -ms-transition: all 2000ms ease;
+    -o-transition: all 2000ms ease;
+    transition: all 2000ms ease;
+}
+
 .risultati-ultima-sessione
 {
     border-collapse: collapse;
@@ -200,4 +220,20 @@
     border-top: solid 10px #e10600;
     border-right: solid 10px #e10600;
     background: rgba(0, 0, 0, 0.514);
+}
+
+.data-news
+{
+    position: absolute;
+    bottom: 3px;
+    right: 20px;
+    color: white;
+}
+
+@media (max-width: 1650px)
+{
+    .data-news 
+    {
+        visibility: hidden;
+    }
 }
