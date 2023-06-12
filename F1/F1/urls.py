@@ -18,6 +18,7 @@ from django.views.generic import RedirectView
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
+from .views import UserCreateView
 
 from .views import prova
 
@@ -28,5 +29,6 @@ urlpatterns = [
     path('prova/', prova, name='prova'),
     path("login/", auth_views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
-    path('', include('info.urls')),
+    path("register/", UserCreateView.as_view(), name="register"),
+    path('', include('info.urls'))
 ]
