@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %} 
+
+
+{% block title %} F1 - Login {{ form.user_group_name }} {% endblock %} 
+
+{% block header1 %}
+    <h1>Pagina di Login</h1>
+  	<p>Si prega di compilare i campi necessari</p> 
+{% endblock %}
+
+{% block content %} 
+
+	<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto" style="max-width: 700px;">
+		<div class="ml-4 mr-4 mt-2 mb-2 mx-auto" style="max-width: 600px; display: flex; color: white;" align="center">
+			<form method="post"> {% csrf_token %}
+
+				{{form | crispy}}
+				
+				<input type="submit" class="btn btn-success" value="Esegui login">
+				
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block footer %} {% endblock %}

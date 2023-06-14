@@ -10,5 +10,5 @@ def prova(request):
 
 class UserCreateView(CreateView):
     form_class = UserCreationForm
-    template_name = 'store/user_create.html'
+    template_name = 'registration/user_create.html'
     success_url = reverse_lazy('media:homepage')

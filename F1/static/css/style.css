@@ -100,8 +100,6 @@ body
     background: rgba(122, 122, 122, 0.507); 
 }
 
-
-
 #container 
 {
     display: grid;
@@ -133,8 +131,6 @@ img
     max-height: calc(65vh);
     overflow-y: auto;
 }
-
-
 
 th, td 
 {
@@ -185,4 +181,65 @@ th, td
 .f1-font-bold
 {
     font-family: "F1-font-bold";
+}
+
+.modalfont
+{
+    font-family: "F1-font-bold";
+    color: white;
+}
+
+.modal-background
+{
+    background-color: #221c43d2;
+}
+
+.modal-button
+{
+    background-color: #5144a0;
+    border: hidden;
+}
+
+.modal-button:hover
+{
+    filter: brightness(70%);
+    background-color: #5144a0;
+    border: hidden;
+}
+
+.dropdown-nome-utente 
+{
+    position: relative;
+    display: inline-block;
+    font-family: "F1-font-bold";
+    
+}
+  
+.dropdown-content 
+{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+  
+.dropdown-content a 
+{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-transform:capitalize;
+}
+  
+.dropdown-content a:hover 
+{
+    background-color: #ddd;
+}
+  
+.dropdown:hover .dropdown-content 
+{
+    display: block;
 }
