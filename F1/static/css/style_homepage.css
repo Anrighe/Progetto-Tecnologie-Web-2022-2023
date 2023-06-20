@@ -237,3 +237,9 @@
         visibility: hidden;
     }
 }
+
+.close 
+{
+    color: #ffffff; 
+    opacity: 1;
+}

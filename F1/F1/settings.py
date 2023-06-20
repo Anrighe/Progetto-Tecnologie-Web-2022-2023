@@ -133,4 +133,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,"static")]
 
-LOGIN_REDIRECT_URL = "/?login=login_ok"  # Redireziona alla home, con un parametro GET
+LOGIN_REDIRECT_URL = "/?login=ok"  # Redireziona alla home, con un parametro GET

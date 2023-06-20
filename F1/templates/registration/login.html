@@ -19,9 +19,13 @@
 				{{form | crispy}}
 				
 				<input type="submit" class="btn btn-success" value="Esegui login">
-				
+
 			</form>
 		</div>
+		<a href="{% url 'register' %}" class="mx-auto mt-4 mb-4">
+			<button class="btn btn-success">Non hai un account? Registrati!</button> 
+		</a>
+
 	</div>
 
 {% endblock %}
