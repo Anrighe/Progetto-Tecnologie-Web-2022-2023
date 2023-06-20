@@ -25,15 +25,18 @@
     <hr class="solid ml-4 mr-4 divisore"></hr>
     <div class="video-preview-container">
 
-        <a href="{% url 'media:highlight_video' pk=query.0.id %}" class="card-video-preview video-preview ml-4 mr-4 mb-2">
+
+    {% for highlight in highlights %}
+        <a href="{% url 'media:highlight_video' pk=highlight.id %}" class="card-video-preview video-preview ml-4 mr-4 mb-2">
             <div>
-                <img class="video-highlight" src="{{query.0.preview}}">
+                <img class="video-highlight" src="{{highlight.preview}}">
                 <i class="icon icon-play video-icon"></i>
             </div>
             <div class="mt-2">
-                <p class="highlight-name f1-font-regular">{{query.0.titolo}}</p>
+                <p class="highlight-name f1-font-regular">{{highlight.titolo}}</p>
             </div>
         </a>
+    {% endfor %}
         <a href="" class="card-video-preview video-preview ml-4 mr-4 mb-2">
             <div>
                 <img class="video-highlight" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/2f997ef2-e16d-436b-b908-22acad035625/e32c8b87-68d2-402d-a732-3953eeb562b9/1316x740/match/image.jpg">

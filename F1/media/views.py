@@ -46,17 +46,17 @@ class HomePageView(ListView):
         return context
     
     
+# TODO: Trovare un modo per gestire tanti video da visualizzare in una singola pagina (tipo caricarne massimo 6)
+#       oppure caricare più video "verso il basso" a richiesta dell'utente
 class HighlightPageView(ListView):
     model = Highlight
     template_name = 'media/highlight.html' 
     
-    def get_queryset(self):
-        return self.model.objects.filter(titolo="Verstappen Pole Lap | 2023 Monaco")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        query = Highlight.objects.all()
-        context['query'] = query
+        highlights = Highlight.objects.all().order_by('-data')
+        context['highlights'] = highlights
         return context
     
 
