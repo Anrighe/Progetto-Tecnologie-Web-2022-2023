@@ -26,17 +26,17 @@
     <div class="video-preview-container">
 
 
-    {% for highlight in highlights %}
-        <a href="{% url 'media:highlight_video' pk=highlight.id %}" class="card-video-preview video-preview ml-4 mr-4 mb-2">
-            <div>
-                <img class="video-highlight" src="{{highlight.preview}}">
-                <i class="icon icon-play video-icon"></i>
-            </div>
-            <div class="mt-2">
-                <p class="highlight-name f1-font-regular">{{highlight.titolo}}</p>
-            </div>
-        </a>
-    {% endfor %}
+        {% for highlight in highlights %}
+            <a href="{% url 'media:highlight_video' pk=highlight.id %}" class="card-video-preview video-preview ml-4 mr-4 mb-2">
+                <div>
+                    <img class="video-highlight" src="{{highlight.preview}}">
+                    <i class="icon icon-play video-icon"></i>
+                </div>
+                <div class="mt-2">
+                    <p class="highlight-name f1-font-regular">{{highlight.titolo}}</p>
+                </div>
+            </a>
+        {% endfor %}
         <a href="" class="card-video-preview video-preview ml-4 mr-4 mb-2">
             <div>
                 <img class="video-highlight" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/2f997ef2-e16d-436b-b908-22acad035625/e32c8b87-68d2-402d-a732-3953eeb562b9/1316x740/match/image.jpg">
@@ -62,24 +62,6 @@
             </div>
             <div class="mt-2">
                 <p class="f1-font-regular">Highlight 4</p>
-            </div>
-        </a>
-        <a href="" class="card-video-preview video-preview ml-4 mr-4 mt-2 mb-2">
-            <div>
-                <img class="video-highlight" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/16f1259e-58f6-4df3-b3ad-01d1446dd7da/8eb5a74e-1bb0-48ec-84bb-f40485f2675f/1316x740/match/image.jpg">
-                <i class="icon icon-play video-icon"></i>
-            </div>
-            <div class="mt-2">
-                <p class="f1-font-regular">Highlight 5</p>
-            </div>
-        </a>
-        <a href="" class="card-video-preview video-preview ml-4 mr-4 mt-2 mb-2">
-            <div>
-                <img class="video-highlight" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/b786c8d9-87b9-479f-b150-16d02595551b/a8e32f2b-1290-4968-baf0-797239dcf6bd/1316x740/match/image.jpg">
-                <i class="icon icon-play video-icon"></i>
-            </div>
-            <div class="mt-2">
-                <p class="f1-font-regular">Highlight 6</p>
             </div>
         </a>
     </div>
