@@ -24,3 +24,9 @@ class UserCreateView(CreateView):
         Utente.objects.create(user=self.object, portale_f1=portale_f1)
 
         return response
+    
+
+def nothing_here(request):
+    return render(request, template_name='nothing_here.html')
+
+    

@@ -48,8 +48,6 @@ class HomePageView(ListView):
         return context
     
     
-# TODO: Trovare un modo per gestire tanti video da visualizzare in una singola pagina (tipo caricarne massimo 6)
-#       oppure caricare più video "verso il basso" a richiesta dell'utente
 class HighlightPageView(ListView):
     model = Highlight
     template_name = 'media/highlight.html' 
@@ -63,18 +61,20 @@ class HighlightPageView(ListView):
         
         numero_pagina = self.request.GET.get('page', 1)
 
-        try:
-            pagina = paginator.page(numero_pagina)
-        except EmptyPage:
-            pagina = paginator.page(1)
+        context['nothing_here'] = False
 
-            #TODO: IMPLEMENTARE LA REDIRECT NEL CASO IN CUI NELLA PAGINA RICHIESTA NON CI SIA NULLA
-            #return redirect('another-view-name')
+        pagina = paginator.page(numero_pagina)
 
         context['highlights'] = pagina
         context['num_pages'] = str(paginator.num_pages)
 
         return context
+    
+    def get(self, request, *args, **kwargs):
+        try:
+            return super().get(request, *args, **kwargs)
+        except EmptyPage:
+            return redirect('nothing_here')
     
 
 class VideoHighlightPageView(ListView):
