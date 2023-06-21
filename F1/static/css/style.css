@@ -243,3 +243,8 @@ th, td
 {
     display: block;
 }
+
+.disabled-button
+{
+    filter: brightness(50%);
+}

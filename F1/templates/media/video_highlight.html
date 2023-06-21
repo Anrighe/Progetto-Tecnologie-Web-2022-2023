@@ -18,7 +18,7 @@
     <h1 class="ml-4 mt-1 f1-font-bold">{{video.titolo}}</h1> 
         <div class="query-page-selector-container" align="right">
             <h2 class="f1-font-bold mr-4 mt-3" style="text-align: right;">{{video.visualizzazioni}} visualizzazioni</h2>
-            <a href="{% url 'media:highlight' %}" class="">
+            <a href="{% url 'media:highlight' %}?page=1">
                 <button class="query-page-selector-button mr-4 f1-font-regular mt-3">Torna agli Highlight</button>     
             </a>
         </div>

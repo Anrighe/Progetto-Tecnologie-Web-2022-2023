@@ -15,16 +15,38 @@
 
 <div class="highlight-container mt-4 ml-4 mr-4 mb-4 text-white">
     <div class="query-page-selector-container" align="right">
-    <h1 class="ml-4 mt-2 f1-font-bold mt-2">Highlight</h1> 
+        <h1 class="ml-4 mt-2 f1-font-bold mt-2">Highlight</h1> 
         <div class="query-page-selector-container mt-2" align="right">
-            <button class="query-page-selector-button mr-2 mt-2 f1-font-regular">Precedente</button>  
-            <h2 class="ml-auto mt-2 mr-2 f1-font-regular">[ 1 ]</h2>
-            <button class="query-page-selector-button ml-auto mr-4 mt-2 f1-font-regular">Prossimo</button>    
+            
+            {% if highlights.has_previous %}
+                <a href="{% url 'media:highlight' %}?page={{ request.GET.page|add:-1 }}">        
+                    <button class="query-page-selector-button mr-2 mt-2 f1-font-regular">Precedente</button>  
+                </a>
+            {% else %}
+                <button class="query-page-selector-button mr-2 mt-2 f1-font-regular disabled-button">Precedente</button> 
+            {% endif %}
+
+            <h2 class="ml-auto mt-2 mr-2 f1-font-regular">[ </h2>
+            {% if request.GET.page %}
+                <h2 class="ml-auto mt-2 mr-2 f1-font-regular">{{ request.GET.page }}</h2>
+            {% else %}
+                <h2 class="ml-auto mt-2 mr-2 f1-font-regular">1</h2>
+            {% endif %}
+            <h2 class="ml-auto mt-2 mr-2 f1-font-regular"> ]</h2>
+            
+            {% if highlights.has_next %}
+                <a href="{% url 'media:highlight' %}?page={{ request.GET.page|add:1 }}">
+                    <button class="query-page-selector-button ml-auto mr-4 mt-2 f1-font-regular">Prossimo</button>    
+                </a>
+            {% else %}
+                <button class="query-page-selector-button ml-auto mr-4 mt-2 f1-font-regular disabled-button">Prossimo</button> 
+            {% endif %}
+
+
         </div>
     </div>
     <hr class="solid ml-4 mr-4 divisore"></hr>
     <div class="video-preview-container">
-
 
         {% for highlight in highlights %}
             <a href="{% url 'media:highlight_video' pk=highlight.id %}" class="card-video-preview video-preview ml-4 mr-4 mb-2">
@@ -37,6 +59,7 @@
                 </div>
             </a>
         {% endfor %}
+
         <a href="" class="card-video-preview video-preview ml-4 mr-4 mb-2">
             <div>
                 <img class="video-highlight" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/2f997ef2-e16d-436b-b908-22acad035625/e32c8b87-68d2-402d-a732-3953eeb562b9/1316x740/match/image.jpg">

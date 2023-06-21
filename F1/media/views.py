@@ -1,9 +1,11 @@
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
+from django.core.paginator import Paginator, EmptyPage
 from media.models import News, Highlight
 from store.models import Utente
 from info.models import Partecipazione, Sessione, Circuito
 from media.forms import FormUtente
+from django.shortcuts import redirect
 
 from django.shortcuts import render
 
@@ -51,12 +53,27 @@ class HomePageView(ListView):
 class HighlightPageView(ListView):
     model = Highlight
     template_name = 'media/highlight.html' 
-    
+    NUM_VIDEO_PER_PAGINA = 1
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         highlights = Highlight.objects.all().order_by('-data')
-        context['highlights'] = highlights
+        paginator = Paginator(highlights, self.NUM_VIDEO_PER_PAGINA)
+        
+        numero_pagina = self.request.GET.get('page', 1)
+
+        try:
+            pagina = paginator.page(numero_pagina)
+        except EmptyPage:
+            pagina = paginator.page(1)
+
+            #TODO: IMPLEMENTARE LA REDIRECT NEL CASO IN CUI NELLA PAGINA RICHIESTA NON CI SIA NULLA
+            #return redirect('another-view-name')
+
+        context['highlights'] = pagina
+        context['num_pages'] = str(paginator.num_pages)
+
         return context
     
 
