@@ -1,4 +1,4 @@
-"""
+'''
 URL configuration for F1 project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -13,7 +13,7 @@ Class-based views
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+'''
 from django.views.generic import RedirectView
 from django.contrib import admin
 from django.urls import path, include, re_path
@@ -24,12 +24,13 @@ from .views import prova
 
 urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='/static/images/icons/favicon.ico')),
-    path('', include('media.urls')),
     path('admin/', admin.site.urls),
     path('prova/', prova, name='prova'),
     path('nothing_here/', nothing_here, name='nothing_here'),
-    path("login/", auth_views.LoginView.as_view(), name="login"),
-    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
-    path("register/", UserCreateView.as_view(), name="register"),
-    path('', include('info.urls'))
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('register/', UserCreateView.as_view(), name='register'),
+    path('', include('media.urls')),
+    path('', include('info.urls')),
+    path('', include('store.urls'))
 ]

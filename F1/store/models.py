@@ -25,14 +25,14 @@ class Gestore_Circuito(models.Model):
 
 
 class Utente(models.Model):
-    indirizzo = models.CharField(max_length=50)
-    paese = models.CharField(max_length=50)
-    telefono = models.CharField(max_length=25)
-    immagine_profilo = models.CharField(max_length=100)
-    premium = models.DateField(null=True, blank=True)
-    carta_credito = models.CharField(max_length=19, validators=[valida_carta_credito], null=True)
-    cvv = models.CharField(max_length=3, validators=[valida_cvv], null=True)
-    scadenza_carta = models.DateField(null=True)
+    indirizzo = models.CharField(max_length=50, null=True, default=None, blank=True)
+    paese = models.CharField(max_length=50, null=True, default=None, blank=True)
+    telefono = models.CharField(max_length=25, null=True, default=None, blank=True)
+    immagine_profilo = models.CharField(max_length=100, null=True, default=None, blank=True)
+    premium = models.DateField(null=True, blank=True, default=None)
+    carta_credito = models.CharField(max_length=19, validators=[valida_carta_credito], null=True, default=None, blank=True)
+    cvv = models.CharField(max_length=3, validators=[valida_cvv], null=True, default=None, blank=True)
+    scadenza_carta = models.DateField(null=True, default=None, blank=True)
     notifiche = models.BooleanField(null=False, default=False)
 
     # Connette gli utenti con la table User

@@ -12,8 +12,15 @@
 
 {% block content %} 
 
-	<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto" style="max-width: 700px;">
-		<div class="ml-4 mr-4 mt-2 mb-2 mx-auto" style="max-width: 600px; display: flex; color: white;" align="center">
+	<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto" style="max-width: 975px;">
+
+		{% if "notok" in request.GET.auth %}
+			<div class="mx-auto alert alert-danger mt-2">
+				<h3>Devi essere autenticato per accedere a questo contenuto</h3>
+			</div>
+		{% endif %}
+
+		<div class="ml-4 mr-4 mt-2 mb-2 mx-auto" style="display: flex; color: white;" align="center">
 			<form method="post"> {% csrf_token %}
 
 				{{form | crispy}}

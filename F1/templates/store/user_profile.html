@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %} 
+
+
+{% block title %} F1 - Profilo {{ form.user_group_name }} {% endblock %} 
+
+{% block header1 %}
+	<h1>Pagina del profilo di {{user.username}}</h1>
+{% endblock %}
+
+{% block content %} 
+
+	<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto" style="max-width: 700px;">
+		<div class="ml-4 mr-4 mt-2 mb-2 mx-auto" style="max-width: 600px; display: flex; color: white;" align="center">
+			<h1>Profilo di {{user.username}}</h1>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block footer %} {% endblock %}
