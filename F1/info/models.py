@@ -12,8 +12,8 @@ class Scuderia(models.Model):
     team_principal = models.CharField(max_length=100, default='')
     logo = models.CharField(max_length=100)
     punti = models.PositiveIntegerField(default=0)
-    immagine1 = models.CharField(max_length=100, default='') # Da valutare con carosello
-    immagine2 = models.CharField(max_length=100, default='') # Da valutare con carosello
+    immagine1 = models.CharField(max_length=100, default='', blank=True) # Da valutare con carosello
+    immagine2 = models.CharField(max_length=100, default='', blank=True) # Da valutare con carosello
     campionati_vinti = models.PositiveIntegerField(default=0)
 
     class Meta:
