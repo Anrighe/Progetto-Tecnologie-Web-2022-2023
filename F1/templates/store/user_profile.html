@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
-
 {% load crispy_forms_tags %} 
+{% load static %}
 
+{% block head %} 
+
+	<link rel="stylesheet" type="text/css" href="{%static 'css/style_profilo.css'%}">
+
+{% endblock %}
 
 {% block title %} F1 - Profilo {{ form.user_group_name }} {% endblock %} 
 
@@ -11,18 +16,139 @@
 
 {% block content %} 
 
-	<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto" style="max-width: 700px;">
-		<div class="ml-4 mr-4 mt-2 mb-2 mx-auto" style="max-width: 600px; display: flex; color: white;" align="center">
-			<h1>Profilo di {{ user.username }}</h1>
+	{% if utente %}
+		<!-- Dati utente -->
+		<div class="profilo-container text-white f1-font-bold">
+			<div id="profile" class="background-profile-darker" style="overflow-x: hidden;">
+				<div class="row">
+				<div class="col-lg-4">
+					<div class="card-body text-center background-profile">
+						<img src="{{ utente.immagine_profilo }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+						<h6 class="my-3">{{ user.username }}</h6>
+						
+						<p class="text-muted mb-0">Ultimo accesso 1231231</p>
+						<div class="d-flex justify-content-center mt-4">
+							
+							<button type="button" class="btn btn-primary">Modifica profilo</button>
+						</div>
+					</div>
+				</div>
+		
+				<div class="col-lg-8">
+					<div class="background-profile mb-4">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Nome</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">Johnatan Smith</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Indirizzo Email</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">email@email.com</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Paese</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">Italia</p>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Telefono</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">3333333333</p>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Premium</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">26/06/2023</p>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Carta di credito</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">4444444444444444</p>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Scadenza carta</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">26/06/2023</p>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">CVV</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">***</p>
+								</div>
+							</div>
+						</div>
+
+						
+
+
+
+
+
+
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<button type="button" class="btn btn-primary">Modifica profilo</button>
+			</div>	
+				
 		</div>
 		
-		{% if utente %}
-			<div class="mx-auto" style="color: white;">
-				<img src="{{ utente.immagine_profilo }}" style="color: white; max-width: 50%"></img>
-			</div>
-		{% endif %}
-	</div>
+		<!-- Ordini -->
+		<div class="profilo-container background-profile">
+			<h2 class="mx-auto f1-font-bold mt-2">Ordini {{ tipo_sessione }} - {{ nome_circuito }}</h2>
+			<table class="order-table mt-3">
+				<tr>
+					<th class="white-cell f1-font-bold">POSIZIONE</th>
+					<th class="white-cell f1-font-bold">PILOTA</th>
+					<th class="white-cell f1-font-bold">MIGLIOR TEMPO</th>
+				</tr>
 
+			</table>
+		</div>
+	{% endif %}
+	
 {% endblock %}
 
 {% block footer %} {% endblock %}
