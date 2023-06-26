@@ -247,6 +247,21 @@
     }
 }
 
+@media (max-width: 1000px)
+{
+    #news-title
+    {
+        font-size: 16px;
+    }
+}
+
+#news-title {
+    margin-top: 0; /* Remove any default top margin */
+    position: sticky;
+    top: 0;
+}
+
+
 .close 
 {
     color: #ffffff; 
