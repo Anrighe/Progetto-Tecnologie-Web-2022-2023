@@ -51,7 +51,7 @@ class HomePageView(ListView):
 class HighlightPageView(ListView):
     model = Highlight
     template_name = 'media/highlight.html' 
-    NUM_VIDEO_PER_PAGINA = 2
+    NUM_VIDEO_PER_PAGINA = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
