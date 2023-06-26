@@ -138,11 +138,6 @@ th, td
     border: 1px solid black;
 }
 
-.white-cell
-{
-    border: 2px solid rgba(255, 255, 255, 0.507);
-}
-
 #footer 
 {
     background-color: #221c43d2;

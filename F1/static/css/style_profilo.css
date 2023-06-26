@@ -24,3 +24,40 @@
 {
     background-color: #17132ee5;
 }
+
+.order-cell
+{
+    border: 1px solid rgba(255, 255, 255, 0.507);
+    background-color: #131025;
+}
+
+.profile-button
+{
+    background-color: #5144a0;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    max-height: 50px;
+    height: 40px;
+}
+
+.profile-button:hover
+{
+    filter: brightness(70%); /* I bottoni per muoversi tra le pagine delle query diventano scuri se ci si mette il mouse sopra */
+}
+
+.order-table 
+{
+    border: 3px solid white;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px; /* Adjust the value as per your preference */
+    overflow: hidden;
+}
+

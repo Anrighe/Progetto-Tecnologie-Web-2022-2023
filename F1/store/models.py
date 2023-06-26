@@ -3,6 +3,7 @@ from F1.validators import valida_non_negativi, valida_iban, valida_carta_credito
 from django.contrib.auth.models import User
 from info.models import Circuito
 from media.models import PortaleF1
+from datetime import date
 
 
 class Gestore_Circuito(models.Model):
@@ -25,14 +26,22 @@ class Gestore_Circuito(models.Model):
 
 
 class Utente(models.Model):
+    
+    SESSO_CHOICES = [
+        ('M', 'Maschio'),
+        ('F', 'Femmina'),
+    ]
+
     indirizzo = models.CharField(max_length=50, null=True, default=None, blank=True)
+    data_nascita = models.DateField(null=True, blank=True, default=date.today)
+    sesso = models.CharField(max_length=10, choices=SESSO_CHOICES, null=True, blank=True)
     paese = models.CharField(max_length=50, null=True, default=None, blank=True)
     telefono = models.CharField(max_length=25, null=True, default=None, blank=True)
     immagine_profilo = models.CharField(max_length=100, null=True, default='/static/users/default/default.jpg', blank=True)
-    premium = models.DateField(null=True, blank=True, default=None)
+    premium = models.DateField(null=True, blank=True, default=date.today)
     carta_credito = models.CharField(max_length=19, validators=[valida_carta_credito], null=True, default=None, blank=True)
     cvv = models.CharField(max_length=3, validators=[valida_cvv], null=True, default=None, blank=True)
-    scadenza_carta = models.DateField(null=True, default=None, blank=True)
+    scadenza_carta = models.DateField(null=True, default=date.today, blank=True)
     notifiche = models.BooleanField(null=False, default=False)
 
     # Connette gli utenti con la table User
@@ -46,7 +55,7 @@ class Utente(models.Model):
 
 
 class Ordine(models.Model):
-    data = models.DateField()
+    data = models.DateField(null=False, blank=False, default=date.today)
     
     # Un ordine si riferisce a uno e un solo gestore di un circuito
     gestore_circuito = models.ForeignKey(Gestore_Circuito, on_delete=models.PROTECT, null=False, blank=False)
@@ -60,7 +69,7 @@ class Ordine(models.Model):
 
 class Notifica(models.Model):
     descrizione = models.CharField(max_length=100)
-    data = models.DateField()
+    data = models.DateField(null=False, blank=False, default=date.today)
 
     # Una notifica si riferisce al più a un ordine
     ordine = models.ForeignKey(Ordine, on_delete=models.CASCADE, null=True, blank=True)
@@ -80,7 +89,7 @@ class Carrello(models.Model):
 
 class Biglietto(models.Model):
     titolo = models.CharField(max_length=50)
-    data_evento = models.DateField()
+    data_evento = models.DateField(null=False, blank=False, default=date.today)
     prezzo = models.FloatField(validators=[valida_non_negativi])
     numero_posto = models.PositiveIntegerField()
 

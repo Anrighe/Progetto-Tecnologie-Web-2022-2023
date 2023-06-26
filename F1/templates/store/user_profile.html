@@ -18,21 +18,25 @@
 
 	{% if utente %}
 		<!-- Dati utente -->
-		<div class="profilo-container text-white f1-font-bold">
+		<div class="profilo-container text-white f1-font-bold mt-2 ml-2 mr-2">
 			<div id="profile" class="background-profile-darker" style="overflow-x: hidden;">
 				<div class="row">
-				<div class="col-lg-4">
-					<div class="card-body text-center background-profile">
-						<img src="{{ utente.immagine_profilo }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-						<h6 class="my-3">{{ user.username }}</h6>
-						
-						<br>
-						<p class="text-muted mb-0">Ultimo accesso 12/31/2311</p>
+
+					<div class="col-lg-4 background-profile">
+						<div class="card-body text-center mt-4 ml-4">
+							<img src="{{ utente.immagine_profilo }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+							<h6 class="my-3">{{ user.username }}</h6>
+
+							<br>
+							<p class="text-muted mb-0">Ultimo accesso 12/31/2311</p>
+
+							<div id="modifica-profilo"class="d-flex justify-content-center mt-4">		
+								<button type="button" class="profile-button">Modifica profilo</button>
+							</div>
+						</div>
 					</div>
-				</div>
 		
-				<div class="col-lg-8">
-					<div class="background-profile mb-4">
+					<div class="col-lg-8 background-profile-darker">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-4">
@@ -43,6 +47,7 @@
 								</div>
 							</div>
 						</div>
+						<br>
 
 						<div class="card-body">
 							<div class="row">
@@ -54,6 +59,31 @@
 								</div>
 							</div>
 						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Data di nascita</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">26/06/2023</p>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Sesso</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">Maschio</p>
+								</div>
+							</div>
+						</div>
+						<br>
 
 						<div class="card-body">
 							<div class="row">
@@ -65,6 +95,8 @@
 								</div>
 							</div>
 						</div>
+						<br>
+
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-4">
@@ -75,6 +107,8 @@
 								</div>
 							</div>
 						</div>
+						<br>
+
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-4">
@@ -85,6 +119,8 @@
 								</div>
 							</div>
 						</div>
+						<br>
+
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-4">
@@ -95,6 +131,8 @@
 								</div>
 							</div>
 						</div>
+						<br>
+
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-4">
@@ -105,6 +143,8 @@
 								</div>
 							</div>
 						</div>
+						<br>
+
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-4">
@@ -115,50 +155,41 @@
 								</div>
 							</div>
 						</div>
-
 						
-
-
-
-
-
-
 					</div>
 				</div>
-			</div>
-			<div class="d-flex justify-content-center mt-4">		
-				<button type="button" class="btn btn-primary">Modifica profilo</button>
-			</div>
-				
-		</div>
-		
-		<!-- Ordini -->
-		<div class="background-profile card">
-			<h2 class="mx-auto f1-font-bold mt-2">I tuoi ordini</h2>
-			<table class="order-table mt-3">
-				<tr>
-					<th class="white-cell f1-font-bold">Articolo</th>
-					<th class="white-cell f1-font-bold">Data acquisto</th>
-					<th class="white-cell f1-font-bold">Prezzo</th>
-				</tr>
-				<tr>
-					<th class="white-cell f1-font-regular">BIGLIETTO 1</td>
-					<th class="white-cell f1-font-regular">26/06/2023</td>
-					<th class="white-cell f1-font-regular">59,99€</td>
-				</tr>
-				<tr>
-					<th class="white-cell f1-font-regular">BIGLIETTO 2</td>
-					<th class="white-cell f1-font-regular">26/06/2023</td>
-					<th class="white-cell f1-font-regular">59,99€</td>
-				</tr>
-				<tr>
-					<th class="white-cell f1-font-regular">BIGLIETTO 3</td>
-					<th class="white-cell f1-font-regular">26/06/2023</td>
-					<th class="white-cell f1-font-regular">59,99€</td>
-				</tr>
 
-			</table>
-		</div>
+				
+			</div>
+		
+			<!-- Ordini -->
+			<div class="background-profile-darker card">
+				<h2 class="mx-auto f1-font-bold mt-2">I tuoi ordini</h2>
+				<table class="order-table mt-3 ml-2 mr-2">
+					<tr class="">
+						<th class="order-cell f1-font-bold">Articolo</th>
+						<th class="order-cell f1-font-bold">Data acquisto</th>
+						<th class="order-cell f1-font-bold">Prezzo</th>
+					</tr>
+					<tr>
+						<th class="order-cell f1-font-regular">BIGLIETTO 1</td>
+						<th class="order-cell f1-font-regular">26/06/2023</td>
+						<th class="order-cell f1-font-regular">59,99€</td>
+					</tr>
+					<tr>
+						<th class="order-cell f1-font-regular">BIGLIETTO 2</td>
+						<th class="order-cell f1-font-regular">26/06/2023</td>
+						<th class="order-cell f1-font-regular">59,99€</td>
+					</tr>
+					<tr>
+						<th class="order-cell f1-font-regular">BIGLIETTO 3</td>
+						<th class="order-cell f1-font-regular">26/06/2023</td>
+						<th class="order-cell f1-font-regular">59,99€</td>
+					</tr>
+
+				</table>
+			</div>
+		</div>	
 	{% endif %}
 	
 {% endblock %}
