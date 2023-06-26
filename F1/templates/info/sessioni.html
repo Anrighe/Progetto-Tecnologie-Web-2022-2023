@@ -24,24 +24,24 @@
         <div id="sessioni-table-div" class="card ml-4 mr-4 mb-4 mt-4">
             <table class="risultati-sessioni">
                 <tr>
-                    <th class="white-cell f1-font-bold"><h3>GRAN PREMIO</h3></th>
-                    <th class="white-cell f1-font-bold"><h3>DATA<h3></th>
-                    <th class="white-cell f1-font-bold"><h3>VINCITORE</h3></th>
-                    <th class="white-cell f1-font-bold"><h3>SCUDERIA</h3></th>
-                    <th class="white-cell f1-font-bold"><h3>GIRI</h3></th>
+                    <th class="sessioni-cell f1-font-bold"><h3>GRAN PREMIO</h3></th>
+                    <th class="sessioni-cell f1-font-bold"><h3>DATA<h3></th>
+                    <th class="sessioni-cell f1-font-bold"><h3>VINCITORE</h3></th>
+                    <th class="sessioni-cell f1-font-bold"><h3>SCUDERIA</h3></th>
+                    <th class="sessioni-cell f1-font-bold"><h3>GIRI</h3></th>
                 </tr>
                 {% for partecipazione in partecipazioni %}
                     <tr>
-                        <th class="white-cell f1-font-regular">
+                        <th class="sessioni-cell f1-font-regular">
                             <a class="link-sessione" href="{% url 'info:risultato_sessione' pk=partecipazione.circuito.id tipo_sessione=partecipazione.sessione.tipo %}">
                                 {{ partecipazione.circuito.nome }}
                             </a>
                         </td>
                         
-                        <th class="white-cell f1-font-regular">{{ partecipazione.data }}</td>
-                        <th class="white-cell f1-font-regular">{{ partecipazione.pilota.nome }}</td>
-                        <th class="white-cell f1-font-regular">{{ partecipazione.pilota.scuderia.nome }}</td>
-                        <th class="white-cell f1-font-regular">{{ partecipazione.circuito.numero_giri }}</td>
+                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.data }}</td>
+                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.nome }}</td>
+                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.scuderia.nome }}</td>
+                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.circuito.numero_giri }}</td>
                     </tr>
                 {% endfor %}
 

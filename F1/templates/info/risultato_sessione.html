@@ -40,19 +40,19 @@
         <div id="sessioni-table-div" class="card ml-4 mr-4 mb-4 mt-4">
             <table class="risultati-sessioni">
                 <tr>
-                    <th class="white-cell f1-font-bold"><h3>POSIZIONE</h3></th>
-                    <th class="white-cell f1-font-bold"><h3>PILOTA<h3></th>
-                    <th class="white-cell f1-font-bold"><h3>SCUDERIA</h3></th>
-                    <th class="white-cell f1-font-bold"><h3>PUNTI</h3></th>
-                    <th class="white-cell f1-font-bold"><h3>GIRO VELOCE</h3></th>
+                    <th class="sessioni-cell f1-font-bold"><h3>POSIZIONE</h3></th>
+                    <th class="sessioni-cell f1-font-bold"><h3>PILOTA<h3></th>
+                    <th class="sessioni-cell f1-font-bold"><h3>SCUDERIA</h3></th>
+                    <th class="sessioni-cell f1-font-bold"><h3>PUNTI</h3></th>
+                    <th class="sessioni-cell f1-font-bold"><h3>GIRO VELOCE</h3></th>
                 </tr>
                 {% for partecipazione in partecipazioni %}
                     <tr>
-                        <th class="white-cell f1-font-regular">{{ partecipazione.posizione }}</td>
-                        <th class="white-cell f1-font-regular">{{ partecipazione.pilota.nome }}</td>
-                        <th class="white-cell f1-font-regular">{{ partecipazione.pilota.scuderia.nome }}</td>
-                        <th class="white-cell f1-font-regular">{{ partecipazione.punti }}</td>
-                        <th class="white-cell f1-font-regular">{{ partecipazione.miglior_tempo }}</td>
+                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.posizione }}</td>
+                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.nome }}</td>
+                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.scuderia.nome }}</td>
+                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.punti }}</td>
+                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.miglior_tempo }}</td>
                     </tr>
                 {% endfor %}
                 

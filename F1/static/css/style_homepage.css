@@ -177,12 +177,10 @@
 
 .risultati-ultima-sessione
 {
-    border-collapse: collapse;
     height: calc(12vh);    
     text-align: center; 
     overflow-y: scroll;
-
-    border: 3px solid white;
+    border: 5px solid #7165b346;
     border-collapse: separate;
     border-spacing: 0;
     border-radius: 10px; 
@@ -191,7 +189,7 @@
 
 .white-cell
 {
-    border: 1px solid #7165b346;
+    border: 1px solid #453e6d46;
     background-color: #131025;
 }
 

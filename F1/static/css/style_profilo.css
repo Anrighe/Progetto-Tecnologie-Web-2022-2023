@@ -10,14 +10,18 @@
 .order-table
 {
     text-align: center; 
-
     overflow-y: scroll;
-
-    border: 3px solid white;
+    border: 5px solid #7165b346;
     border-collapse: separate;
     border-spacing: 0;
-    border-radius: 15px; /* Adjust the value as per your preference */
+    border-radius: 10px; /* Adjust the value as per your preference */
     overflow: hidden;
+}
+
+.order-cell
+{
+    border: 1px solid #7165b346;
+    background-color: #131025;
 }
 
 .background-profile
@@ -30,11 +34,6 @@
     background-color: #17132ee5;
 }
 
-.order-cell
-{
-    border: 1px solid #7165b346;
-    background-color: #131025;
-}
 
 .profile-button
 {
