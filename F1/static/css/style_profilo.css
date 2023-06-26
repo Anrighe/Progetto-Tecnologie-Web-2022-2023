@@ -9,10 +9,15 @@
 
 .order-table
 {
-    border-collapse: collapse;  
     text-align: center; 
-    border: 1px solid white;
+
     overflow-y: scroll;
+
+    border: 3px solid white;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px; /* Adjust the value as per your preference */
+    overflow: hidden;
 }
 
 .background-profile
@@ -27,7 +32,7 @@
 
 .order-cell
 {
-    border: 1px solid rgba(255, 255, 255, 0.507);
+    border: 1px solid #7165b346;
     background-color: #131025;
 }
 
@@ -52,12 +57,5 @@
     filter: brightness(70%); /* I bottoni per muoversi tra le pagine delle query diventano scuri se ci si mette il mouse sopra */
 }
 
-.order-table 
-{
-    border: 3px solid white;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 15px; /* Adjust the value as per your preference */
-    overflow: hidden;
-}
+
 
