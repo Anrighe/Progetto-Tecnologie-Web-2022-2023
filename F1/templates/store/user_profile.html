@@ -31,14 +31,21 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<form method="post" enctype="multipart/form-data">
+						<form method="post" enctype="multipart/form-data" action="{% url 'store:profile' %}">
 							{% csrf_token %}
-							<input type="file" class="btn" name="file">
+							<input type="file" class="btn" name="profile-image-file" accept=".png, .jpeg, .jpg">
+							<button id="profile-upload-button" type="submit" style="display: none;">Upload</button>
 						</form>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Chiudi</button>
-						<button type="button" class="btn profile-button">Carica</button>
+						<button type="button" class="btn profile-button" onclick="selectProfileImage()">Carica</button>
+						<script>
+							function selectProfileImage() 
+							{
+							  	document.getElementById('profile-upload-button').click();
+							}
+						</script>
 					</div>
 				</div>
 			</div>
@@ -51,7 +58,9 @@
 
 					<div class="col-lg-4 background-profile">
 						<div class="card-body text-center mt-4 ml-4">
-							<img id="profile-image" src="{{ utente.immagine_profilo }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+							<div id="profile-image-container" class="mx-auto">
+								<img id="profile-image" src="{{ utente.immagine_profilo }}" alt="avatar" class="img-fluid">
+							</div>
 							<script>
 								// Apre il modal per caricare un'immagine profilo
 								function openModal() 

@@ -61,17 +61,38 @@
     filter: brightness(70%); /* I bottoni per muoversi tra le pagine delle query diventano scuri se ci si mette il mouse sopra */
 }
 
+#profile-image 
+{
+    object-fit: cover;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    border: solid 5px #e2d6f0;
+    
+}
+
 #profile-image:hover
 {
-    border: solid 5px #e2d6f0;
-    transition: border-width 0.1s linear;
+    filter: brightness(125%);
+    -webkit-transition: all 2000ms ease;
+    -moz-transition: all 2000ms ease;
+    -ms-transition: all 2000ms ease;
+    -o-transition: all 2000ms ease;
+    transition: all 2000ms ease;
+    transform: scale(1.04);
 }
 
 #profile-image:not(:hover)
 {
-    border: solid 0px;
-    transition: border-width 0.1s linear;
+    filter: brightness(100%);
+    -webkit-transition: all 2000ms ease;
+    -moz-transition: all 2000ms ease;
+    -ms-transition: all 2000ms ease;
+    -o-transition: all 2000ms ease;
+    transition: all 2000ms ease;
+    transform: scale(1.0);
 }
+
 
 
 

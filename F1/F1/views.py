@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from store.models import Utente
 from media.models import PortaleF1
+import os
 
 def prova(request):
     return render(request,template_name='base.html')
@@ -22,6 +23,16 @@ class UserCreateView(CreateView):
 
         # Crea un'istanza di Utente e la connette al suo corrispettivo "User" e al "PortaleF1"
         Utente.objects.create(user=self.object, portale_f1=portale_f1)
+
+        username = self.object.username
+
+        path = os.path.join(os.getcwd(), 'static', 'users', username)
+        
+        # Se esiste una cartella chiamata come l'utente nel percorso F1\static\users la elimina e poi la crea nuovamente
+        if os.path.exists(path):
+            os.remove(path)
+
+        os.mkdir(path)
 
         return response
     
