@@ -35,7 +35,6 @@
     background-color: #17132ee5;
 }
 
-
 .profile-button
 {
     background-color: #5144a0;
@@ -52,10 +51,29 @@
     height: 40px;
 }
 
+.modal-background
+{
+    background-color: rgba(36, 36, 36, 0.938);
+}
+
 .profile-button:hover
 {
     filter: brightness(70%); /* I bottoni per muoversi tra le pagine delle query diventano scuri se ci si mette il mouse sopra */
 }
+
+#profile-image:hover
+{
+    border: solid 5px #e2d6f0;
+    transition: border-width 0.1s linear;
+}
+
+#profile-image:not(:hover)
+{
+    border: solid 0px;
+    transition: border-width 0.1s linear;
+}
+
+
 
 
 
