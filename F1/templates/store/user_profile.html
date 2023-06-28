@@ -51,6 +51,40 @@
 			</div>
 		</div>
 
+		<!-- Modal per errore -->
+		{% if messages %}
+			{% for message in messages %}
+				<div class="modal fade modal-background f1-font-bold text-white" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content background-profile">
+							<div class="modal-header background-profile">
+								<h5 class="modal-title" id="errorModalLabel">Errore</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								{{ message }}
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+
+		<script>
+			$(document).ready(function() 
+			{
+				{% if messages %}
+					$('#errorModal').modal('show');
+				{% endif %}
+			});
+		</script>
+
+
 		<!-- Dati utente -->
 		<div class="profilo-container text-white f1-font-bold mt-2 ml-2 mr-2">
 			<div id="profile" class="background-profile-darker" style="overflow-x: hidden;">
