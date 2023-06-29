@@ -1,0 +1,62 @@
+{% block user_auth_modal %}
+    {% if user.is_authenticated and "ok" in request.GET.login %}
+
+    <div id="successo_login_modal" class="modal fade modalfont" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-background">
+                    <h5 class="modal-title">Benvenuto, {{ user.username }}!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <div class="modal-body modal-background" style="display: flex; justify-content: center; align-items: center;">
+                <p> La procedura di login è andata a buon fine </p>
+            </div>
+                <div class="modal-footer modal-background" style="display: flex; justify-content: center;">
+                    <button type="button" class="btn btn-info modal-button" data-dismiss="modal">Continua</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <script>
+    $(document).ready(function()
+    {
+        $("#successo_login_modal").modal('show');
+    });
+    </script>
+
+    {% endif %}
+
+    {% if not user.is_authenticated and "ok" in request.GET.logout %}
+
+    <div id="successo_logout_modal" class="modal fade modalfont" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-background">
+                    <h5 class="modal-title">Alla prossima!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <div class="modal-body modal-background" style="display: flex; justify-content: center; align-items: center;">
+                <p> La procedura di logout è andata a buon fine </p>
+            </div>
+                <div class="modal-footer modal-background" style="display: flex; justify-content: center;">
+                    <button type="button" class="btn btn-info modal-button" data-dismiss="modal">Continua</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <script>
+    $(document).ready(function()
+    {
+        $("#successo_logout_modal").modal('show');
+    });
+    </script>
+
+    {% endif %}
+
+{% endblock%}

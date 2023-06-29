@@ -134,4 +134,5 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,"static")]
 
 LOGIN_REDIRECT_URL = "/?login=ok"  # Redireziona alla home, con un parametro GET
+LOGOUT_REDIRECT_URL = "/?logout=ok"  # Redirects to the homepage with a GET parameter
 LOGIN_URL = "/login/?auth=notok" # redireziona al login, ma con un parametro GET
