@@ -67,12 +67,13 @@
     border-radius: 50%;
     height: 200px;
     width: 200px;
-    border: solid 5px #e2d6f0;
+    border: solid 5px #5e4a75;
     
 }
 
 #profile-image:hover
 {
+    border: solid 5px #e2d6f0;
     filter: brightness(100%);
     -webkit-transition: all 2000ms ease;
     -moz-transition: all 2000ms ease;
