@@ -37,6 +37,7 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
     model = Utente
     template_name = 'store/user_profile_data_change.html'
     success_url = '/store/profile/'
+    form_error_messages = ''
 
     user_data_form = UserProfileFormData()
 
@@ -68,34 +69,94 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
     
     def post(self, request, *args, **kwargs):
         # Recupera e aggiorna l'istanza utente e user
-
+        self.form_error_messages = ''
         utente = self.get_object()
-
-        #TODO: AGGIUNGERE CONTROLLI SU INPUT (ES: carta di credito troppo corta)
-
-        if not request.POST.get('nome'):
-            messages.error(request, 'Il nome non può essere vuoto.')
-            return redirect('store:profile')
         
-        utente.user.first_name = request.POST.get('nome')
-        utente.user.last_name = request.POST.get('cognome')
-        utente.user.email = request.POST.get('email')
-                
-        utente.indirizzo = request.POST.get('indirizzo')
-        utente.data_nascita = request.POST.get('data_nascita')
-        utente.sesso = request.POST.get('sesso')
-        utente.paese = request.POST.get('paese')
-        utente.telefono = request.POST.get('telefono')
-        utente.carta_credito = request.POST.get('carta_credito')
-        utente.cvv = request.POST.get('cvv')
-        utente.scadenza_carta = request.POST.get('scadenza_carta')
+        if self.are_inputs_correct():
+            print('Inputs corretti')
 
-        utente.save()
-        utente.user.save()
+            utente.user.first_name = request.POST.get('nome')
+            utente.user.last_name = request.POST.get('cognome')
+            utente.user.email = request.POST.get('email')
+                    
+            utente.indirizzo = request.POST.get('indirizzo')
+            utente.data_nascita = request.POST.get('data_nascita')
+            utente.sesso = request.POST.get('sesso')
+            utente.paese = request.POST.get('paese')
+            utente.telefono = request.POST.get('telefono')
+            utente.carta_credito = request.POST.get('carta_credito')
+            utente.cvv = request.POST.get('cvv')
+            utente.scadenza_carta = request.POST.get('scadenza_carta')
+            
+            utente.save()
+            utente.user.save()
 
-        messages.success(request, 'Dati del profilo cambiati con successo.')
-        return redirect('store:profile')
+            messages.success(request, 'Dati del profilo salvati con successo')
+            return redirect('store:profile')
+        else:
+            messages.error(request, self.form_error_messages)
+            return redirect('store:profile')
     
+    def are_inputs_correct(self):
+        check_function_list = [
+            self.check_first_name,
+            self.check_last_name,
+            self.check_email,
+            self.check_data_nascita,
+            self.check_telefono,
+            self.check_carta_credito,
+            self.check_scadenza_carta,
+            self.check_cvv
+        ]
+        for check_function in check_function_list:
+            check_function()
+
+        if self.form_error_messages == '':
+            return True
+        else:
+            return False
+              
+    def check_first_name(self):
+        if not (self.request.POST.get('nome').isalpha() or self.request.POST.get('nome') == ''):
+            self.form_error_messages = f'{self.form_error_messages}- Il nome non può contenere numeri o caratteri speciali'
+
+    def check_last_name(self):
+        if not (self.request.POST.get('cognome').isalpha() or self.request.POST.get('nome') == ''):
+            self.form_error_messages = f'{self.form_error_messages}- Il cognome non può contenere numeri o caratteri speciali'
+
+    def check_email(self):
+        if not re.match(r'[^@]+@[^@]+\.[^@]+', self.request.POST.get('email')):
+            self.form_error_messages = f'{self.form_error_messages}- L\'email inserita non è valida'
+    
+    def check_data_nascita(self):
+        if self.request.POST.get('data_nascita'):
+            try:
+                data_nascita = date.fromisoformat(self.request.POST.get('data_nascita'))
+                if data_nascita > date.today():
+                    self.form_error_messages = f'{self.form_error_messages}- La data di nascita non può essere nel futuro'
+            except ValueError:
+                self.form_error_messages = f'{self.form_error_messages}- La data di nascita inserita non è valida'
+
+    def check_telefono(self):
+        if not re.match(r'^\+?[0-9]{7,12}$', self.request.POST.get('telefono')):
+            self.form_error_messages = f'{self.form_error_messages}- Il numero di telefono inserito non è valido'
+
+    def check_carta_credito(self):
+        if not re.match(r'^[0-9]{10,19}$', self.request.POST.get('carta_credito')):
+            self.form_error_messages = f'{self.form_error_messages}- Il numero di carta di credito inserito non è valido'
+
+    def check_scadenza_carta(self):
+        if self.request.POST.get('scadenza_carta'):
+            try:
+                data_nascita = date.fromisoformat(self.request.POST.get('scadenza_carta'))
+                if data_nascita < date.today():
+                    self.form_error_messages = f'{self.form_error_messages}- La carta è scaduta'
+            except ValueError:
+                self.form_error_messages = f'{self.form_error_messages}- La data inserita di scadenza della carta non è valida'
+
+    def check_cvv(self):
+        if not re.match(r'^[0-9]{3}$', self.request.POST.get('cvv')):
+            self.form_error_messages = f'{self.form_error_messages}- Il CVV non è valido'
 
 
 @login_required
