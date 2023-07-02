@@ -73,7 +73,7 @@
 
 #profile-image:hover
 {
-    filter: brightness(125%);
+    filter: brightness(100%);
     -webkit-transition: all 2000ms ease;
     -moz-transition: all 2000ms ease;
     -ms-transition: all 2000ms ease;

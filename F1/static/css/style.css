@@ -243,3 +243,28 @@ th, td
 {
     filter: brightness(50%);
 }
+
+.notification-color
+{
+    color: rgba(255, 0, 0, 0.700);
+}
+
+@keyframes fade 
+{
+    from { opacity: 1.0; }
+    50% { opacity: 0.5; }
+    to { opacity: 1.0; }
+}                                                                                                                                                                                                                                  
+
+@-webkit-keyframes fade 
+{
+    from { opacity: 1.0; }
+    50% { opacity: 0.5; }
+    to { opacity: 1.0; }
+}
+
+.blink 
+{
+  animation:fade 3000ms infinite;
+  -webkit-animation:fade 3000ms infinite;
+}
