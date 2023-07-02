@@ -8,13 +8,13 @@ import os
 from PIL import Image
 from django.contrib import messages
 from django import forms
-from django_countries.fields import CountryField
 from django_countries import countries
 from django.views.generic import UpdateView
-from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
-from django.forms.models import model_to_dict
 from django.shortcuts import redirect
+from django.core.exceptions import ValidationError
+import re
+from datetime import date
 
 
 class UserProfileFormData(forms.Form):
@@ -65,10 +65,17 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
     def get_object(self):
         return get_object_or_404(Utente, user=self.request.user)
 
+    
     def post(self, request, *args, **kwargs):
-        # Retrieve and update the Utente instance
+        # Recupera e aggiorna l'istanza utente e user
 
         utente = self.get_object()
+
+        #TODO: AGGIUNGERE CONTROLLI SU INPUT (ES: carta di credito troppo corta)
+
+        if not request.POST.get('nome'):
+            messages.error(request, 'Il nome non può essere vuoto.')
+            return redirect('store:profile')
         
         utente.user.first_name = request.POST.get('nome')
         utente.user.last_name = request.POST.get('cognome')
@@ -82,19 +89,13 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
         utente.carta_credito = request.POST.get('carta_credito')
         utente.cvv = request.POST.get('cvv')
         utente.scadenza_carta = request.POST.get('scadenza_carta')
+
         utente.save()
         utente.user.save()
 
+        messages.success(request, 'Dati del profilo cambiati con successo.')
         return redirect('store:profile')
-
-
-
-
     
-    
-
-
-
 
 
 @login_required
