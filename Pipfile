@@ -10,6 +10,7 @@ psycopg2 = "*"
 django-bootstrap4 = "*"
 crispy-bootstrap4 = "*"
 pillow = "*"
+django-countries = "*"
 
 [dev-packages]
 

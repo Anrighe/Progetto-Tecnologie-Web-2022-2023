@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'media',
     'info',
     'store',
+    'django_countries',
 ]
 
 MIDDLEWARE = [

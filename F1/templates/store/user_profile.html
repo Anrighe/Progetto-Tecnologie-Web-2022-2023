@@ -5,6 +5,7 @@
 {% block head %} 
 
 	<link rel="stylesheet" type="text/css" href="{%static 'css/style_profilo.css'%}">
+	<script src="{%static 'js/avoid_newline.js'%}"></script>
 
 {% endblock %}
 
@@ -38,19 +39,21 @@
 							<p class="text-muted mb-0">Ultimo accesso {{ user.last_login }}</p>
 
 							<div id="modifica-profilo"class="d-flex justify-content-center mt-4">		
-								<button type="button" class="profile-button">Modifica profilo</button>
+								<a href="{% url 'store:modify' %}">
+									<button type="button" class="profile-button">Modifica profilo</button>
+								</a>
 							</div>
 						</div>
 					</div>
-		
-					<div class="col-lg-8 background-profile-darker">
+					
+					<div id="user-data" class="col-lg-8 background-profile-darker">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-4">
 									<p class="mb-0">Nome</p>
 								</div>
 								<div class="col-sm-8">
-									<p class="text-muted mb-0">{{ user.first_name }} {{ user.last_name }}</p>
+									<p class="text-muted mb-0" >{{ user.first_name }} {{ user.last_name }}</p>
 								</div>
 							</div>
 						</div>
@@ -98,7 +101,7 @@
 									<p class="mb-0">Paese</p>
 								</div>
 								<div class="col-sm-8">
-									<p class="text-muted mb-0">{{ utente.paese }}</p>
+									<p class="text-muted mb-0">{{ utente.paese.name }}</p>
 								</div>
 							</div>
 						</div>

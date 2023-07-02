@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from info.models import Circuito
 from media.models import PortaleF1
 from datetime import date
-
+from django_countries.fields import CountryField
 
 class Gestore_Circuito(models.Model):
     sito_web = models.CharField(max_length=100)
@@ -35,7 +35,8 @@ class Utente(models.Model):
     indirizzo = models.CharField(max_length=50, null=True, default=None, blank=True)
     data_nascita = models.DateField(null=True, blank=True, default=date.today)
     sesso = models.CharField(max_length=10, choices=SESSO_CHOICES, null=True, blank=True)
-    paese = models.CharField(max_length=50, null=True, default=None, blank=True)
+    #paese = models.CharField(max_length=50, null=True, default=None, blank=True)
+    paese = CountryField(null=True, blank=True, default=None)
     telefono = models.CharField(max_length=25, null=True, default=None, blank=True)
     immagine_profilo = models.CharField(max_length=100, null=True, default='/static/users/default/default.jpg', blank=True)
     premium = models.DateField(null=True, blank=True, default=date.today)
