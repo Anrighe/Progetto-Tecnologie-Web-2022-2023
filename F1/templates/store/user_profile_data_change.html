@@ -24,7 +24,7 @@
     </div>
     <hr class="solid ml-4 mr-4 divisore"></hr>
     <div class="mx-auto mt-2 mb-2">
-        <form method="POST" action="{% url 'store:modify' %}">
+        <form method="POST" action="{% url 'store:modify_update' pk=request.user.utente.pk %}">
             {% csrf_token %}
             {{ form | crispy }}
 

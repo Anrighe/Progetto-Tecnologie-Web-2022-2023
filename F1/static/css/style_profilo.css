@@ -4,7 +4,7 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
     padding: 10px;
-    height: calc(85vh); /* Adjust padding value as needed */
+    height: calc(90vh); /* Adjust padding value as needed */
 }
 
 .order-table

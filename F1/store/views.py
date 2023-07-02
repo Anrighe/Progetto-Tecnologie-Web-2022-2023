@@ -10,7 +10,11 @@ from django.contrib import messages
 from django import forms
 from django_countries.fields import CountryField
 from django_countries import countries
-
+from django.views.generic import UpdateView
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import get_object_or_404
+from django.forms.models import model_to_dict
+from django.shortcuts import redirect
 
 
 class UserProfileFormData(forms.Form):
@@ -29,17 +33,14 @@ class UserProfileFormData(forms.Form):
 
 
 # Classe che gestisce la modifica dei dati dell'utente
-class UserProfileDataChangeView(LoginRequiredMixin, ListView):
+class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
     model = Utente
-    form_class = UserProfileFormData
     template_name = 'store/user_profile_data_change.html'
-    success_url = 'modify'  # Specify the URL to redirect to after successful form submission
+    success_url = '/store/profile/'
 
     user_data_form = UserProfileFormData()
-    
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+
+    def get_form(self, form_class=None):
 
         user = Utente.objects.filter(user=self.request.user)
 
@@ -57,13 +58,41 @@ class UserProfileDataChangeView(LoginRequiredMixin, ListView):
             'scadenza_carta': user[0].scadenza_carta,
         }
 
-        #print("paese:", user[0].paese.name)
-        #user_country = user[0].paese  # Assuming the user's country is stored in the profile model
-        #if user_country:
-            #initial_data['paese'] = user_country.name
+        self.user_data_form = UserProfileFormData(initial=initial_data)        
 
-        context['form'] = self.form_class(initial=initial_data)
-        return context
+        return self.user_data_form
+    
+    def get_object(self):
+        return get_object_or_404(Utente, user=self.request.user)
+
+    def post(self, request, *args, **kwargs):
+        # Retrieve and update the Utente instance
+
+        utente = self.get_object()
+        
+        utente.user.first_name = request.POST.get('nome')
+        utente.user.last_name = request.POST.get('cognome')
+        utente.user.email = request.POST.get('email')
+                
+        utente.indirizzo = request.POST.get('indirizzo')
+        utente.data_nascita = request.POST.get('data_nascita')
+        utente.sesso = request.POST.get('sesso')
+        utente.paese = request.POST.get('paese')
+        utente.telefono = request.POST.get('telefono')
+        utente.carta_credito = request.POST.get('carta_credito')
+        utente.cvv = request.POST.get('cvv')
+        utente.scadenza_carta = request.POST.get('scadenza_carta')
+        utente.save()
+        utente.user.save()
+
+        return redirect('store:profile')
+
+
+
+
+    
+    
+
 
 
 
