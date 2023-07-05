@@ -35,7 +35,6 @@ class Utente(models.Model):
     indirizzo = models.CharField(max_length=50, null=True, default=None, blank=True)
     data_nascita = models.DateField(null=True, blank=True, default=date.today)
     sesso = models.CharField(max_length=10, choices=SESSO_CHOICES, null=True, blank=True)
-    #paese = models.CharField(max_length=50, null=True, default=None, blank=True)
     paese = CountryField(null=True, blank=True, default=None)
     telefono = models.CharField(max_length=25, null=True, default=None, blank=True)
     immagine_profilo = models.CharField(max_length=100, null=True, default='/static/users/default/default.jpg', blank=True)
