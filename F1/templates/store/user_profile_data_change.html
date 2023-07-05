@@ -17,21 +17,71 @@
 {% block content %} 
 
 
-<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto text-white" style="max-width: 90vh; max-height: 90vh; position: relative; overflow-y: auto;">
+<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto text-white" style="width: 98vw; height: 90vh; position: relative; overflow-y: auto;">
     
     <div class="ml-4 mr-4 mt-2 mx-auto white-text" style="display: flex;" align="center">
         <h1 class="mt-2 mb-2 f1-font-bold">Dati di {{ user.username }}</h1>
     </div>
-    <hr class="solid ml-4 mr-4 divisore"></hr>
-    <div class="mx-auto mt-2 mb-2">
-        <form method="POST" action="{% url 'store:modify_update' pk=request.user.utente.pk %}">
+    <hr class="solid divisore mr-4 ml-4"></hr>
+    
+    <div class="background-profile-darker mx-auto mt-2" style="padding: 10px; max-width: 60vw; border-radius: 25px;">
+        <form method="post" class="ml-4 mr-4 mx-auto mt-4" style="max-width: 55vw; ">
             {% csrf_token %}
-            {{ form | crispy }}
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    {{ form.nome|as_crispy_field }}
+                </div>
 
-            <div class="mx-auto" style="width: 150px;">
-                <button type="submit" class="profile-button" style="width: 150px;">Salva</button>   
+                <div class="form-group col-md-6 mb-0">
+                    {{ form.cognome|as_crispy_field }}
+                </div>
             </div>
 
+            <div class="mt-2">
+                {{ form.email|as_crispy_field }}
+            </div>
+
+            <div class="mt-2">
+                {{ form.indirizzo|as_crispy_field }}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    {{ form.data_nascita|as_crispy_field }}
+                </div>
+
+                <div class="form-group col-md-6 mb-0">
+                    {{ form.sesso|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    {{ form.paese|as_crispy_field }}
+                </div>
+                
+                <div class="form-group col-md-6 mb-0">
+                    {{ form.telefono|as_crispy_field }}
+                </div>
+            </div>
+
+            <div class="mt-2">
+                {{ form.carta_credito|as_crispy_field }}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    {{ form.cvv|as_crispy_field }}
+                </div>
+
+                <div class="form-group col-md-6 mb-0">
+                    {{ form.scadenza_carta|as_crispy_field }}
+                </div>
+            </div>
+            
+            <div class="mx-auto" style="width: 150px;">
+                <button type="submit" class="profile-button mt-2" style="width: 150px;">Salva</button>   
+            </div>
         </form>
     </div>
     
