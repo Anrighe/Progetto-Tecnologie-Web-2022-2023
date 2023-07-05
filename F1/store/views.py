@@ -176,8 +176,7 @@ def UserProfile(request):
                     fs = FileSystemStorage(location=path)
 
                     filename = fs.save(uploaded_file.name, uploaded_file)
-                    print("FILENAME", filename)
-
+                    
                     utente.immagine_profilo = f'/static/users/{username}/{filename}'
                     utente.save()
                 else:

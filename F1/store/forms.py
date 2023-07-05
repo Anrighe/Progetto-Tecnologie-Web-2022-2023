@@ -22,4 +22,3 @@ class UserProfileFormData(forms.Form):
     def add_tooltips(self):
         for field_name, field in self.fields.items():
             field.widget.attrs['title'] = field.label
-            print(field_name, field)
