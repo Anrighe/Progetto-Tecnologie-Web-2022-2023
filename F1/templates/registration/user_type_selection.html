@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+{% load static %}
+
+
+{% block title %} F1 - Registrazione {{ form.user_group_name }} {% endblock %} 
+
+{% block header1 %}
+    <h1>Pagina di Registrazione</h1>
+{% endblock %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{%static 'css/style_auth.css'%}">
+{% endblock %}
+
+{% block content %} 
+
+	<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto auth-container white-text" style="display: flex;">
+        <div class="ml-4 mr-4 mt-2 mx-auto" style="display: flex;" align="center">
+            <h1 class="mt-2 mb-2 f1-font-bold">Che tipo di account vuoi creare?</h1>
+        </div>
+    
+        <hr class="solid divisore mr-4 ml-4"></hr>
+		<div class="ml-4 mr-4 mt-2 mb-2 mx-auto" align="center">
+
+
+            <div class="row">
+                    <div class="col-6">
+                        <a href="{% url 'register_user' %}">
+                            <div class="text-white mr-4 card background-auth-darker rounded-edges-auth" style="position:absolute; right: 50px;">
+                                <img src="{% static 'images/registration/utente_registrazione.jpg' %}" class="img-fluid user-type-image rounded-edges-auth" alt="logo">
+                                <h2 class="mb-4">Utente</h2> 
+                            </div>
+                        </a>
+                    </div>
+    
+                    <div class="col-6">
+                        <a href="{% url 'register_company' %}">
+                            <div class="text-white ml-4 card background-auth-darker rounded-edges-auth" style="position:absolute; left: 50px;">
+                                <img src="{% static 'images/registration/gestore_registrazione.jpg' %}" class="img-fluid user-type-image rounded-edges-auth" alt="logo">
+                                <h2 class="mb-4">Gestore</h2>
+                            </div>
+                        </a>
+                    </div>
+            </div>
+
+
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block footer %} {% endblock %}
