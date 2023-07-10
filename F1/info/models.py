@@ -1,10 +1,12 @@
 from django.db import models
 from F1.validators import valida_non_negativi
+from django_countries.fields import CountryField
+
 
 
 class Scuderia(models.Model):
     nome = models.CharField(max_length=50)
-    descrizione = models.CharField(max_length=50)
+    descrizione = models.CharField(max_length=10000)
     modello_vettura = models.CharField(max_length=50)
     modello_power_unit = models.CharField(max_length=50, default='')
     sede = models.CharField(max_length=100, default='')
@@ -12,8 +14,8 @@ class Scuderia(models.Model):
     team_principal = models.CharField(max_length=100, default='')
     logo = models.CharField(max_length=100)
     punti = models.PositiveIntegerField(default=0)
-    immagine1 = models.CharField(max_length=100, default='', blank=True) # Da valutare con carosello
-    immagine2 = models.CharField(max_length=100, default='', blank=True) # Da valutare con carosello
+    immagine1 = models.CharField(max_length=100, default='', blank=True)
+    immagine2 = models.CharField(max_length=100, default='', blank=True)
     campionati_vinti = models.PositiveIntegerField(default=0)
 
     class Meta:
@@ -22,9 +24,16 @@ class Scuderia(models.Model):
 
 class Pilota(models.Model):
     nome = models.CharField(max_length=50)
-    eta = models.PositiveSmallIntegerField()
     data = models.DateField()
-    foto = models.CharField(max_length=100)
+    paese = CountryField(null=True, blank=True, default=None)
+    foto_pilota = models.CharField(max_length=100, default='')
+    foto_casco = models.CharField(max_length=100, default='')
+    numero_gare = models.PositiveIntegerField(default=0)
+    podi = models.PositiveIntegerField(default=0)
+    campionati_vinti = models.PositiveIntegerField(default=0)
+    biografia = models.CharField(max_length=10000, default='')
+    immagine1 = models.CharField(max_length=100, default='', blank=True)
+    immagine2 = models.CharField(max_length=100, default='', blank=True)
 
     # Un pilota è ingaggiato da una sola scuderia
     scuderia = models.ForeignKey(Scuderia, on_delete=models.PROTECT, null=True, blank=True)
