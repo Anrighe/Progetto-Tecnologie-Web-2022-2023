@@ -44,7 +44,7 @@ class Pilota(models.Model):
 
 class Circuito(models.Model):
     nome = models.CharField(max_length=50)
-    paese = models.CharField(max_length=50)
+    paese = CountryField(null=True, blank=True, default=None)
     capienza_persone = models.PositiveIntegerField()
     lunghezza = models.FloatField(validators=[valida_non_negativi])
     preview = models.CharField(max_length=100)
