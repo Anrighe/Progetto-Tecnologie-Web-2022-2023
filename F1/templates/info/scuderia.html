@@ -5,12 +5,65 @@
 {% block head %} 
 
 	<link rel="stylesheet" type="text/css" href="{%static 'css/style.css'%}">
-    <link rel="stylesheet" type="text/css" href="{%static 'css/style_circuito.css'%}">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/style_scuderia.css'%}">
+
 
 {% endblock %}
 
 {% block title %}F1 - Scuderie{% endblock %}
 
 {% block content %}
-    
+    <div class="container-team mt-4 mb-4 mx-auto">
+        <div class="row-team">
+            <p class="font-title text-white">F1 Teams 2023</p>
+        </div>
+        <div class="row">
+
+            <div class="col-6 mt-4 mb-4">
+                
+                
+                <div class="block bord-out" onmouseenter="this.classList.add('bord-in')" onmouseleave="this.classList.remove('bord-in')">
+                    <a href="{% url 'info:red_bull' %}" class="mt-2 click">
+
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="font-num text-white item" style="text-align: center;">
+                                    1</p>
+                            </div>
+                            <div class="col-6 ">
+                                <p class="font-num text-white item" style="text-align: center;">{{query.0.punti}}</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="font-name text-white" style="text-align: center;">{{query.0.nome}}</p>
+                            </div>
+                                <h2 class="col-6" style="text-align: center;"><img src="{% static 'images/teams/red-bull-logo.jpg' %}" width="60px" height="40px"></h2>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="font-name text-white item" style="text-align: center;">Max Verstappen</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="font-name text-white item" style="text-align: center;">Sergio Perez</p>
+                            </div>
+                        </div>
+
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <p><img src="{% static 'images/teams/car-red-bull.png' %}" width="650px" height="200px"></p>
+                        </div>
+                    
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
 {% endblock %}
