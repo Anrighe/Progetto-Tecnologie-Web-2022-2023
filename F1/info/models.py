@@ -5,14 +5,15 @@ from django_countries.fields import CountryField
 
 
 class Scuderia(models.Model):
-    nome = models.CharField(max_length=50)
-    descrizione = models.CharField(max_length=10000)
-    modello_vettura = models.CharField(max_length=50)
+    nome = models.CharField(max_length=50, default='')
+    nome_completo = models.CharField(max_length=50, default='')
+    descrizione = models.CharField(max_length=10000, default='')
+    modello_vettura = models.CharField(max_length=50, default='')
     modello_power_unit = models.CharField(max_length=50, default='')
     sede = models.CharField(max_length=100, default='')
     immagine_vettura = models.CharField(max_length=100)
     team_principal = models.CharField(max_length=100, default='')
-    logo = models.CharField(max_length=100)
+    logo = models.CharField(max_length=100, default='')
     punti = models.PositiveIntegerField(default=0)
     immagine1 = models.CharField(max_length=100, default='', blank=True)
     immagine2 = models.CharField(max_length=100, default='', blank=True)
@@ -31,6 +32,7 @@ class Pilota(models.Model):
     numero_gare = models.PositiveIntegerField(default=0)
     podi = models.PositiveIntegerField(default=0)
     campionati_vinti = models.PositiveIntegerField(default=0)
+    numero_pilota = models.PositiveIntegerField(default=0)
     biografia = models.CharField(max_length=10000, default='')
     immagine1 = models.CharField(max_length=100, default='', blank=True)
     immagine2 = models.CharField(max_length=100, default='', blank=True)
@@ -43,14 +45,14 @@ class Pilota(models.Model):
 
 
 class Circuito(models.Model):
-    nome = models.CharField(max_length=50)
+    nome = models.CharField(max_length=50, default='')
     paese = CountryField(null=True, blank=True, default=None)
     capienza_persone = models.PositiveIntegerField()
     lunghezza = models.FloatField(validators=[valida_non_negativi])
-    preview = models.CharField(max_length=100)
-    immagine_circuito = models.CharField(max_length=100)
-    immagine_mappa = models.CharField(max_length=100)
-    giro_veloce = models.CharField(max_length=100)
+    preview = models.CharField(max_length=100, default='')
+    immagine_circuito = models.CharField(max_length=100, default='')
+    immagine_mappa = models.CharField(max_length=100, default='')
+    giro_veloce = models.CharField(max_length=100, default='')
     numero_giri = models.PositiveIntegerField()
     inaugurazione = models.DateField()
     storia = models.CharField(max_length=10000, default='')

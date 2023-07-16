@@ -10,14 +10,14 @@
 
 {% endblock %}
 
-{% block title %}{% endblock %}
+{% block title %}F1 - {{scuderia.nome}}{% endblock %}
 
 {% block content %}
 
     
 <div class="container-title mt-4 mb-4 mx-auto">
     <div class="row">
-        <a class="font-title text-white">Red Bull</a>
+        <a class="font-title text-white">{{scuderia.nome}}</a>
     </div>
 </div>
 
@@ -25,14 +25,14 @@
     <div class="row">
 
         <div class="col-6 mt-4 mb-4">
-            <h2 class="col-6" style="text-align: left;"><img src="{% static 'images/teams/red-bull-logo.jpg' %}" width="500px" height="300px"></h2>
+            <h2 class="col-6" style="text-align: left;"><img src="{{scuderia.logo}}" width="500px" height="300px"></h2>
 
             <div class="row padu">
                 <div class="col-6 padl">
                     <p class="font-textb text-white" style="text-align: left;">Full Team Name</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">Oracle Red Bull Racing</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.nome_completo}}</p>
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
                     <p class="font-textb text-white" style="text-align: left;">Base</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">Milton Keynes, United Kingdom</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.sede}}</p>
                 </div>
             </div>
 
@@ -50,7 +50,7 @@
                     <p class="font-textb text-white" style="text-align: left;">Team Chief</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">Christian Horner</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.team_principal}}</p>
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
                     <p class="font-textb text-white" style="text-align: left;">Chassis</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">RB19</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.modello_vettura}}</p>
                 </div>
             </div>
 
@@ -68,7 +68,7 @@
                     <p class="font-textb text-white" style="text-align: left;">Power Unit</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">Honda RBPT</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.modello_power_unit}}</p>
                 </div>
             </div>
 
@@ -77,45 +77,36 @@
                     <p class="font-textb text-white" style="text-align: left;">World Championships</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">5</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.campionati_vinti}}</p>
                 </div>
             </div>
         </div>
 
         <div class="col-6 mt-4 mb-4">
             <div class="row" id="alt">
-                <div class="col-6 padlf driver">
-                    <a href="{% url 'info:charles' %}" class="mt-2">
-                        <figure class="driver">
-                                    <p class="driver-img" style="background-image: url('{% static 'images/teams/RedBull/Max_foto.png' %}');" >
-                                <figcaption>
-                                    <div class="font-num text-white padl">
-                                        <span>1</span>
-                                    </div>
-                                    <h1 class="font-textr text-white padl">
-                                        Max Verstappen
-                                    </h1>
-                                </figcaption>
-                        </figure>
-                    </a>
-                </div>
-
-                <div class="col-6 padlf driver">
-                    <figure class="driver">
-                            <p class="driver-img" style="background-image: url('{% static 'images/teams/RedBull/Sergio_foto.png' %}');">
-                            <figcaption>
-                                <div class="font-num text-white padl">
-                                    <span>11</span>
-                                </div>
-                                <h1 class="font-textr text-white padl">
-                                    Sergio Perez
-                                </h1>
-                            </figcaption>
-                    </figure>
-                </div>
-          </div>
+                {% for pilota in piloti %}
+                    {% if pilota.scuderia == scuderia %}
+                        <div class="col-6 padlf driver">
+                            <a href="{% url 'info:pilota' pk=pilota.id %}" class="mt-2">
+                                <figure class="driver">
+                                            <p class="driver-img" style="background-image: url('{{pilota.foto_pilota}}');" >
+                                        <figcaption>
+                                            <div class="font-num text-white padl">
+                                                <span>{{pilota.numero_pilota}}</span>
+                                            </div>
+                                            <h1 class="font-textr text-white padl">
+                                                {{pilota.nome}}
+                                            </h1>
+                                        </figcaption>
+                                </figure>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
     </div>
+
     <div class="row">
         <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -124,10 +115,10 @@
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img class="d-block w-100" src="{% static 'images/teams/RedBull/Vettura1.png' %}" alt="First slide">
+                <img class="d-block w-100" src="{{scuderia.immagine1}}" alt="First slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="{% static 'images/teams/RedBull/Vettura11.png' %}" alt="Second slide">
+                <img class="d-block w-100" src="{{scuderia.immagine2}}" alt="Second slide">
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -148,7 +139,7 @@
                     <span class="text-white">Descrizione</span>
                 </legend>
                 <div class="pads font-s">
-                    Red Bull were no strangers to F1 - as sponsors - prior to formally entering as a works team in 2004. Nonetheless, the scale of their success over the following decade was staggering. After a first podium in 2006, the team hit their stride in 2009, claiming six victories and second in the constructors' standings. Over the next four seasons they were a tour de force, claiming consecutive title doubles between 2010 and 2013, with Sebastian Vettel emerging as the sport's youngest quadruple champion. Now they are recapturing that glory with an equally exciting talent – one named Max Verstappen…
+                    {{scuderia.descrizione}}
                 </div>
     </div>
 </div>

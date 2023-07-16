@@ -17,12 +17,12 @@
 
     <!-- Hero -->
     <div class="p-5 text-center bg-image rounded-3" id="hero-img" style="
-            background-image: url('/static/{{ obj.immagine_circuito }}');
+            background-image: url('{{ circuito.immagine_circuito }}');
             height: 47%;">
         <div class="mask">
             <div class="d-flex justify-content-center align-items-center h-100">
             <div class="text-white f1-center">
-                <h1 class="margin-m f1-font">{{ obj.paese }}</h1>
+                <h1 class="margin-m f1-font" style="text-transform:uppercase">{{ circuito.paese.name }}</h1>
                 <h2 class="margin-i"><img src="{% static 'images/circuits/2023.png' %}" width="200" height="70"></h2>
             </div>
             </div>
@@ -36,7 +36,7 @@
 
             <div class="row">
                 <div class="col-xl-6 col-lg-10 col-md-10 col-12">
-                    <p class="f1-font-r text-white">FORMULA 1 GRAND PRIX DE {{ obj.paese }} 2023</p>
+                    <p class="f1-font-r text-white">FORMULA 1 GRAND PRIX DE {{ circuito.paese.name }} 2023</p>
                 </div>
                 <div class="col-xl-6 col-lg-10 col-md-10 col-12" style="text-align: right;">
                     <a href="{% url 'info:circuiti' %}" class="mt-2">
@@ -47,11 +47,11 @@
 
             <fieldset class="f1-border--top-right">
                 <legend class="f1-font-leg">
-                    <span class="text-white">{{ obj.nome }}</span>
+                    <span class="text-white">{{ circuito.nome }}</span>
                 </legend>
                     <div class="row">
                         <div class="col-xl-8 col-lg-10 col-md-10 col-12">
-                            <p class="f1-font-r text-white"><img src="/static/{{ obj.immagine_mappa }}" id="img-p"></p>
+                            <p class="f1-font-r text-white"><img src="{{ circuito.immagine_mappa }}" id="img-p"></p>
                         </div>
                         <div class="col-xl-4 col-lg-10 col-md-10 col-12 text-white ml-auto margin-top" >
                             <div class="row"> 
@@ -60,31 +60,31 @@
                                         <div class="col-md-6">
                                             <div class="f1-stat">
                                                 <p class="misc--label">Capienza</p>
-                                                <p class="f1-bold-stat">{{ obj.capienza_persone }}</p>
+                                                <p class="f1-bold-stat">{{ circuito.capienza_persone }}</p>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="f1-stat">
                                                 <p class="misc--label">Lunghezza</p>
-                                                <p class="f1-bold-stat">{{ obj.lunghezza }}<span class="misc--label"> km</span></p>
+                                                <p class="f1-bold-stat">{{ circuito.lunghezza }}<span class="misc--label"> km</span></p>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="f1-stat">
                                                 <p class="misc--label">Numero giri</p>
-                                                <p class="f1-bold-stat">{{ obj.numero_giri }}</p>
+                                                <p class="f1-bold-stat">{{ circuito.numero_giri }}</p>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="f1-stat">
                                                 <p class="misc--label">Giro veloce</p>
-                                                <p class="f1-bold-stat">{{ obj.giro_veloce }}<span class="misc--label"></span></p>
+                                                <p class="f1-bold-stat">{{ circuito.giro_veloce }}<span class="misc--label"></span></p>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="f1-stat ">
                                                 <p class="misc--label">Inaugurazione</p>
-                                                <p class="f1-bold-stat">{{ obj.inaugurazione }}</p>
+                                                <p class="f1-bold-stat">{{ circuito.inaugurazione }}</p>
                                                 
                                             </div>
                                         </div>
@@ -101,7 +101,7 @@
                             <legend class="leg-story">
                                 <span class="text-white">Storia</span>
                             </legend>
-                            {{ obj.storia }}
+                            {{ circuito.storia }}
 
 
 

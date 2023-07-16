@@ -5,10 +5,6 @@ from media.forms import FormUtente
 
 from django.shortcuts import get_object_or_404, render
 
-def crispy(request):
-    context = {'form': FormUtente()}
-    return render(request, 'media/crispy.html', context)
-
 
 def monaco_view(request):
     ctx = {"obj": get_object_or_404(Circuito, nome='Circuit de Monaco')}
@@ -24,15 +20,27 @@ class CircuitiView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        query = Circuito.objects.all()
-        context['query'] = query
+        circuiti = Circuito.objects.all()
+        context['circuiti'] = circuiti
+        return context
+    
+
+class CircuitoView(ListView):
+    model = Circuito
+    template_name = 'info/circuito.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        circuito = Circuito.objects.get(pk=pk)
+
+        context['circuito'] = circuito
         return context
 
 
-class ScuderiaView(ListView):
+class ScuderieView(ListView):
     model = Scuderia
     template_name = 'info/scuderia.html'
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -43,6 +51,35 @@ class ScuderiaView(ListView):
         context['scuderie'] = scuderie
         
         return context
+    
+class TeamView(ListView):
+    model = Scuderia
+    template_name = 'info/team.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        scuderia = Scuderia.objects.get(pk=pk)
+        piloti = Pilota.objects.all()
+
+        context['scuderia'] = scuderia
+        context['piloti'] = piloti
+        return context
+    
+
+class PilotaView(ListView):
+    model = Pilota
+    template_name = 'info/pilota.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+
+        pilota = Pilota.objects.get(pk=pk)
+
+        context['pilota'] = pilota
+        return context
+
 
 
 class SessioniView(ListView):
