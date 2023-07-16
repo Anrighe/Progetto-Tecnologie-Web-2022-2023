@@ -1,0 +1,9 @@
+TODO:
+- View store
+- View Prodotto Specifico
+- View profilo gestore
+- View Carrello
+- View Notifiche
+- Premium
+- Meccanismo di follow + News personalizzate
+- Gestione e creazione dei biglietti comprati

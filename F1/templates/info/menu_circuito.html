@@ -19,61 +19,19 @@
     </div>
     <hr class="solid ml-4 mr-4 divisore"></hr>
     <div class="cir-preview-container">
-
-        <a href="{% url 'info:monaco'%}" class="card-cir-preview cir-preview ml-4 mr-4 mb-2">
-            <div>
-                <img class="circuit" src="/static/{{query.0.preview}}" width="1920" height="1080">
-                <i class="icon icon-play cir-icon"></i>
-            </div>
-            <div class="mt-2">
-                <p class="cir-name f1-font-regular">{{query.0.nome}}</p>
-            </div>
-        </a>
-        <a href="" class="card-cir-preview cir-preview ml-4 mr-4 mb-2">
-            <div>
-                <img class="circuit" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/2f997ef2-e16d-436b-b908-22acad035625/e32c8b87-68d2-402d-a732-3953eeb562b9/1316x740/match/image.jpg">
-                <i class="icon icon-play cir-icon"></i>
-            </div>
-            <div class="mt-2">
-                <p class="f1-font-regular">Highlight 2</p>
-            </div>
-        </a>
-        <a href="" class="card-cir-preview cir-preview ml-4 mr-4 mb-2">
-            <div>
-                <img class="circuit" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/0926b0ea-20b5-4242-a4cc-8250f6ca8739/4dab6f11-b2cd-460b-8e6a-cb18b493c422/997x516/match/image.jpg">
-                <i class="icon icon-play cir-icon"></i>
-            </div>
-            <div class="mt-2">
-                <p class="f1-font-regular">Highlight 3</p>
-            </div>
-        </a>
-        <a href="" class="card-cir-preview cir-preview ml-4 mr-4 mt-2 mb-2">
-            <div>
-                <img class="circuit" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/865a081e-0616-41aa-b66e-d3e4a9a0ce0d/8a7f6c90-83cf-4fd7-b81d-1f8fc3d690d5/1316x740/match/image.jpg">
-                <i class="icon icon-play cir-icon"></i>
-            </div>
-            <div class="mt-2">
-                <p class="f1-font-regular">Highlight 4</p>
-            </div>
-        </a>
-        <a href="" class="card-cir-preview cir-preview ml-4 mr-4 mt-2 mb-2">
-            <div>
-                <img class="circuit" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/16f1259e-58f6-4df3-b3ad-01d1446dd7da/8eb5a74e-1bb0-48ec-84bb-f40485f2675f/1316x740/match/image.jpg">
-                <i class="icon icon-play cir-icon"></i>
-            </div>
-            <div class="mt-2">
-                <p class="f1-font-regular">Highlight 5</p>
-            </div>
-        </a>
-        <a href="" class="card-cir-preview cir-preview ml-4 mr-4 mt-2 mb-2">
-            <div>
-                <img class="circuit" src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/b786c8d9-87b9-479f-b150-16d02595551b/a8e32f2b-1290-4968-baf0-797239dcf6bd/1316x740/match/image.jpg">
-                <i class="icon icon-play cir-icon"></i>
-            </div>
-            <div class="mt-2">
-                <p class="f1-font-regular">Highlight 6</p>
-            </div>
-        </a>
+        
+        {% for circuito in circuiti %}
+            <a href="{% url 'info:circuito' pk=circuito.id %}" class="card-cir-preview cir-preview ml-4 mr-4 mb-2">
+                <div>
+                    <img class="circuit" src="{{circuito.preview}}" width="1920" height="1080">
+                    <i class="icon icon-play cir-icon"></i>
+                    
+                </div>
+                <div class="mt-2">
+                    <p class="cir-name f1-font-regular">{{circuito.nome}}</p>
+                </div>
+            </a>
+        {% endfor %}
     </div>
 </div>
     
