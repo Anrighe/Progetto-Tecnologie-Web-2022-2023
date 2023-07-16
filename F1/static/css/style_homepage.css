@@ -177,11 +177,20 @@
 
 .risultati-ultima-sessione
 {
-    border-collapse: collapse;
     height: calc(12vh);    
     text-align: center; 
-    border: 1px solid white;
     overflow-y: scroll;
+    border: 5px solid #7165b346;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px; 
+    overflow: hidden;
+}
+
+.white-cell
+{
+    border: 1px solid #453e6d46;
+    background-color: #131025;
 }
 
 .testo-news
@@ -237,6 +246,21 @@
         visibility: hidden;
     }
 }
+
+@media (max-width: 1000px)
+{
+    #news-title
+    {
+        font-size: 16px;
+    }
+}
+
+#news-title {
+    margin-top: 0; /* Remove any default top margin */
+    position: sticky;
+    top: 0;
+}
+
 
 .close 
 {

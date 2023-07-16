@@ -15,34 +15,7 @@
 
 {% block content %}
 
-	{% if user.is_authenticated and "ok" in request.GET.login  %}
-
-		<div id="successo_login_modal" class="modal fade modalfont" tabindex="-1" role="dialog">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header modal-background">
-						<h5 class="modal-title">Benvenuto, {{ user.username }}!</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-				<div class="modal-body modal-background" style="display: flex; justify-content: center; align-items: center;">
-					<p> La procedura di login è andata a buon fine </p>
-				</div>
-					<div class="modal-footer modal-background" style="display: flex; justify-content: center;">
-						<button type="button" class="btn btn-info modal-button" data-dismiss="modal">Continua</button>
-					</div>
-				</div>
-			</div>
-		</div> 
-
-		<script>
-		$(document).ready(function(){
-			$("#successo_login_modal").modal('show');
-		});
-		</script>
-
-	{% endif %}
+	{% include 'media/homepage_user_auth_modal.html' %}
 
 	<!-- Top content -->
 	<div class="top-content mt-4">
@@ -69,6 +42,9 @@
 					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
 						<img src="/static/images/circuits/previews/Hungarian_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img6">
 					</div>
+					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+						<img src="/static/images/circuits/previews/Belgian_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img6">
+					</div>
 				</div>
 				<a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -83,7 +59,6 @@
 	</div>
 
 	<!-- News -->
-	
 	<div id="container" class="text-white">
 		<div id="news" class="card" style="overflow-x: hidden;">
 			<h2 class="mx-auto f1-font-bold mt-2">NEWS</h2>
@@ -96,31 +71,19 @@
 								<img src="{{ notizia.immagine }}">
 							</div>
 							<div class="col-sm-7 testo-news" align="center">
-								<h3 class="f1-font-regular">{{ notizia.titolo }}</h3>
+								<h4 id="news-title" class="f1-font-regular mb-4">{{ notizia.titolo }}</h4>
 								<div class="data-news f1-font-regular">{{ notizia.data }}</div>
 							</div>
 						</div>
 					</div>
 				</a>
 			{% endfor %}
-			<hr class="solid ml-4 mr-4 divisore"></hr>
-			<div class="article ml-4">
-				<h3 class="f1-font-regular">News 2</h3>
-				<img src="https://www.bootstrapdash.com/demo/world-time/assets/images/dashboard/home_2.jpg" alt="News 2">
-				<p class="f1-font-regular">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			</div>
-			<hr class="solid ml-4 mr-4 divisore"></hr>
-			<div class="article ml-4">
-				<h3 class="f1-font-regular">News 3</h3>
-				<img src="https://www.bootstrapdash.com/demo/world-time/assets/images/dashboard/home_3.jpg" alt="News 2">
-				<p class="f1-font-regular">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			</div>
 		</div>
 	
 		<!-- Risultati ultima sessione -->
-		<div id="homepage-table-div" class="card">
+		<div class="background-profile card">
 			<h2 class="mx-auto f1-font-bold mt-2">Risultati {{ tipo_sessione }} - {{ nome_circuito }}</h2>
-			<table class="risultati-ultima-sessione mt-3">
+			<table class="risultati-ultima-sessione mt-3 ml-2 mr-2">
 				<tr>
 					<th class="white-cell f1-font-bold">POSIZIONE</th>
 					<th class="white-cell f1-font-bold">PILOTA</th>

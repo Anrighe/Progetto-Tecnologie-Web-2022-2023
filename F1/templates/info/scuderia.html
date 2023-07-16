@@ -5,12 +5,67 @@
 {% block head %} 
 
 	<link rel="stylesheet" type="text/css" href="{%static 'css/style.css'%}">
-    <link rel="stylesheet" type="text/css" href="{%static 'css/style_circuito.css'%}">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/style_scuderia.css'%}">
+
 
 {% endblock %}
 
 {% block title %}F1 - Scuderie{% endblock %}
 
 {% block content %}
-    
+    <div class="container-team mt-4 mb-4 mx-auto">
+        <div class="row-team">
+            <p class="font-title text-white">F1 Teams 2023</p>
+        </div>
+        <div class="row">
+
+            {% for scuderia in scuderie %}
+                <div class="col-6 mt-4 mb-4">
+                    
+                    <div class="block bord-out" onmouseenter="this.classList.add('bord-in')" onmouseleave="this.classList.remove('bord-in')">
+                        <a href="" class="mt-2 click"> 
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="font-num text-white item" style="text-align: center;">
+                                        {{forloop.counter}}</p>
+                                </div>
+                                <div class="col-6 ">
+                                    <p class="font-num text-white item" style="text-align: center;">{{scuderia.punti}}</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="font-name text-white" style="text-align: center;">{{scuderia.nome}}</p>
+                                </div>
+                                    <h2 class="col-6" style="text-align: center;"><img src="{{scuderia.logo}}" width="60px" height="40px"></h2>
+                            </div>
+                            
+                            <div class="row">
+                                {% for pilota in piloti %}
+                                    {% if pilota.scuderia == scuderia %}
+                                        <div class="col-6">
+                                            <p class="font-name text-white item" style="text-align: center;">{{ pilota.nome }}</p>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <p><img src="{{scuderia.immagine_vettura}}" width="650px" height="200px"></p>
+                            </div>
+                        
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+
+
+
+
+    </div>
 {% endblock %}

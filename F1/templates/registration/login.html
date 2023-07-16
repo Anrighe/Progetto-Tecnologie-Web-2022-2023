@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
-
 {% load crispy_forms_tags %} 
-
+{% load static %}
 
 {% block title %} F1 - Login {{ form.user_group_name }} {% endblock %} 
 
 {% block header1 %}
     <h1>Pagina di Login</h1>
   	<p>Si prega di compilare i campi necessari</p> 
+{% endblock %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{%static 'css/style_auth.css'%}">
 {% endblock %}
 
 {% block content %} 
@@ -25,12 +28,12 @@
 
 				{{form | crispy}}
 				
-				<input type="submit" class="btn btn-success" value="Esegui login">
+				<input type="submit" class="btn btn-success auth-button" value="Esegui login">
 
 			</form>
 		</div>
-		<a href="{% url 'register' %}" class="mx-auto mt-4 mb-4">
-			<button class="btn btn-success">Non hai un account? Registrati!</button> 
+		<a href="{% url 'register_selection' %}" class="mx-auto mt-4 mb-4">
+			<button class="btn btn-success auth-button">Non hai un account? Registrati!</button> 
 		</a>
 
 	</div>

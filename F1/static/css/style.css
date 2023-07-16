@@ -138,11 +138,6 @@ th, td
     border: 1px solid black;
 }
 
-.white-cell
-{
-    border: 2px solid rgba(255, 255, 255, 0.507);
-}
-
 #footer 
 {
     background-color: #221c43d2;
@@ -247,4 +242,45 @@ th, td
 .disabled-button
 {
     filter: brightness(50%);
+}
+
+.notification-color
+{
+    color: rgba(255, 0, 0, 0.700);
+}
+
+@keyframes fade 
+{
+    from { opacity: 1.0; }
+    50% { opacity: 0.5; }
+    to { opacity: 1.0; }
+}                                                                                                                                                                                                                                  
+
+@-webkit-keyframes fade 
+{
+    from { opacity: 1.0; }
+    50% { opacity: 0.5; }
+    to { opacity: 1.0; }
+}
+
+.blink 
+{
+  animation:fade 3000ms infinite;
+  -webkit-animation:fade 3000ms infinite;
+}
+
+a:link { text-decoration: none; }
+
+
+a:visited { text-decoration: none; }
+
+
+a:hover { text-decoration: none; }
+
+
+a:active { text-decoration: none; }
+
+.white-text
+{
+    color: white;
 }

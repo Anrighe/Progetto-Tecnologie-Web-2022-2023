@@ -1,0 +1,111 @@
+.profilo-container 
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    padding: 10px;
+    height: calc(90vh); /* Adjust padding value as needed */
+}
+
+.order-table
+{
+    text-align: center; 
+    overflow-y: scroll;
+    border: 5px solid #7165b346;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px; /* Adjust the value as per your preference */
+    overflow: hidden;
+}
+
+.order-cell
+{
+    border: 1px solid #7165b346;
+    background-color: #131025;
+    line-height: 40px;    
+}
+
+.background-profile
+{
+    background-color: #221c43d2;
+}
+
+.background-profile-darker
+{
+    background-color: #17132ee5;
+}
+
+.profile-button
+{
+    background-color: #5144a0;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    max-height: 50px;
+    height: 40px;
+}
+
+.modal-background
+{
+    background-color: rgba(36, 36, 36, 0.938);
+}
+
+.profile-button:hover
+{
+    filter: brightness(70%); /* I bottoni per muoversi tra le pagine delle query diventano scuri se ci si mette il mouse sopra */
+}
+
+#profile-image 
+{
+    object-fit: cover;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    border: solid 5px #5e4a75;
+    
+}
+
+#profile-image:hover
+{
+    border: solid 5px #e2d6f0;
+    filter: brightness(100%);
+    -webkit-transition: all 2000ms ease;
+    -moz-transition: all 2000ms ease;
+    -ms-transition: all 2000ms ease;
+    -o-transition: all 2000ms ease;
+    transition: all 2000ms ease;
+    transform: scale(1.04);
+}
+
+#profile-image:not(:hover)
+{
+    filter: brightness(100%);
+    -webkit-transition: all 2000ms ease;
+    -moz-transition: all 2000ms ease;
+    -ms-transition: all 2000ms ease;
+    -o-transition: all 2000ms ease;
+    transition: all 2000ms ease;
+    transform: scale(1.0);
+}
+
+.background-data-form
+{
+    width: 98vw; 
+    height: 90vh; 
+    position: relative; 
+    overflow-y: auto;
+}
+
+.profile-data-form
+{
+    padding: 10px; 
+    max-width: 60vw; 
+    border-radius: 25px; 
+    border: 5px solid #7165b346;
+}

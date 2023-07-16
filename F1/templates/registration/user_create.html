@@ -1,24 +1,34 @@
 {% extends 'base.html' %}
-
 {% load crispy_forms_tags %} 
+{% load static %}
 
 
 {% block title %} F1 - Creazione Utente {{ form.user_group_name }} {% endblock %} 
 
 {% block header1 %}
-    <h1>Pagina di Registrazione</h1>
+    <h1>Pagina di Registrazione dell'utente</h1>
   	<p>Si prega di compilare i campi necessari</p> 
+{% endblock %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{%static 'css/style_auth.css'%}">
 {% endblock %}
 
 {% block content %} 
 
-	<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto" style="max-width: 700px;">
+	<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto auth-container">
+		<div class="ml-4 mr-4 mt-2 mx-auto" style="display: flex;" align="center">
+			<h1 class="mt-2 mb-2 f1-font-bold" style="color:white;">Creazione profilo utente</h1>
+		</div>
+		
+		<hr class="solid divisore mr-4 ml-4"></hr>
+
 		<div class="ml-4 mr-4 mt-2 mb-2 mx-auto" style="max-width: 600px; display: flex; color: white;" align="center">
 			<form method="post"> {% csrf_token %}
 
 				{{form | crispy}}
 				
-				<input type="submit" class="btn btn-success" value="Registrati">
+				<input type="submit" class="btn btn-success auth-button" value="Registrati">
 				
 			</form>
 		</div>

@@ -33,13 +33,7 @@
     filter: brightness(70%)
 }
 
-.risultati-sessioni
-{
-    border-collapse: collapse;
-    height: calc(40vh);    
-    text-align: center; 
-    border: 1px solid white;
-}
+
 
 .link-sessione
 {
@@ -59,4 +53,24 @@
     position: relative;
     display: inline-block;
 }
-  
+
+.risultati-sessioni
+{
+    
+    height: calc(40vh);    
+    text-align: center; 
+    text-align: center; 
+    overflow-y: scroll;
+    border: 5px solid #7165b346;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px; /* Adjust the value as per your preference */
+    overflow: hidden;
+    
+}
+
+.sessioni-cell
+{
+    border: 1px solid #7165b346;
+    background-color: #131025;
+}

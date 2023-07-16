@@ -1,0 +1,115 @@
+.container-team
+{
+    background-color: #221c43d2;
+    padding: 20px;
+    display: grid;
+    max-width: 70%;
+}
+
+.row-team
+{
+    border-top-right-radius: 25px;
+    padding-top: 40px;
+    border-right-color: white;
+    border-top-color: white;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-top-width: 10px;
+    border-right-width: 10px;
+}
+
+@font-face
+{
+    font-family: 'F1-font';
+    src: url(/static/font/Formula1-Bold_web_0.ttf);
+}
+
+@font-face
+{
+    font-family: 'F1-font-r';
+    src: url(/static/font/Formula1-Regular_web_0.ttf);
+}
+
+.font-title
+{
+    font-family: 'F1-font';
+    line-height: 23px;
+    letter-spacing: .2px;
+}
+
+.font-num
+{
+    font-family: 'F1-font';
+    font-size: 25px;
+}
+
+.font-name
+{
+    font-family: 'F1-font-r';
+    font-size: 25px;
+}
+
+.block
+{
+    border-top-right-radius: 25px;
+    padding-top: 10px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-top-width: 4px;
+    border-right-width: 4px;
+}
+
+.bord-out
+{
+    border-right-color: rgba(255, 255, 255, 0.494);
+    border-top-color: rgba(255, 255, 255, 0.494);
+}
+
+.bord-in
+{
+    border-right-color: red;
+    border-top-color: red;
+}
+
+.click:hover
+{
+    text-decoration: none;
+}
+
+.item 
+{
+    border-bottom-right-radius: 25px;
+    padding-top: 10px;
+    border-bottom-color: rgba(255, 255, 255, 0.494);
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+}
+
+
+@media screen and (min-width: 1001px) {
+    .font-title {
+      font-size: 70px;
+    }
+    
+    .font-num {
+        font-size: 25px;
+    }
+
+    .font-name {
+        font-size: 25px;
+    }
+  }
+  
+  @media screen and (max-width: 1000px) {
+    .font-title {
+      font-size: 30px;
+    }
+
+    .font-num {
+        font-size: 19px;
+    }
+
+    .font-name {
+        font-size: 10px;
+    }
+}

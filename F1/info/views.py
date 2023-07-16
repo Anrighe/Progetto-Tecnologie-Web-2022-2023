@@ -1,5 +1,5 @@
 from django.views.generic.list import ListView
-from info.models import Circuito, Partecipazione, Scuderia, Sessione
+from info.models import Circuito, Partecipazione, Scuderia, Sessione, Pilota
 
 from media.forms import FormUtente
 
@@ -32,6 +32,17 @@ class CircuitiView(ListView):
 class ScuderiaView(ListView):
     model = Scuderia
     template_name = 'info/scuderia.html'
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        scuderie = Scuderia.objects.all().order_by('-punti')
+        piloti = Pilota.objects.all()
+
+        context['piloti'] = piloti
+        context['scuderie'] = scuderie
+        
+        return context
 
 
 class SessioniView(ListView):

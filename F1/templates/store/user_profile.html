@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
-
 {% load crispy_forms_tags %} 
+{% load static %}
 
+{% block head %} 
+
+	<link rel="stylesheet" type="text/css" href="{%static 'css/style_profilo.css'%}">
+
+{% endblock %}
 
 {% block title %} F1 - Profilo {{ form.user_group_name }} {% endblock %} 
 
@@ -11,18 +16,203 @@
 
 {% block content %} 
 
-	<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto" style="max-width: 700px;">
-		<div class="ml-4 mr-4 mt-2 mb-2 mx-auto" style="max-width: 600px; display: flex; color: white;" align="center">
-			<h1>Profilo di {{ user.username }}</h1>
-		</div>
-		
-		{% if utente %}
-			<div class="mx-auto" style="color: white;">
-				<img src="{{ utente.immagine_profilo }}" style="color: white; max-width: 50%"></img>
-			</div>
-		{% endif %}
-	</div>
+	{% if utente %}
 
+		{% include 'store/user_profile_modal.html' %}
+
+		<!-- Dati utente -->
+		<div class="profilo-container text-white f1-font-bold mt-2 ml-2 mr-2">
+			<div id="profile" class="background-profile-darker" style="overflow-x: hidden;">
+				<div class="row">
+
+					<div class="col-lg-4 background-profile">
+						<div class="card-body text-center mt-4 ml-4">
+							<div id="profile-image-container" class="mx-auto">
+								<img id="profile-image" src="{{ utente.immagine_profilo }}" alt="avatar" class="img-fluid">
+							</div>
+							<script src="{%static 'js/user_profile_image_upload_modal.js'%}"></script>
+					
+							<h6 class="my-3">{{ user.username }}</h6>
+
+							<br>
+							<p class="text-muted mb-0">Ultimo accesso {{ user.last_login }}</p>
+
+							<div id="modifica-profilo"class="d-flex justify-content-center mt-4">		
+								<a href="{% url 'store:modify_update' pk=request.user.utente.pk %}">
+									<button type="button" class="profile-button">Modifica profilo</button>
+								</a>
+							</div>
+						</div>
+					</div>
+					
+					<div id="user-data" class="col-lg-8 background-profile-darker">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Nome</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0" >{{ user.first_name }}</p>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Cognome</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0" >{{ user.last_name }}</p>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Indirizzo Email</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">{{ user.email }}</p>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Data di nascita</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">{{ utente.data_nascita }}</p>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Sesso</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">{{ utente.get_sesso_display }}</p>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Paese</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">{{ utente.paese.name }}</p>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Telefono</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">{{ utente.telefono }}</p>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Premium</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">{{ utente.premium }}</p>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Carta di credito</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">{{ utente.carta_credito }}</p>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">Scadenza carta</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">{{ utente.scadenza_carta }}</p>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<p class="mb-0">CVV</p>
+								</div>
+								<div class="col-sm-8">
+									<p class="text-muted mb-0">{% if utente.cvv %}***{% endif %}</p>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+				
+			</div>
+		
+			<!-- Ordini -->
+			<div class="background-profile-darker card">
+				<h2 class="mx-auto f1-font-bold mt-2">I tuoi ordini</h2>
+				<table class="order-table mt-3 ml-2 mr-2">
+					<tr class="">
+						<th class="order-cell f1-font-bold">Articolo</th>
+						<th class="order-cell f1-font-bold">Data acquisto</th>
+						<th class="order-cell f1-font-bold">Prezzo</th>
+					</tr>
+					<tr>
+						<th class="order-cell f1-font-regular">BIGLIETTO 1</td>
+						<th class="order-cell f1-font-regular">26/06/2023</td>
+						<th class="order-cell f1-font-regular">59,99€</td>
+					</tr>
+					<tr>
+						<th class="order-cell f1-font-regular">BIGLIETTO 2</td>
+						<th class="order-cell f1-font-regular">26/06/2023</td>
+						<th class="order-cell f1-font-regular">59,99€</td>
+					</tr>
+					<tr>
+						<th class="order-cell f1-font-regular">BIGLIETTO 3</td>
+						<th class="order-cell f1-font-regular">26/06/2023</td>
+						<th class="order-cell f1-font-regular">59,99€</td>
+					</tr>
+
+				</table>
+			</div>
+		</div>	
+	{% endif %}
+	
 {% endblock %}
 
 {% block footer %} {% endblock %}
