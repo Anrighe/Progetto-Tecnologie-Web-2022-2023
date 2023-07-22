@@ -11,6 +11,6 @@ urlpatterns = [
     path('circuiti/', CircuitiView.as_view(), name='circuiti'),
     path('circuiti/<pk>/', CircuitoView.as_view(), name='circuito'),
     path('scuderie/', ScuderieView.as_view(), name='scuderie' ),
-    path('scuderie/<pk>/', TeamView.as_view(), name='team'),
+    path('scuderie/team/<pk>/', TeamView.as_view(), name='team'),
     path('pilota/<pk>/', PilotaView.as_view(), name='pilota'),
 ]
