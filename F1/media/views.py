@@ -9,10 +9,6 @@ from django.shortcuts import redirect
 
 from django.shortcuts import render
 
-def crispy(request):
-    context = {'form': FormUtente()}
-    return render(request, 'media/crispy.html', context)
-
 
 class HomePageView(ListView):
     model = News
@@ -44,6 +40,9 @@ class HomePageView(ListView):
         # aggiungere [:n] con n = numero massimo di elementi da mostrare per ridurre le news caricate
         news = News.objects.filter().order_by('-data')
         context['news'] = news
+
+        circuiti = Circuito.objects.all().order_by('data_evento')
+        context['circuiti'] = circuiti
 
         return context
     

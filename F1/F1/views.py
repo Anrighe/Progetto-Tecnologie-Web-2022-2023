@@ -7,8 +7,6 @@ from store.models import Utente, Gestore_Circuito
 from media.models import PortaleF1
 import os
 
-def prova(request):
-    return render(request,template_name='base.html')
 
 def UserCreateSelection(request):
     return render(request, template_name='registration/user_type_selection.html')

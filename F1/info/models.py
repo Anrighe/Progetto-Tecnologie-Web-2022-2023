@@ -56,6 +56,7 @@ class Circuito(models.Model):
     numero_giri = models.PositiveIntegerField()
     inaugurazione = models.DateField()
     storia = models.CharField(max_length=10000, default='')
+    data_evento = models.DateField(null=True, blank=True, default=None)
 
     class Meta:
         verbose_name_plural = 'Circuiti'

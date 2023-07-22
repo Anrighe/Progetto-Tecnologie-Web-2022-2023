@@ -22,29 +22,13 @@
 		<div class="container-fluid">
 			<div id="carousel-example" class="carousel slide" data-ride="carousel" data-interval="false">
 				<div class="carousel-inner row w-75 mx-auto" role="listbox">
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
-						<a href="{% url 'info:monaco' %}">
-							<img src="/static/images/circuits/previews/Monaco_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img1">
-						</a>
-					</div>
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-						<img src="/static/images/circuits/previews/Spanish_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img2">
-					</div>
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-						<img src="/static/images/circuits/previews/Canadian_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img3">
-					</div>
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-						<img src="/static/images/circuits/previews/Austrian_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img4">
-					</div>
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-						<img src="/static/images/circuits/previews/British_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img5">
-					</div>
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-						<img src="/static/images/circuits/previews/Hungarian_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img6">
-					</div>
-					<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-						<img src="/static/images/circuits/previews/Belgian_Grand_Prix.png" class="img-fluid d-block carousel-image" alt="img6">
-					</div>
+					{% for circuito in circuiti %}
+						<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 {% if forloop.counter == 1 %}active{% endif %}">
+							<a href="{% url 'info:circuito' pk=circuito.id %}">
+								<img src="{{ circuito.preview }}" class="img-fluid d-block carousel-image" alt="img{{forloop.counter}}">
+							</a>
+						</div>
+					{% endfor %}
 				</div>
 				<a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
