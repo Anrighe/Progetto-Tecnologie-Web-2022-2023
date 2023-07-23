@@ -47,6 +47,7 @@ class ScuderieView(ListView):
         
         return context
     
+
 class TeamView(ListView):
     model = Scuderia
     template_name = 'info/team.html'

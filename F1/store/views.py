@@ -1,8 +1,9 @@
+from typing import Any, Dict
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
-from store.models import Utente
+from store.models import Utente, TipologiaBiglietto
 from django.core.files.storage import FileSystemStorage
 import os
 from PIL import Image
@@ -190,3 +191,17 @@ def UserProfile(request):
     ctx = {'utente': utente}
 
     return render(request, 'store/user_profile.html', ctx)    
+
+
+class StoreView(ListView):
+    model = TipologiaBiglietto
+    template_name = 'store/store.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        tipologie_biglietti = TipologiaBiglietto.objects.all()
+        
+        context['tipologie_biglietti'] = tipologie_biglietti
+        
+        return context

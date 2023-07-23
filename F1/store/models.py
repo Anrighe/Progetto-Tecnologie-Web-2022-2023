@@ -87,25 +87,33 @@ class Carrello(models.Model):
         verbose_name_plural = 'Carrelli'
 
 
-class Biglietto(models.Model):
+class TipologiaBiglietto(models.Model):
     titolo = models.CharField(max_length=50)
     data_evento = models.DateField(null=False, blank=False, default=date.today)
     prezzo = models.FloatField(validators=[valida_non_negativi])
-    numero_posto = models.PositiveIntegerField()
+    totale_posti = models.PositiveIntegerField()
 
-    # Se un preciso biglietto è stato acquistato è contenuto in al più un ordine
-    # Se non è stato acquistato non è contenuto in nessun ordine
-    ordine = models.ForeignKey(Ordine, on_delete=models.PROTECT, null=True, blank=True)
-
-    # Un preciso biglietto può essere contenuto da 0 a N carrelli
-    # Esempio: più utenti hanno inserito lo stesso biglietto nel proprio carrello
-    carrello = models.ManyToManyField(Carrello, blank=True)
-
-    # Un preciso biglietto viene pubblicato nel negozio da uno e un solo gestore di un circuito
+    # Una precisa tipologia di biglietto viene pubblicata nello store da uno e un solo gestore di un circuito
     gestore_circuito = models.ForeignKey(Gestore_Circuito, on_delete=models.PROTECT, null=False, blank=False)
 
     class Meta:
+        verbose_name_plural = 'Tipologia Biglietti'
+
+
+class IstanzaBiglietto(models.Model):
+    numero_posto = models.PositiveIntegerField()
+
+    # Se una precisa istanza di biglietto è stata acquistata è contenuta in al più un ordine
+    # Se non è stato acquistata non è contenuta in nessun ordine
+    ordine = models.ForeignKey(Ordine, on_delete=models.PROTECT, null=True, blank=True)
+
+    # Una precisa istanza di biglietto può essere contenuta da 0 a N carrelli
+    # Esempio: più utenti hanno inserito lo stesso biglietto nel proprio carrello
+    carrello = models.ManyToManyField(Carrello, blank=True)
+
+    class Meta:
         verbose_name_plural = 'Bliglietti'
+
 
 
 
