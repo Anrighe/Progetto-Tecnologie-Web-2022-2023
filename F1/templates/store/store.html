@@ -9,13 +9,13 @@
 
 {% endblock %}
 
-{% block title %} F1 - Store {% endblock %}
+{% block title %}F1 - Store{% endblock %}
 
 {% block content %}
 
-<div class="highlight-container mt-4 ml-4 mr-4 mb-4 text-white">
+<div class="store-container mt-4 ml-4 mr-4 mb-4 text-white">
     <div class="query-page-selector-container" align="right">
-        <h1 class="ml-4 mt-2 f1-font-bold mt-2">Biglietti disponibili</h1> 
+        <h1 class="ml-4 mt-2 f1-font-bold mt-2">Store</h1> 
         <div class="query-page-selector-container mt-2" align="right">
             
             {% if highlights.has_previous %}
@@ -46,19 +46,47 @@
         </div>
     </div>
     <hr class="solid ml-4 mr-4 divisore"></hr>
-    <div class="video-preview-container">
 
-        {% for highlight in highlights %}
-            <a href="{% url 'media:highlight_video' pk=highlight.id %}" class="card-video-preview video-preview ml-4 mr-4 mb-2">
+    <div class="container-fluid main_container text-white">
+        <div class="row">
+                {% for tipologia_biglietto in tipologie_biglietti %}
+                <div class="col-sm-3 bg-success" style="height: 37vh">
+                    
+                    <div class="product-item mx-auto mt-2 mb-2">
+                        <a href="/">
+                        
+                        <img class="mx-auto" src="{% static 'images/registration/utente_registrazione.jpg' %}" style="height: 10vh;">
+                        <h3>{{ tipologia_biglietto.titolo }}</h3>
+                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="price">$18.00</span>
+                        <div class="d-flex align-items-center justify-content-between">
+
+                            <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                        </div>
+                        </div>
+                        </a>
+                    </div>
+                {% endfor %}    
+            </div>
+        </div>
+    
+        <!--
+        {% for tipologia_biglietto in tipologie_biglietti %}
+            <a href="" class="ml-4 mr-4 mb-2">
                 <div>
-                    <img class="video-highlight" src="{{highlight.preview}}">
+                    <img class="" src="{% static 'images/registration/utente_registrazione.jpg' %}">
                     <i class="icon icon-play video-icon"></i>
                 </div>
                 <div class="mt-2">
-                    <p class="highlight-name f1-font-regular">{{highlight.titolo}}</p>
+                    <p class="highlight-name f1-font-regular">{{ tipologia_biglietto.titolo }}</p>
                 </div>
             </a>
-        {% endfor %}
+
+        {% endfor %}-->
+
+
+
+
         <!--
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
@@ -102,18 +130,6 @@
 
 
 
-        {% for tipologia_biglietto in tipologie_biglietti %}
-            <a href="" class="card-video-preview video-preview ml-4 mr-4 mb-2">
-                <div>
-                    <img class="video-highlight" src="{% static 'images/registration/utente_registrazione.jpg' %}">
-                    <i class="icon icon-play video-icon"></i>
-                </div>
-                <div class="mt-2">
-                    <p class="highlight-name f1-font-regular">{{ tipologia_biglietto.titolo }}</p>
-                </div>
-            </a>
-
-        {% endfor %}
         
     </div>
 </div>
