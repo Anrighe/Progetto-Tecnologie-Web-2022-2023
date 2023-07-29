@@ -91,7 +91,7 @@
                     </a>
                 </li>
 				<li class="nav-item d-none d-lg-block">
-					<a class="nav-link mr-2" href="{% url 'store:profile' %}">
+					<a class="nav-link mr-2" href="{% if user.is_superuser %}/admin/{% else %}{% url 'store:profile' %}{% endif %}">
 						<i class="fa fa-user"></i>
 					</a>
 				</li>
