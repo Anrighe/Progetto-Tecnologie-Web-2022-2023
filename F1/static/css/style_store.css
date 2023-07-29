@@ -30,3 +30,61 @@
 {
     filter: brightness(70%); /* I bottoni per muoversi tra le pagine delle query diventano scuri se ci si mette il mouse sopra */
 }
+
+.product-info
+{
+    filter:brightness(100%);
+    text-decoration: none;
+    color: white;
+}
+.product-info:hover
+{
+    filter:brightness(70%);
+    text-decoration: none;
+    color: white;
+}
+
+.product-background-darker
+{
+    background-color: #17132ee5;
+}
+
+.card-product-preview
+{
+    border-radius: 10px;
+    background-color: #17132ee5;
+    font-weight: bold;
+    color: white;
+    overflow: hidden;
+    border: solid 3px rgb(146, 8, 151);
+}
+
+.product-preview-image
+{
+    height: 25vh;
+    display: flex;
+    width: 100%;
+}
+
+button
+{
+    background-color: #5144a0;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    height: 40px;
+}
+
+
+button:hover
+{
+    cursor: pointer;
+    filter: brightness(70%); /* I bottoni per muoversi tra le pagine delle query diventano scuri se ci si mette il mouse sopra */
+}
+

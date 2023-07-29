@@ -20,10 +20,10 @@
             
             {% if highlights.has_previous %}
                 <a href="{% url 'media:highlight' %}?page={{ request.GET.page|add:-1 }}">        
-                    <button class="query-page-selector-button mr-2 mt-2 f1-font-regular">Precedente</button>  
+                    <button class="mr-2 mt-2 f1-font-regular">Precedente</button>  
                 </a>
             {% else %}
-                <button class="query-page-selector-button mr-2 mt-2 f1-font-regular disabled-button">Precedente</button> 
+                <button class="mr-2 mt-2 f1-font-regular disabled-button">Precedente</button> 
             {% endif %}
 
             <h2 class="ml-auto mt-2 mr-2 f1-font-regular">[ </h2>
@@ -36,10 +36,10 @@
             
             {% if highlights.has_next %}
                 <a href="{% url 'media:highlight' %}?page={{ request.GET.page|add:1 }}">
-                    <button class="query-page-selector-button ml-auto mr-4 mt-2 f1-font-regular">Prossimo</button>    
+                    <button class="ml-auto mr-4 mt-2 f1-font-regular">Prossimo</button>    
                 </a>
             {% else %}
-                <button class="query-page-selector-button ml-auto mr-4 mt-2 f1-font-regular disabled-button">Prossimo</button> 
+                <button class="ml-auto mr-4 mt-2 f1-font-regular disabled-button">Prossimo</button> 
             {% endif %}
 
 
@@ -50,23 +50,40 @@
     <div class="container-fluid main_container text-white">
         <div class="row">
                 {% for tipologia_biglietto in tipologie_biglietti %}
-                <div class="col-sm-3 bg-success" style="height: 37vh">
+                <div class="col-sm-3" style="height: 43vh; padding: 10px;" style="display: block;">
                     
-                    <div class="product-item mx-auto mt-2 mb-2">
-                        <a href="/">
+                    <div class="product-item mx-auto  card-product-preview f1-font-regular " style="">
+                        <a class="product-info" href="/">
                         
-                        <img class="mx-auto" src="{% static 'images/registration/utente_registrazione.jpg' %}" style="height: 10vh;">
-                        <h3>{{ tipologia_biglietto.titolo }}</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
+                            <img class="mx-auto product-preview-image" src="{% static 'images\circuits\previews\Belgian_Grand_Prix.png' %}">
+                            <div class="" style="display: flex;">
+                                <p class="f1-font-bold mx-auto" >{{ tipologia_biglietto.titolo }}</p>
+                            </div>
 
-                            <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                        </div>
+                            <div class="row">
+                                <p class="col-6 " style="text-align: left;  left: 15px;">1 Unit</p>
+
+                                <p class="col-6" style="text-align: right;  right: 15px;">{{ tipologia_biglietto.prezzo }}€</p>
+                            </div>
+
+
+
+                            <div class="d-flex align-items-center justify-content-between">
+                                <a href="#" class=" f1-font-regular">
+                                    <button class="f1-font-regular" style="width: 60px; height:40px; margin-right: 10px; margin-bottom: 10px;">
+                                        <i class="fa fa-shopping-cart" style="font-size: 30px;"></i>
+                                    </button>
+                                    
+                                    
+                                </a>
+                            </div>
+                        
+
+                            </div>
                         </a>
                     </div>
-                {% endfor %}    
+                {% endfor %}
+    
             </div>
         </div>
     
