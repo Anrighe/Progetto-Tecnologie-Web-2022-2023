@@ -18,6 +18,17 @@
         <h1 class="ml-4 mt-2 f1-font-bold mt-2">Store</h1> 
         <div class="query-page-selector-container mt-2" align="right">
             
+            <div class="dropdown f1-font-regular">
+                <button class="mt-2 mr-4">Filtra articoli</button>
+                <div class="dropdown-content" align="left">         
+                    <a href="">Prezzo ▲</a>
+                    <a href="">Prezzo ▼</a>
+                    <a href="">Data ▲</a>
+                    <a href="">Data ▼</a>
+                </div>
+            </div>
+
+
             {% if highlights.has_previous %}
                 <a href="{% url 'media:highlight' %}?page={{ request.GET.page|add:-1 }}">        
                     <button class="mr-2 mt-2 f1-font-regular">Precedente</button>  
@@ -65,16 +76,33 @@
 
                                 <p class="col-6" style="text-align: right;  right: 15px;">{{ tipologia_biglietto.prezzo }} €</p>
                             </div>
+                            
+                            <div class="row">
+                                <p class="col-6">
+                                    <div class="dropdown f1-font-regular">
+                                        <button class="">Posti disponibili</button>
+                                        <div class="dropdown-content" align="left">         
+                                            <a href="">Posto 1</a>
+                                            <a href="">Posto 2</a>
+                                            <a href="">Posto 3</a>
+                                            <a href="">Posto 4</a>
+                                        </div>
+                                    </div>
+                                </p>
 
-
-
-                            <div class="d-flex align-items-center justify-content-between">
-                                <a href="#" class=" f1-font-regular">
-                                    <button class="f1-font-regular" style="width: 60px; height:40px; margin-right: 10px; margin-bottom: 10px;">
-                                        <i class="fa fa-shopping-cart" style="font-size: 30px;"></i>
-                                    </button>
-                                </a>
+                                <p class="col-6" style="text-align: right;">
+                                    
+                                        <a href="#" class=" f1-font-regular">
+                                            <button class="f1-font-regular" style="width: 70px; height:40px;  margin-bottom: 10px;">
+                                                <i class="fa fa-shopping-cart" style="font-size: 30px;"></i>
+                                            </button>
+                                        </a>
+                                    
+                                </p>
                             </div>
+
+
+
 
                         </a>
                     </div>
