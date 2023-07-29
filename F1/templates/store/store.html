@@ -49,23 +49,24 @@
 
     <div class="container-fluid main_container text-white">
         <div class="row">
-                {% for tipologia_biglietto in tipologie_biglietti %}
+            {% for tipologia_biglietto in tipologie_biglietti %}
                 <div class="col-sm-3" style="height: 43vh; padding: 10px;" style="display: block;">
                     
                     <div class="product-item mx-auto  card-product-preview f1-font-regular " style="">
                         <a class="product-info" href="/">
                         
                             <img class="mx-auto product-preview-image" src="{% static 'images\circuits\previews\Belgian_Grand_Prix.png' %}">
-                            
                             <div class="" style="display: flex;">
                                 <p class="f1-font-bold mx-auto" >{{ tipologia_biglietto.titolo }}</p>
                             </div>
 
                             <div class="row">
-                                <p class="col-6" style="text-align: left;  left: 15px;">10 Biglietti rimanenti</p>
+                                <p class="col-6 " style="text-align: left;  left: 15px;">10 Biglietti rimanenti</p>
 
                                 <p class="col-6" style="text-align: right;  right: 15px;">{{ tipologia_biglietto.prezzo }} €</p>
                             </div>
+
+
 
                             <div class="d-flex align-items-center justify-content-between">
                                 <a href="#" class=" f1-font-regular">
@@ -74,12 +75,14 @@
                                     </button>
                                 </a>
                             </div>
-                        </a>
 
+                        </a>
                     </div>
-                {% endfor %}
+
+                </div>
+            {% endfor %}
     
-            </div>
+            
         </div>
     
     </div>
