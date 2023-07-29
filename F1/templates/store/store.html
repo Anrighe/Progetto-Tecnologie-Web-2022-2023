@@ -56,98 +56,32 @@
                         <a class="product-info" href="/">
                         
                             <img class="mx-auto product-preview-image" src="{% static 'images\circuits\previews\Belgian_Grand_Prix.png' %}">
+                            
                             <div class="" style="display: flex;">
                                 <p class="f1-font-bold mx-auto" >{{ tipologia_biglietto.titolo }}</p>
                             </div>
 
                             <div class="row">
-                                <p class="col-6 " style="text-align: left;  left: 15px;">1 Unit</p>
+                                <p class="col-6" style="text-align: left;  left: 15px;">10 Biglietti rimanenti</p>
 
-                                <p class="col-6" style="text-align: right;  right: 15px;">{{ tipologia_biglietto.prezzo }}€</p>
+                                <p class="col-6" style="text-align: right;  right: 15px;">{{ tipologia_biglietto.prezzo }} €</p>
                             </div>
-
-
 
                             <div class="d-flex align-items-center justify-content-between">
                                 <a href="#" class=" f1-font-regular">
                                     <button class="f1-font-regular" style="width: 60px; height:40px; margin-right: 10px; margin-bottom: 10px;">
                                         <i class="fa fa-shopping-cart" style="font-size: 30px;"></i>
                                     </button>
-                                    
-                                    
                                 </a>
                             </div>
-                        
-
-                            </div>
                         </a>
+
                     </div>
                 {% endfor %}
     
             </div>
         </div>
     
-        <!--
-        {% for tipologia_biglietto in tipologie_biglietti %}
-            <a href="" class="ml-4 mr-4 mb-2">
-                <div>
-                    <img class="" src="{% static 'images/registration/utente_registrazione.jpg' %}">
-                    <i class="icon icon-play video-icon"></i>
-                </div>
-                <div class="mt-2">
-                    <p class="highlight-name f1-font-regular">{{ tipologia_biglietto.titolo }}</p>
-                </div>
-            </a>
-
-        {% endfor %}-->
-
-
-
-
-        <!--
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
-
-              <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-              
-                <div class="col">
-                  <div class="product-item">
-                    <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                    <figure>
-                      <a href="product-single.html" title="Product Title">
-                        <img src="{% static 'images/registration/utente_registrazione.jpg' %}" class="tab-image">
-                      </a>
-                    </figure>
-                    <h3>Sunstar Fresh Melon Juice</h3>
-                    <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                    <span class="price">$18.00</span>
-                    <div class="d-flex align-items-center justify-content-between">
-                      <div class="input-group product-qty">
-                          <span class="input-group-btn">
-                              <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
-                                <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                              </button>
-                          </span>
-                          <input type="text" id="quantity" name="quantity" class="form-control input-number" value="10" min="1" max="100">
-                          <span class="input-group-btn">
-                              <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
-                                  <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                              </button>
-                          </span>
-                      </div>
-                      <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              
-            </div>
-        </div>-->
-
-
-
-        
     </div>
 </div>
     
