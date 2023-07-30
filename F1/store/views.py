@@ -18,8 +18,6 @@ from store.forms import UserProfileFormData
 
 
 
-
-
 # Classe che gestisce la modifica dei dati dell'utente
 class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
     model = Utente

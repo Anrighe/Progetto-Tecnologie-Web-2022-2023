@@ -64,28 +64,32 @@
                 <div class="col-sm-3" style="height: 43vh; padding: 10px;" style="display: block;">
                     
                     <div class="product-item mx-auto  card-product-preview f1-font-regular " style="">
-                        <a class="product-info" href="/">
                         
-                            <img class="mx-auto product-preview-image" src="{% static 'images\circuits\previews\Belgian_Grand_Prix.png' %}">
+                            <a href="{% url 'info:circuito' pk=tipologia_biglietto.gestore_circuito.gestione_circuito.id %}">
+                                <img class="mx-auto product-preview-image product-info" src="{% static 'images\circuits\previews\Belgian_Grand_Prix.png' %}">
+                            </a>
                             <div class="" style="display: flex;">
-                                <p class="f1-font-bold mx-auto" >{{ tipologia_biglietto.titolo }}</p>
+                                <p class="f1-font-bold mx-auto">{{ tipologia_biglietto.titolo }}</p>
                             </div>
 
                             <div class="row">
-                                <p class="col-6 " style="text-align: left;  left: 15px;">10 rimanenti</p>
+                                <p class="col-6" style="text-align: left;  left: 15px;">10 rimanenti</p>
 
                                 <p class="col-6" style="text-align: right;  right: 15px;">{{ tipologia_biglietto.prezzo }} €</p>
                             </div>
                             
                             <div class="row">
-                                <div class="col-6">
-                                    <div class="dropdown f1-font-regular ml-2">
-                                        <button class="">Disponibilità</button>
-                                        <div class="dropdown-content" align="left">         
-                                            <a href="">Posto 1</a>
-                                            <a href="">Posto 2</a>
-                                            <a href="">Posto 3</a>
-                                            <a href="">Posto 4</a>
+                                <div class="col-6" style="">
+                                    <div class="dropdown f1-font-regular ml-2" >
+                                        <button class="dropdown-btn">Disponibilità</button>
+                                        <div class="dropdown-content" style="overflow-y: scroll; max-height: 300px; bottom: 100%;">
+                                            <a href="#" class="ticket" style="">Posto 1</a>
+                                            <a href="#" class="ticket">Posto 2</a>
+                                            <a href="#" class="ticket">Posto 3</a>
+                                            <a href="#" class="ticket">Posto 4</a>
+                                            <a href="#" class="ticket">Posto 5</a>                                            
+                                            <a href="#" class="ticket">Posto 6</a>                                            
+                                            <a href="#" class="ticket">Posto 7</a>
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +108,7 @@
 
 
 
-                        </a>
+                        
                     </div>
 
                 </div>

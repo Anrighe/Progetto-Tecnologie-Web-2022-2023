@@ -73,3 +73,38 @@ button:hover
     filter: brightness(70%); /* I bottoni per muoversi tra le pagine delle query diventano scuri se ci si mette il mouse sopra */
 }
 
+.dropdown-content
+{
+    display: none;
+    position: absolute;
+     /* Position the dropdown above the button */
+    left: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    border: 1px solid #ddd;
+    z-index: 9999; /* Set a high z-index value to make it appear over everything */
+}
+
+/* Show the dropdown content when the button is hovered or focused */
+.dropdown:hover .dropdown-content-up,
+.dropdown:focus .dropdown-content-up 
+{
+    justify-content: center;
+    text-align: center;
+    display: block;
+}
+
+.ticket:focus
+{
+    background-color: rgb(116, 116, 116);
+}
+
+.ticket
+{
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+}
+
+
+
