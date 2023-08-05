@@ -81,15 +81,16 @@
                             <div class="row">
                                 <div class="col-6" style="">
                                     <div class="dropdown f1-font-regular ml-2" >
-                                        <button class="dropdown-btn">Disponibilità</button>
-                                        <div class="dropdown-content" style="overflow-y: scroll; max-height: 300px; bottom: 100%;">
-                                            <a href="#" class="ticket" style="">Posto 1</a>
-                                            <a href="#" class="ticket">Posto 2</a>
-                                            <a href="#" class="ticket">Posto 3</a>
-                                            <a href="#" class="ticket">Posto 4</a>
-                                            <a href="#" class="ticket">Posto 5</a>                                            
-                                            <a href="#" class="ticket">Posto 6</a>                                            
-                                            <a href="#" class="ticket">Posto 7</a>
+                                        <button class="dropdown-btn">Disponibilità ▲</button>
+                                        <div class="dropdown-content">
+
+                                            {% for istanza_biglietto in istanze_biglietti %}
+                                                {% if istanza_biglietto.tipologia_biglietto == tipologia_biglietto %}
+                                                    <a href="#" class="ticket">Posto {{istanza_biglietto.numero_posto}}</a>
+                                                {% endif %}
+
+                                            {% endfor %}
+
                                         </div>
                                     </div>
                                 </div>

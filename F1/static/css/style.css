@@ -83,20 +83,20 @@ body
 /* Track */
 ::-webkit-scrollbar-track 
 {
-    background-color: rgba(113, 84, 133, 0.514);
+    background-color: rgb(114, 84, 133);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb 
 {
-    background: rgba(42, 0, 109, 0.507); 
+    background: rgba(27, 1, 68, 0.507); 
     border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover 
 {
-    background: rgba(31, 0, 80, 0.699); 
+    background: rgba(7, 0, 17, 0.589); 
 }
 
 #container 

@@ -82,6 +82,9 @@ button:hover
     background-color: #f9f9f9;
     min-width: 160px;
     border: 1px solid #ddd;
+    overflow-y: auto; 
+    max-height: 300px; 
+    bottom: 100%;
     z-index: 9999; /* Set a high z-index value to make it appear over everything */
 }
 

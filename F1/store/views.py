@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
-from store.models import Utente, TipologiaBiglietto
+from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto
 from django.core.files.storage import FileSystemStorage
 import os
 from PIL import Image
@@ -199,7 +199,11 @@ class StoreView(ListView):
         context = super().get_context_data(**kwargs)
         
         tipologie_biglietti = TipologiaBiglietto.objects.all()
+
+        istanze_biglietti = IstanzaBiglietto.objects.all()
         
         context['tipologie_biglietti'] = tipologie_biglietti
+
+        context['istanze_biglietti'] = istanze_biglietti
         
         return context
