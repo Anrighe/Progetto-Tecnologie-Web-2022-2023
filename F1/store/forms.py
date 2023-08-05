@@ -22,3 +22,16 @@ class UserProfileFormData(forms.Form):
     def add_tooltips(self):
         for field_name, field in self.fields.items():
             field.widget.attrs['title'] = field.label
+        
+
+class TicketForm(forms.Form):
+    
+    tipologia_biglietti = forms.ChoiceField(label='Disponibilità', choices=[], required=True, initial="1")
+    
+    def __init__(self, *args, **kwargs):
+        super(TicketForm, self).__init__(*args, **kwargs)
+        self.add_tooltips()
+
+    def add_tooltips(self):
+        for field_name, field in self.fields.items():
+            field.widget.attrs['title'] = field.label

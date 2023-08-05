@@ -112,7 +112,7 @@ class IstanzaBiglietto(models.Model):
     carrello = models.ManyToManyField(Carrello, blank=True)
 
     # Ogni istanza di un biglietto si riferisce a una e una sola tipologia di biglietto
-    tipologia_biglietto = models.OneToOneField(TipologiaBiglietto, on_delete=models.PROTECT, blank=False, default=None, null=True)
+    tipologia_biglietto = models.ForeignKey(TipologiaBiglietto, on_delete=models.PROTECT, blank=False, default=None, null=True)
 
     class Meta:
         verbose_name_plural = 'Istanza Biglietti'

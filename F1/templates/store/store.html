@@ -28,7 +28,6 @@
                 </div>
             </div>
 
-
             {% if highlights.has_previous %}
                 <a href="{% url 'media:highlight' %}?page={{ request.GET.page|add:-1 }}">        
                     <button class="mr-2 mt-2 f1-font-regular">Precedente</button>  
@@ -53,7 +52,6 @@
                 <button class="ml-auto mr-4 mt-2 f1-font-regular disabled-button">Prossimo</button> 
             {% endif %}
 
-
         </div>
     </div>
     <hr class="solid ml-4 mr-4 divisore"></hr>
@@ -61,60 +59,54 @@
     <div class="container-fluid main_container text-white">
         <div class="row">
             {% for tipologia_biglietto in tipologie_biglietti %}
+                {% with forloop_id=forloop.counter %}
                 <div class="col-sm-3" style="height: 43vh; padding: 10px;" style="display: block;">
                     
                     <div class="product-item mx-auto  card-product-preview f1-font-regular " style="">
                         
-                            <a href="{% url 'info:circuito' pk=tipologia_biglietto.gestore_circuito.gestione_circuito.id %}">
-                                <img class="mx-auto product-preview-image product-info" src="{% static 'images\circuits\previews\Belgian_Grand_Prix.png' %}">
-                            </a>
-                            <div class="" style="display: flex;">
-                                <p class="f1-font-bold mx-auto">{{ tipologia_biglietto.titolo }}</p>
-                            </div>
+                        <a href="{% url 'info:circuito' pk=tipologia_biglietto.gestore_circuito.gestione_circuito.id %}">
+                            <img class="mx-auto product-preview-image product-info" src="{% static 'images\circuits\previews\Belgian_Grand_Prix.png' %}">
+                        </a>
+                        <div class="" style="display: flex;">
+                            <p class="f1-font-bold mx-auto">{{ tipologia_biglietto.titolo }}</p>
+                        </div>
 
-                            <div class="row">
-                                <p class="col-6" style="text-align: left;  left: 15px;">10 rimanenti</p>
+                        <div class="row">
+                            <p class="col-6" style="text-align: left;  left: 15px;">10 rimanenti</p>
 
-                                <p class="col-6" style="text-align: right;  right: 15px;">{{ tipologia_biglietto.prezzo }} €</p>
-                            </div>
+                            <p class="col-6" style="text-align: right;  right: 15px;">{{ tipologia_biglietto.prezzo }} €</p>
+                        </div>
+                                    
+                        <div class="row">
                             
-                            <div class="row">
-                                <div class="col-6" style="">
-                                    <div class="dropdown f1-font-regular ml-2" >
-                                        <button class="dropdown-btn">Disponibilità ▲</button>
-                                        <div class="dropdown-content">
+                            <div class="col-6" style="">
+                                <div class="dropdown f1-font-regular ml-2" >
+                                    <button id=button{{ forloop_id }} class="dropdown-btn">Disponibilità ▲</button>
+                                    <div class="dropdown-content">
 
-                                            {% for istanza_biglietto in istanze_biglietti %}
-                                                {% if istanza_biglietto.tipologia_biglietto == tipologia_biglietto %}
-                                                    <a href="#" class="ticket">Posto {{istanza_biglietto.numero_posto}}</a>
-                                                {% endif %}
-
-                                            {% endfor %}
-
-                                        </div>
+                                        {% for istanza_biglietto in istanze_biglietti %}
+                                            {% if istanza_biglietto.tipologia_biglietto == tipologia_biglietto %}
+                                                <a class="ticket">Posto {{istanza_biglietto.numero_posto}}</a>
+                                            {% endif %}
+                                        {% endfor %}
+                                        
                                     </div>
                                 </div>
-
-                                <div class="col-6" style="text-align: right;">
-                                    
-                                        <a href="#" class=" f1-font-regular mr-2">
-                                            <button class="f1-font-regular" style="width: 70px; height:40px;  margin-bottom: 10px;">
-                                                <i class="fa fa-shopping-cart" style="font-size: 30px;"></i>
-                                            </button>
-                                        </a>
-                                    
-                                </div>
                             </div>
 
 
+                            <div class="col-6" style="text-align: right;">
+                                <a href="{% url 'store:product' pk=tipologia_biglietto.id %}" class=" f1-font-regular mx-auto">
+                                    <button class="f1-font-regular mr-2" style="width: 150px; height:40px; margin-bottom: 10px;">Vai al prodotto</button>
+                                </a>
+                            </div>
+                        </div>
 
-
-                        
                     </div>
 
                 </div>
+                {% endwith %}
             {% endfor %}
-    
             
         </div>
     

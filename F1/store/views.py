@@ -14,7 +14,7 @@ from django.shortcuts import redirect
 from django.core.exceptions import ValidationError
 import re
 from datetime import date
-from store.forms import UserProfileFormData
+from store.forms import UserProfileFormData, TicketForm
 
 
 
@@ -194,6 +194,7 @@ def UserProfile(request):
 class StoreView(ListView):
     model = TipologiaBiglietto
     template_name = 'store/store.html'
+    #user_data_form = TicketForm()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -205,5 +206,32 @@ class StoreView(ListView):
         context['tipologie_biglietti'] = tipologie_biglietti
 
         context['istanze_biglietti'] = istanze_biglietti
-        
+
+        #context['ticket_form'] = TicketForm() 
+        #context['ticket_form'].fields['tipologia_biglietti'].choices = []
+
         return context
+    
+class ProductView(ListView):
+    model = TipologiaBiglietto
+    template_name = 'store/product.html'
+    user_data_form = TicketForm()
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+
+        pk = self.kwargs.get('pk') # Contiene l'id della tipologia del biglietto selezionato
+
+        tipologia_biglietto = TipologiaBiglietto.objects.get(pk=pk)
+
+        istanze_biglietti = IstanzaBiglietto.objects.filter(tipologia_biglietto=tipologia_biglietto)
+        
+        context['form'] = TicketForm()
+        context['form'].fields['tipologia_biglietti'].choices = [(istanza_biglietto.pk, istanza_biglietto.numero_posto) for istanza_biglietto in istanze_biglietti]
+
+        context['tipologia_biglietto'] = tipologia_biglietto
+
+        context['istanze_biglietti'] = istanze_biglietti
+
+        return context
+    
