@@ -1,6 +1,5 @@
 TODO:
 - View profilo gestore
-- Creare un carrello automaticamente a ogni utente
 - View Carrello
 - View Notifiche
 - Premium

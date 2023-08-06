@@ -64,9 +64,9 @@
                 <div class="col-sm-3 {% if tipologia_biglietto.amount <= 0 %}not-available{% endif %}" style="height: 43vh; padding: 10px;" style="display: block;">
                     
                     <div class="product-item mx-auto  card-product-preview f1-font-regular " style="">
-                        
+                       
                         <a href="{% url 'info:circuito' pk=tipologia_biglietto.gestore_circuito.gestione_circuito.id %}">
-                            <img class="mx-auto product-preview-image product-info" src="{% static 'images\circuits\previews\Belgian_Grand_Prix.png' %}">
+                            <img class="mx-auto product-preview-image product-info" src="{{tipologia_biglietto.gestore_circuito.gestione_circuito.preview}}">
                         </a>
                         <div style="display: flex;">
                             <a href="{% url 'store:product' pk=tipologia_biglietto.id %}" class="f1-font-bold mx-auto product-info">

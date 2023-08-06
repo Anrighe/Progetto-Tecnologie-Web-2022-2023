@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from store.models import Utente, Gestore_Circuito
+from store.models import Utente, Gestore_Circuito, Carrello
 from media.models import PortaleF1
 import os
 
@@ -24,7 +24,7 @@ class UserCreateView(CreateView):
         portale_f1 = PortaleF1.objects.first()
 
         # Crea un'istanza di Utente e la connette al suo corrispettivo "User" e al "PortaleF1"
-        Utente.objects.create(user=self.object, portale_f1=portale_f1)
+        utente = Utente.objects.create(user=self.object, portale_f1=portale_f1)
 
         username = self.object.username
 
@@ -35,6 +35,9 @@ class UserCreateView(CreateView):
             os.remove(path)
 
         os.mkdir(path)
+
+        # Crea un'istanza di Carrello e la connette al suo corrispettivo "Utente"
+        Carrello.objects.create(possedimento_carrello=utente)
 
         return response
     

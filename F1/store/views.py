@@ -1,6 +1,7 @@
 from typing import Any, Dict
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto, Carrello
@@ -160,28 +161,32 @@ def UserProfile(request):
             
             # Se è stato effettivamente selezionato e caricato un file 
             if uploaded_file:
-                image = Image.open(uploaded_file)
+                try:
+                    image = Image.open(uploaded_file)
 
-                if image.format in ALLOWED_IMAGE_FORMATS:
+                    if image.format in ALLOWED_IMAGE_FORMATS:
 
-                    username = user.username
-                    
-                    path = os.path.join(os.getcwd(), 'static', 'users', username)
+                        username = user.username
+                        
+                        path = os.path.join(os.getcwd(), 'static', 'users', username)
 
-                    # Cancella i file precedentemente presenti nella cartella dell'utente
-                    for file_name in os.listdir(path):
-                        file_path = os.path.join(path, file_name)
-                        if os.path.isfile(file_path):
-                            os.remove(file_path)
+                        # Cancella i file precedentemente presenti nella cartella dell'utente
+                        for file_name in os.listdir(path):
+                            file_path = os.path.join(path, file_name)
+                            if os.path.isfile(file_path):
+                                os.remove(file_path)
 
-                    fs = FileSystemStorage(location=path)
+                        fs = FileSystemStorage(location=path)
 
-                    filename = fs.save(uploaded_file.name, uploaded_file)
-                    
-                    utente.immagine_profilo = f'/static/users/{username}/{filename}'
-                    utente.save()
-                else:
-                    messages.error(request, 'Formato dell\'immagine non valido. Utilizza un file in formato JPEG, JPG, o PNG.')
+                        filename = fs.save(uploaded_file.name, uploaded_file)
+                        
+                        utente.immagine_profilo = f'/static/users/{username}/{filename}'
+                        utente.save()
+                    else:
+                        messages.error(request, 'Formato dell\'immagine non valido. Utilizza un file in formato JPEG, JPG, o PNG.')
+                except Image.UnidentifiedImageError:
+                    print('UnidentifiedImageError')
+                    messages.error(request, 'Il file caricato non sembra essere un\'immagine. Utilizza un file in formato JPEG, JPG, o PNG.')
             else:
                 messages.error(request, 'Non è stata caricata nessuna immagine.')
 
@@ -248,6 +253,8 @@ class ProductView(ListView):
 
         return context
     
+    
+    @method_decorator(login_required(login_url='/login/?auth=notok'))
     def post(self, request, *args, **kwargs):
         '''Aggiunge un biglietto al carrello dell'utente'''
         user_pk = request.user.pk
