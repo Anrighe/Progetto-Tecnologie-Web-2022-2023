@@ -84,13 +84,22 @@ button:hover
     border: 1px solid #ddd;
     overflow-y: auto; 
     max-height: 300px; 
-    bottom: 100%;
     z-index: 9999; /* Set a high z-index value to make it appear over everything */
 }
 
+.bottom-dropdown-content
+{
+    bottom: 100%;
+}
+
+.top-dropdown-content
+{
+    top: 100%;
+}
+
 /* Show the dropdown content when the button is hovered or focused */
-.dropdown:hover .dropdown-content-up,
-.dropdown:focus .dropdown-content-up 
+.dropdown:hover .dropdown-content,
+.dropdown:focus .dropdown-content 
 {
     justify-content: center;
     text-align: center;

@@ -194,7 +194,6 @@ def UserProfile(request):
 class StoreView(ListView):
     model = TipologiaBiglietto
     template_name = 'store/store.html'
-    #user_data_form = TicketForm()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -202,13 +201,15 @@ class StoreView(ListView):
         tipologie_biglietti = TipologiaBiglietto.objects.all()
 
         istanze_biglietti = IstanzaBiglietto.objects.all()
+
+        # Aggiunge il conteggio delle istanze di una tipologia per ogni tipologia di prodotto
+        for tipologia_biglietto in tipologie_biglietti:
+            tipologia_biglietto.amount = tipologia_biglietto.get_istanza_biglietto_amount()
         
         context['tipologie_biglietti'] = tipologie_biglietti
 
         context['istanze_biglietti'] = istanze_biglietti
 
-        #context['ticket_form'] = TicketForm() 
-        #context['ticket_form'].fields['tipologia_biglietti'].choices = []
 
         return context
     

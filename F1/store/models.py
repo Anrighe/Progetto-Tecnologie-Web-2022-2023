@@ -96,6 +96,11 @@ class TipologiaBiglietto(models.Model):
     # Una precisa tipologia di biglietto viene pubblicata nello store da uno e un solo gestore di un circuito
     gestore_circuito = models.ForeignKey(Gestore_Circuito, on_delete=models.PROTECT, null=False, blank=False)
 
+    def get_istanza_biglietto_amount(self):
+        '''Restituisce il numero di istanze di biglietti di una precisa tipologia di biglietto'''
+        istanze_biglietti = self.istanzabiglietto_set.all()
+        return istanze_biglietti.count()
+
     class Meta:
         verbose_name_plural = 'Tipologia Biglietti'
 

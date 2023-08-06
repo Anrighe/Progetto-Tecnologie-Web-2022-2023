@@ -20,7 +20,7 @@
             
             <div class="dropdown f1-font-regular">
                 <button class="mt-2 mr-4">Filtra articoli</button>
-                <div class="dropdown-content" align="left">         
+                <div class="dropdown-content top-dropdown-content" align="left">         
                     <a href="">Prezzo ▲</a>
                     <a href="">Prezzo ▼</a>
                     <a href="">Data ▲</a>
@@ -67,12 +67,14 @@
                         <a href="{% url 'info:circuito' pk=tipologia_biglietto.gestore_circuito.gestione_circuito.id %}">
                             <img class="mx-auto product-preview-image product-info" src="{% static 'images\circuits\previews\Belgian_Grand_Prix.png' %}">
                         </a>
-                        <div class="" style="display: flex;">
-                            <p class="f1-font-bold mx-auto">{{ tipologia_biglietto.titolo }}</p>
+                        <div style="display: flex;">
+                            <a href="{% url 'store:product' pk=tipologia_biglietto.id %}" class="f1-font-bold mx-auto product-info">
+                                <p>{{ tipologia_biglietto.gestore_circuito.gestione_circuito.nome }} - {{ tipologia_biglietto.titolo }}</p>
+                            </a>
                         </div>
 
                         <div class="row">
-                            <p class="col-6" style="text-align: left;  left: 15px;">10 rimanenti</p>
+                            <p class="col-6" style="text-align: left;  left: 15px;">{{tipologia_biglietto.amount}} rimanenti</p>
 
                             <p class="col-6" style="text-align: right;  right: 15px;">{{ tipologia_biglietto.prezzo }} €</p>
                         </div>
@@ -82,7 +84,7 @@
                             <div class="col-6" style="">
                                 <div class="dropdown f1-font-regular ml-2" >
                                     <button id=button{{ forloop_id }} class="dropdown-btn">Disponibilità ▲</button>
-                                    <div class="dropdown-content">
+                                    <div class="dropdown-content bottom-dropdown-content">
 
                                         {% for istanza_biglietto in istanze_biglietti %}
                                             {% if istanza_biglietto.tipologia_biglietto == tipologia_biglietto %}
