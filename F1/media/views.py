@@ -56,7 +56,7 @@ class HighlightPageView(ListView):
         context = super().get_context_data(**kwargs)
 
         highlights = Highlight.objects.all().order_by('-data')
-        paginator = Paginator(highlights, self.NUM_VIDEO_PER_PAGINA)
+        paginator = Paginator(highlights, HighlightPageView.NUM_VIDEO_PER_PAGINA)
         
         numero_pagina = self.request.GET.get('page', 1)
 

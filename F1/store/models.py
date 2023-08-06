@@ -78,15 +78,6 @@ class Notifica(models.Model):
         verbose_name_plural = 'Notifiche'
 
 
-class Carrello(models.Model):
-    # Un preciso carrello è posseduto da uno e un solo utente
-    # In caso di cancellazione dell'utente è necessario cancellare anche il carrello
-    possedimento_carrello = models.OneToOneField(Utente, on_delete=models.CASCADE, default=None)
-
-    class Meta:
-        verbose_name_plural = 'Carrelli'
-
-
 class TipologiaBiglietto(models.Model):
     titolo = models.CharField(max_length=50)
     data_evento = models.DateField(null=False, blank=False, default=date.today)
@@ -112,10 +103,6 @@ class IstanzaBiglietto(models.Model):
     # Se non è stato acquistata non è contenuta in nessun ordine
     ordine = models.ForeignKey(Ordine, on_delete=models.PROTECT, null=True, blank=True)
 
-    # Una precisa istanza di biglietto può essere contenuta da 0 a N carrelli
-    # Esempio: più utenti hanno inserito lo stesso biglietto nel proprio carrello
-    carrello = models.ManyToManyField(Carrello, blank=True)
-
     # Ogni istanza di un biglietto si riferisce a una e una sola tipologia di biglietto
     tipologia_biglietto = models.ForeignKey(TipologiaBiglietto, on_delete=models.PROTECT, blank=False, default=None, null=True)
 
@@ -123,8 +110,16 @@ class IstanzaBiglietto(models.Model):
         verbose_name_plural = 'Istanza Biglietti'
 
 
+class Carrello(models.Model):
+    # Un preciso carrello è posseduto da uno e un solo utente
+    # In caso di cancellazione dell'utente è necessario cancellare anche il carrello
+    possedimento_carrello = models.OneToOneField(Utente, on_delete=models.CASCADE, default=None)
 
+    # Un carrello può contenere da 0 a N istanze di biglietti
+    istanze_biglietti = models.ManyToManyField(IstanzaBiglietto, blank=True)
 
+    class Meta:
+        verbose_name_plural = 'Carrelli'
 
 
 

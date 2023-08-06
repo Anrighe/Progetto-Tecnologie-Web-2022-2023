@@ -26,7 +26,7 @@ class UserProfileFormData(forms.Form):
 
 class TicketForm(forms.Form):
     
-    tipologia_biglietti = forms.ChoiceField(label='Disponibilità', choices=[], required=True, initial="1")
+    istanze_biglietti = forms.ChoiceField(label='', choices=[], required=True, initial="1")
     
     def __init__(self, *args, **kwargs):
         super(TicketForm, self).__init__(*args, **kwargs)

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
-from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto
+from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto, Carrello
 from django.core.files.storage import FileSystemStorage
 import os
 from PIL import Image
@@ -68,6 +68,7 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
             utente.data_nascita = request.POST.get('data_nascita')
             utente.sesso = request.POST.get('sesso')
             utente.paese = request.POST.get('paese')
+            print(request.POST.get('paese'))
             utente.telefono = request.POST.get('telefono')
             utente.carta_credito = request.POST.get('carta_credito')
             utente.cvv = request.POST.get('cvv')
@@ -195,7 +196,7 @@ def UserProfile(request):
 class StoreView(ListView):
     model = TipologiaBiglietto
     template_name = 'store/store.html'
-    NUM_BIGLIETTI_PER_PAGINA = 5
+    NUM_BIGLIETTI_PER_PAGINA = 12
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -211,16 +212,10 @@ class StoreView(ListView):
         context['istanze_biglietti'] = istanze_biglietti
 
         paginator = Paginator(tipologie_biglietti, StoreView.NUM_BIGLIETTI_PER_PAGINA)
-        
         numero_pagina = self.request.GET.get('page', 1)
-
-        #context['nothing_here'] = False
-
         pagina = paginator.page(numero_pagina)
 
         context['tipologie_biglietti'] = pagina
-        #context['num_pages'] = str(paginator.num_pages)
-
 
         return context
     
@@ -245,11 +240,22 @@ class ProductView(ListView):
         istanze_biglietti = IstanzaBiglietto.objects.filter(tipologia_biglietto=tipologia_biglietto)
         
         context['form'] = TicketForm()
-        context['form'].fields['tipologia_biglietti'].choices = [(istanza_biglietto.pk, istanza_biglietto.numero_posto) for istanza_biglietto in istanze_biglietti]
+        context['form'].fields['istanze_biglietti'].choices = [(istanza_biglietto.pk, istanza_biglietto.numero_posto) for istanza_biglietto in istanze_biglietti]
 
         context['tipologia_biglietto'] = tipologia_biglietto
 
         context['istanze_biglietti'] = istanze_biglietti
 
         return context
+    
+    def post(self, request, *args, **kwargs):
+        '''Aggiunge un biglietto al carrello dell'utente'''
+        user_pk = request.user.pk
+        utente_pk = Utente.objects.get(user=request.user)
+        carrello_utente = Carrello.objects.get(possedimento_carrello=utente_pk)
+        istanza_biglietto_selezionato = IstanzaBiglietto.objects.get(pk=request.POST.get('istanze_biglietti'))
+
+        carrello_utente.istanze_biglietti.add(istanza_biglietto_selezionato)
+
+        return redirect('store:product', pk=kwargs['pk'])
     

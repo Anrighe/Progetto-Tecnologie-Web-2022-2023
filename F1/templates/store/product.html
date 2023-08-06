@@ -25,15 +25,74 @@
         </div>
         <hr class="solid ml-4 mr-4 divisore"></hr>
 
-        <div class="container-fluid main_container text-white">
-            <div class="row">
+        <div class="container-fluid main_container text-white f1-font-regular" style="height: 78vh;">
+            <div class="row product-background-darker ml-2 mr-2 mt-2 mb-2 card-product-preview" style="height: 76vh;">
+                
+                <div class="col-7" style="padding-top: 75px;">
+                    <a href="{% url 'info:circuito' pk=tipologia_biglietto.gestore_circuito.gestione_circuito.id %}">
+                        <img class="" src="{{ tipologia_biglietto.gestore_circuito.gestione_circuito.immagine_mappa }}" style="height: 50vh;">
+                    </a>
+                </div>    
+
+                <div class="col-5 mt-4" class="mx-auto">
+                    <div class="" style="min-height: 100%;">
+                        <form method="post" class="mx-auto">
+                            <div class="row" style="padding-top: 75px;">
+                                <div class="col-1"></div>
+
+                                <div class="col-5">
+                                    <h4>Prezzo:</h4>
+                                </div>
+
+                                <div class="col-6">
+                                    <h4>{{ tipologia_biglietto.prezzo }} €</h4>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 75px;">
+                                <div class="col-1"></div>
+
+                                <div class="col-5">
+                                    <h4>Data evento:</h4>
+                                </div>
+
+                                <div class="col-6">
+                                    <h4>{{ tipologia_biglietto.data_evento }}</h4>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 75px;">
+                                <div class="col-1"></div>
+
+                                <div class="col-5">
+                                    <h4>Disponibilità:</h4>
+                                </div>
+
+                                <div class="col-6" style="max-width: 150px;">
+                                    {% csrf_token %}
+                                    {{ form | crispy}}
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top: 75px;">
+                                <div class="col-1"></div>
+                                <div class="col-5">
+                                </div>   
+                                <div class="col-6"> 
+                                    <div class="text-left" >
+                                        <button type="submit" class="">Aggiungi al carrello</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
 
             </div>
             
-            <form method="post">
-                {% csrf_token %}
-                {{ form | crispy}}
-            </form>
+
         
         </div>
     </div>
