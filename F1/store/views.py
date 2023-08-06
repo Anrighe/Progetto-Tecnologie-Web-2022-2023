@@ -15,6 +15,7 @@ from django.core.exceptions import ValidationError
 import re
 from datetime import date
 from store.forms import UserProfileFormData, TicketForm
+from django.core.paginator import Paginator
 
 
 
@@ -194,6 +195,7 @@ def UserProfile(request):
 class StoreView(ListView):
     model = TipologiaBiglietto
     template_name = 'store/store.html'
+    NUM_BIGLIETTI_PER_PAGINA = 12
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -205,10 +207,19 @@ class StoreView(ListView):
         # Aggiunge il conteggio delle istanze di una tipologia per ogni tipologia di prodotto
         for tipologia_biglietto in tipologie_biglietti:
             tipologia_biglietto.amount = tipologia_biglietto.get_istanza_biglietto_amount()
-        
-        context['tipologie_biglietti'] = tipologie_biglietti
 
         context['istanze_biglietti'] = istanze_biglietti
+
+        paginator = Paginator(tipologie_biglietti, StoreView.NUM_BIGLIETTI_PER_PAGINA)
+        
+        numero_pagina = self.request.GET.get('page', 1)
+
+        #context['nothing_here'] = False
+
+        pagina = paginator.page(numero_pagina)
+
+        context['tipologie_biglietti'] = pagina
+        context['num_pages'] = str(paginator.num_pages)
 
 
         return context

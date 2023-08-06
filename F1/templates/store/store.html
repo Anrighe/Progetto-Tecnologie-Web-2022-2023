@@ -19,7 +19,7 @@
         <div class="query-page-selector-container mt-2" align="right">
             
             <div class="dropdown f1-font-regular">
-                <button class="mt-2 mr-4">Filtra articoli</button>
+                <button class="mt-2 mr-4">Filtra articoli ▼</button>
                 <div class="dropdown-content top-dropdown-content" align="left">         
                     <a href="">Prezzo ▲</a>
                     <a href="">Prezzo ▼</a>
@@ -28,8 +28,8 @@
                 </div>
             </div>
 
-            {% if highlights.has_previous %}
-                <a href="{% url 'media:highlight' %}?page={{ request.GET.page|add:-1 }}">        
+            {% if tipologie_biglietti.has_previous %}
+                <a href="{% url 'store:store' %}?page={{ request.GET.page|add:-1 }}">        
                     <button class="mr-2 mt-2 f1-font-regular">Precedente</button>  
                 </a>
             {% else %}
@@ -44,8 +44,8 @@
             {% endif %}
             <h2 class="ml-auto mt-2 mr-2 f1-font-regular"> ]</h2>
             
-            {% if highlights.has_next %}
-                <a href="{% url 'media:highlight' %}?page={{ request.GET.page|add:1 }}">
+            {% if tipologie_biglietti.has_next %}
+                <a href="{% url 'store:store' %}?page={{ request.GET.page|add:1 }}">
                     <button class="ml-auto mr-4 mt-2 f1-font-regular">Prossimo</button>    
                 </a>
             {% else %}
@@ -59,8 +59,9 @@
     <div class="container-fluid main_container text-white">
         <div class="row">
             {% for tipologia_biglietto in tipologie_biglietti %}
+                
                 {% with forloop_id=forloop.counter %}
-                <div class="col-sm-3" style="height: 43vh; padding: 10px;" style="display: block;">
+                <div class="col-sm-3 {% if tipologia_biglietto.amount <= 0 %}not-available{% endif %}" style="height: 43vh; padding: 10px;" style="display: block;">
                     
                     <div class="product-item mx-auto  card-product-preview f1-font-regular " style="">
                         
@@ -82,6 +83,7 @@
                         <div class="row">
                             
                             <div class="col-6" style="">
+                                {% if tipologia_biglietto.amount > 0 %}
                                 <div class="dropdown f1-font-regular ml-2" >
                                     <button id=button{{ forloop_id }} class="dropdown-btn">Disponibilità ▲</button>
                                     <div class="dropdown-content bottom-dropdown-content">
@@ -94,6 +96,7 @@
                                         
                                     </div>
                                 </div>
+                                {% endif %}
                             </div>
 
 

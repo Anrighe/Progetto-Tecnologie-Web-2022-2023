@@ -118,5 +118,9 @@ button:hover
     padding: 0;
 }
 
+.not-available
+{
+    filter: grayscale(100%); /* I prodotti non disponibili diventano grigi */
+}
 
 
