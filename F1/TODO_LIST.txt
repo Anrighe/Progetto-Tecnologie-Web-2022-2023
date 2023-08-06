@@ -1,4 +1,5 @@
 TODO:
+- Modale aggiunta prodotto al carrello con successo / errore
 - View profilo gestore
 - View Carrello
 - View Notifiche

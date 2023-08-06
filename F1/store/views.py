@@ -266,3 +266,17 @@ class ProductView(ListView):
 
         return redirect('store:product', pk=kwargs['pk'])
     
+class CartView(LoginRequiredMixin, ListView):
+    model = Carrello
+    template_name = 'store/cart.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        utente = Utente.objects.get(user=self.request.user)
+        carrello_utente = Carrello.objects.get(possedimento_carrello=utente)
+
+        context['carrello_utente'] = carrello_utente
+
+        return context
+    
