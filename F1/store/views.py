@@ -15,7 +15,7 @@ from django.core.exceptions import ValidationError
 import re
 from datetime import date
 from store.forms import UserProfileFormData, TicketForm
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage
 
 
 
@@ -195,7 +195,7 @@ def UserProfile(request):
 class StoreView(ListView):
     model = TipologiaBiglietto
     template_name = 'store/store.html'
-    NUM_BIGLIETTI_PER_PAGINA = 12
+    NUM_BIGLIETTI_PER_PAGINA = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -219,10 +219,16 @@ class StoreView(ListView):
         pagina = paginator.page(numero_pagina)
 
         context['tipologie_biglietti'] = pagina
-        context['num_pages'] = str(paginator.num_pages)
+        #context['num_pages'] = str(paginator.num_pages)
 
 
         return context
+    
+    def get(self, request, *args, **kwargs):
+        try:
+            return super().get(request, *args, **kwargs)
+        except EmptyPage:
+            return redirect('nothing_here')
     
 class ProductView(ListView):
     model = TipologiaBiglietto

@@ -35,7 +35,7 @@
             <h2 class="ml-auto mt-2 mr-2 f1-font-regular"> ]</h2>
             
             {% if highlights.has_next %}
-                <a href="{% url 'media:highlight' %}?page={{ request.GET.page|add:1 }}">
+                <a href="{% url 'media:highlight' %}?page={% if request.GET.page %}{{ request.GET.page|add:1 }}{% else %}2{% endif %}">
                     <button class="query-page-selector-button ml-auto mr-4 mt-2 f1-font-regular">Prossimo</button>    
                 </a>
             {% else %}
