@@ -206,7 +206,7 @@ class StoreView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        tipologie_biglietti = TipologiaBiglietto.objects.all()
+        tipologie_biglietti = TipologiaBiglietto.objects.all().order_by('-data_evento')
 
         istanze_biglietti = IstanzaBiglietto.objects.all()
 
@@ -276,6 +276,7 @@ class CartView(LoginRequiredMixin, ListView):
         utente = Utente.objects.get(user=self.request.user)
         carrello_utente = Carrello.objects.get(possedimento_carrello=utente)
 
+        context['utente'] = utente
         context['carrello_utente'] = carrello_utente
 
         return context

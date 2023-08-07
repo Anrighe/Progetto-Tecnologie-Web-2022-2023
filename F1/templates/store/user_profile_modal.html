@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" action="{% url 'store:profile' %}">
                     {% csrf_token %}
-                    <input type="file" class="btn" name="profile-image-file" accept=".png, .jpeg, .jpg">
+                    <input type="file" class="btn" name="profile-image-file" accept=".png, .jpeg, .jpg" style="color: white;">
                     <button id="profile-upload-button" type="submit" style="display: none;">Upload</button>
                 </form>
             </div>
