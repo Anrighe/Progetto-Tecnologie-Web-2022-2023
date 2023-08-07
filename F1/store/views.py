@@ -269,23 +269,37 @@ class ProductView(ListView):
 class CartView(LoginRequiredMixin, ListView):
     model = Carrello
     template_name = 'store/cart.html'
+    IVA = 0.22
 
     def get_context_data(self, **kwargs):
+        '''Recupera il carrello dell'utente e i biglietti presenti nel carrello, calcola il costo totale dei prodotti, le tasse e il costo totale tassato'''
         context = super().get_context_data(**kwargs)
         
         utente = Utente.objects.get(user=self.request.user)
         carrello_utente = Carrello.objects.get(possedimento_carrello=utente)
+        
         remove = self.request.GET.get('remove')
         if remove:
             carrello_utente.istanze_biglietti.remove(IstanzaBiglietto.objects.get(pk=remove))
-            print(remove)
 
         biglietti_carrello = carrello_utente.istanze_biglietti.all()
 
+        costo_totale_prodotti = 0
+        tasse = 0
+        costo_totale_prodotti_tasse = 0
+        for biglietto in biglietti_carrello:
+            costo_totale_prodotti += biglietto.tipologia_biglietto.prezzo
+
+        tasse = costo_totale_prodotti * CartView.IVA
+        costo_totale_prodotti_tasse = costo_totale_prodotti + tasse
+        
         context['utente'] = utente
         context['carrello_utente'] = carrello_utente
         context['biglietti_carrello'] = biglietti_carrello
         context['totale_biglietti'] = carrello_utente.istanze_biglietti.all().count()
+        context['costo_totale_prodotti'] = costo_totale_prodotti
+        context['tasse'] = tasse
+        context['costo_totale_prodotti_tasse'] = costo_totale_prodotti_tasse
 
         return context
     
