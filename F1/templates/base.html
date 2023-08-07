@@ -78,8 +78,10 @@
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <div class="dropdown  f1-font-regular">
-                            <a class="nav-link f1-font-regular mr-4" href="">Ciao, {{ user.username }}</a>
+                            <a class="nav-link f1-font-regular mr-4" href="{% url 'store:profile' %}">Ciao, {{ user.username }}</a>
                             <div class="dropdown-content" align="left">
+                                <a href="{% url 'store:profile' %}">Profilo</a>
+                                <a href="{% url 'store:modify_update' pk=user.pk %}">Modifica profilo</a>
                                 <a href="{% url 'logout' %}">Logout</a>
                             </div>
                         </div>
