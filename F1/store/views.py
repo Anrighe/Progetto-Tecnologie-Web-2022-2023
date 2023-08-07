@@ -272,14 +272,20 @@ class CartView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
+        
         utente = Utente.objects.get(user=self.request.user)
         carrello_utente = Carrello.objects.get(possedimento_carrello=utente)
+        remove = self.request.GET.get('remove')
+        if remove:
+            carrello_utente.istanze_biglietti.remove(IstanzaBiglietto.objects.get(pk=remove))
+            print(remove)
+
         biglietti_carrello = carrello_utente.istanze_biglietti.all()
 
         context['utente'] = utente
         context['carrello_utente'] = carrello_utente
         context['biglietti_carrello'] = biglietti_carrello
+        context['totale_biglietti'] = carrello_utente.istanze_biglietti.all().count()
 
         return context
     
