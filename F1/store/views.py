@@ -11,7 +11,7 @@ from PIL import Image
 from django.contrib import messages
 from django.views.generic import UpdateView
 from django.shortcuts import get_object_or_404
-from django.shortcuts import redirect
+from django.shortcuts import redirect, reverse
 from django.core.exceptions import ValidationError
 import re
 from datetime import date
@@ -251,6 +251,15 @@ class ProductView(ListView):
 
         context['istanze_biglietti'] = istanze_biglietti
 
+        context['istanze_biglietti_amount'] = tipologia_biglietto.get_istanza_biglietto_amount()
+
+
+        addproduct = self.request.GET.get('addproduct')
+        if addproduct:
+            context['addproduct'] = addproduct
+
+
+
         return context
     
     
@@ -264,7 +273,7 @@ class ProductView(ListView):
 
         carrello_utente.istanze_biglietti.add(istanza_biglietto_selezionato)
 
-        return redirect('store:product', pk=kwargs['pk'])
+        return redirect(reverse('store:product', kwargs=kwargs) + '?addproduct=ok')
     
 class CartView(LoginRequiredMixin, ListView):
     model = Carrello

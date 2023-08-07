@@ -1,0 +1,48 @@
+<!-- Modal per l'aggiunta di un prodotto al carrello -->
+<div id="modal-addproduct-cart" class="modal modal-background f1-font-regular text-white" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-addcart">
+            <div class="modal-header background-profile" >
+                <h3 class="modal-title">Prodotto aggiunto con successo al carrello</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                    <span aria-hidden="true" onclick="closeModalAddProductCart()">&times;</span>
+                </button>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="" data-dismiss="modal" onclick="closeModalAddProductCart()()">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+    // Apre il modal per l'aggiunta di un prodotto al carrello
+    function openModalAddProductCart() 
+    {
+        let modal = document.getElementById("modal-addproduct-cart");
+        modal.style.display = "block";
+    }
+
+    // Chiude il modal per l'aggiunta di un prodotto al carrello
+    function closeModalAddProductCart() 
+    {
+        let modal = document.getElementById("modal-addproduct-cart");
+        modal.style.display = "none";
+    }
+
+    {% if addproduct %}
+        openModalAddProductCart();
+    {% endif %}
+
+    // Se si effettua un click sullo sfondo quando il modale è visibile, viene chiuso
+    let modal_background = document.getElementById("modal-addproduct-cart");
+    modal_background.addEventListener('click', function (e) 
+    {
+        e.preventDefault();
+        closeModalAddProductCart();
+    });
+</script>

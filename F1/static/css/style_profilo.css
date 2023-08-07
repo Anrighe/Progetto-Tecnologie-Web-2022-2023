@@ -35,6 +35,14 @@
     background-color: #17132ee5;
 }
 
+.modal-profile
+{
+    border-radius: 10px;
+    background-color: #292352;
+    font-weight: bold;
+    background-image: linear-gradient(0deg,  #41354d, #292352);    
+}
+
 .profile-button
 {
     background-color: #5144a0;
@@ -108,4 +116,19 @@
     max-width: 60vw; 
     border-radius: 25px; 
     border: 5px solid #7165b346;
+}
+
+button
+{
+    background-color: #5144a0;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    height: 40px;
 }

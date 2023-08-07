@@ -1,8 +1,8 @@
 <!-- Modal per cambio immagine profilo -->
 <div id="modal-profile-image" class="modal modal-background f1-font-bold text-white" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content background-profile">
-            <div class="modal-header background-profile">
+        <div class="modal-content modal-profile">
+            <div class="modal-header" >
                 <h5 class="modal-title">Carica un'immagine profilo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
                     <span aria-hidden="true" onclick="closeModal()">&times;</span>
@@ -34,9 +34,9 @@
     {% for message in messages %}
         <div class="modal fade modal-background f1-font-bold text-white" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content background-profile">
-                    <div class="modal-header background-profile">
-                        <h5 class="modal-title" id="errorModalLabel">{{ message.level_tag }}</h5>
+                <div class="modal-content modal-profile">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="errorModalLabel">{{ message.level_tag|title }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -45,7 +45,7 @@
                         {{ message }}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                        <button type="button" class="" data-dismiss="modal">Chiudi</button>
                     </div>
                 </div>
             </div>
