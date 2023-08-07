@@ -122,3 +122,18 @@ button:hover
 {
     filter: grayscale(100%); /* I prodotti non disponibili diventano grigi */
 }
+
+#product-page-gradient 
+{
+    background-image: linear-gradient(90deg,  #52435f, #111011);
+}
+
+.cart-product
+{
+    border-radius: 10px;
+    background-color: #5921646b;
+    font-weight: bold;
+    color: white;
+    overflow: hidden;
+    border: solid 3px rgba(0, 255, 213, 0.329);
+}

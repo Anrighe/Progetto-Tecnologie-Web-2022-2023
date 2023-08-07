@@ -26,26 +26,26 @@
         <hr class="solid ml-4 mr-4 divisore"></hr>
 
         <div class="container-fluid main_container text-white f1-font-regular" style="height: 78vh;">
-            <div class="row product-background-darker ml-2 mr-2 mt-2 mb-2 card-product-preview" style="height: 76vh;">
+            <div  id="product-page-gradient" class="row product-background-darker ml-2 mr-2 mt-2" style="min-height: 98%; background-color: #494354; border-radius: 10px;">
                 
-                <div class="col-7" style="padding-top: 75px;">
+                <div class="col-7 mx-auto" style="padding-top: 10vh; padding-left: 5vw;">
                     <a href="{% url 'info:circuito' pk=tipologia_biglietto.gestore_circuito.gestione_circuito.id %}">
                         <img class="" src="{{ tipologia_biglietto.gestore_circuito.gestione_circuito.immagine_mappa }}" style="height: 50vh;">
                     </a>
                 </div>    
 
-                <div class="col-5 mt-4" class="mx-auto">
+                <div  class="col-5 " class="mx-auto" >
                     <div class="" style="min-height: 100%;">
                         <form method="post" class="mx-auto">
-                            <div class="row" style="padding-top: 75px;">
+                            <div class="row" style="padding-top: 20%;">
                                 <div class="col-1"></div>
 
                                 <div class="col-5">
-                                    <h4>Prezzo:</h4>
+                                    <h5>Prezzo:</h5>
                                 </div>
 
                                 <div class="col-6">
-                                    <h4>{{ tipologia_biglietto.prezzo }} €</h4>
+                                    <h5>{{ tipologia_biglietto.prezzo }} €</h5>
                                 </div>
                             </div>
 
@@ -53,11 +53,11 @@
                                 <div class="col-1"></div>
 
                                 <div class="col-5">
-                                    <h4>Data evento:</h4>
+                                    <h5>Data evento:</h5>
                                 </div>
 
                                 <div class="col-6">
-                                    <h4>{{ tipologia_biglietto.data_evento }}</h4>
+                                    <h5>{{ tipologia_biglietto.data_evento }}</h5>
                                 </div>
                             </div>
 
@@ -65,7 +65,7 @@
                                 <div class="col-1"></div>
 
                                 <div class="col-5">
-                                    <h4>Disponibilità:</h4>
+                                    <h5>Disponibilità:</h5>
                                 </div>
 
                                 <div class="col-6" style="max-width: 150px;">
