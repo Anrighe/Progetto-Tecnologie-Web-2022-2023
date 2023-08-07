@@ -81,7 +81,7 @@ class Notifica(models.Model):
 class TipologiaBiglietto(models.Model):
     titolo = models.CharField(max_length=50)
     data_evento = models.DateField(null=False, blank=False, default=date.today)
-    prezzo = models.FloatField(validators=[valida_non_negativi])
+    prezzo = models.FloatField(validators=[valida_non_negativi], default=0.00)
     totale_posti = models.PositiveIntegerField()
 
     # Una precisa tipologia di biglietto viene pubblicata nello store da uno e un solo gestore di un circuito

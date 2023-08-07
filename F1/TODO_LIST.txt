@@ -1,7 +1,7 @@
 TODO:
 - Modale aggiunta prodotto al carrello con successo / errore
+- Modale per avvenuto acquisto / errore
 - View profilo gestore
-- View Carrello
 - View Notifiche
 - Premium
 - Meccanismo di follow + News personalizzate

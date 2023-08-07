@@ -121,7 +121,7 @@
               
                                   	<div class="d-flex justify-content-between">
                                     	<p class="mb-2">Totale prodotti</p>
-                                    	<p class="mb-2">{{ costo_totale_prodotti }} €</p>
+                                    	<p class="mb-2">{{ costo_totale_prodotti|floatformat:2 }} €</p>
                                   	</div>
 									
 									<!-- EVENTUALE SCONTO PREMIUM
@@ -132,12 +132,12 @@
 									
 									<div class="d-flex justify-content-between mb-4">
 										<p class="mb-2">Tasse</p>
-										<p class="mb-2">{{ tasse }} €</p>
+										<p class="mb-2">{{ tasse|floatformat:2 }} €</p>
 									</div>
 									<hr class="solid divisore"></hr>
 									<div class="d-flex justify-content-between mb-4">
 										<p class="mb-2">Totale (Iva inclusa)</p>
-										<p class="mb-2">{{ costo_totale_prodotti_tasse }} €</p>
+										<p class="mb-2">{{ costo_totale_prodotti_tasse|floatformat:2 }} €</p>
 									</div>
 
 									<button type="button" style="width:175px;">Checkout<i class="fa fa-credit-card ml-2"></i></button>
