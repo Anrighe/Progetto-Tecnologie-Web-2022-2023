@@ -109,10 +109,10 @@
 												</div>
 												<div class="row " style="padding-bottom: 30px;">
 													<div class="col-sm-5">
-														<p class="mb-0 text-left">CVV</p>
+														<p class="mb-0 text-left" type="password">CVV</p>
 													</div>
 													<div class="col-sm-7">
-														<p class="text-muted mb-0 text-left" >{{ utente.cvv }}</p>
+														<p class="text-muted mb-0 text-left" >{% if utente.cvv %}***{% endif %}</p>
 													</div>
 												</div>
                                   			</form>
