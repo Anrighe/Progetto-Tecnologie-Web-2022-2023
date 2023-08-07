@@ -27,64 +27,67 @@
         <hr class="solid ml-4 mr-4 divisore"></hr>
 
         <div class="container-fluid main_container text-white f1-font-regular" style="height: 78vh;">
-            <section class="h-100 h-custom " style="text-align: center;">
+            <section class="" style="text-align: center;">
                 
-				<div class="row d-flex justify-content-center align-items-center h-100">
+				<div class="row d-flex justify-content-center align-items-center">
                     <div class="col">
                       	<div class="">
-                        	<div class="card-body p-4">
+                        	<div class="card-body p-4" >
               
-                          		<div class="row">
+                          		<div class="row" >
               
-                            		<div class="col-lg-7 card-product-preview" style="overflow-y: auto;">
+                            		<div class="col-lg-7 card-product-preview" style="overflow-y: auto; max-height:70vh;">
               
                               			<div class="d-flex justify-content-between align-items-center mb-4">
                                 			<div>
                                   				<p class="mb-0 mt-4 ml-1">Hai 2 articoli nel tuo carrello</p>
+												
+												{% for istanza_biglietto in biglietti_carrello %}
+													<h1>{{ istanza_biglietto.tipologia_biglietto.gestore_circuito.gestione_circuito.nome }} - {{ istanza_biglietto.tipologia_biglietto.titolo }} - Posto {{ istanza_biglietto.numero_posto }}</h1>
+												{% endfor %}
                                 			</div>
                               			</div>
               
-                              			<div class="card mb-3 cart-product">
-                                			<div class="card-body">
-                                  				<div class="d-flex justify-content-between">
-                                    				<div class="d-flex flex-row align-items-center">
-                                      					<div>
-                                        					<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                                      					</div>
-                                      					<div class="ms-3 ml-4">
-                                        					<h5>Iphone 11 pro</h5>
-                                        					<p class="small mb-0 text-left">256GB, Navy Blue</p>
-                                      					</div>
-                                    				</div>
-                                    				<div class="d-flex flex-row align-items-center">
-                                      					<div style="width: 80px;">
-                                        					<h5 class="mb-0">999 €</h5>
-                                      					</div>
-                                      					<a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                                      					<button class="ml-4">x</button>
-                                    				</div>
-                                  				</div>
-                                			</div>
-                              			</div>
+										{% for istanza_biglietto in biglietti_carrello %}
+											<div class="card mb-3 card-product-preview">
+												<div class="card-body">
+													<div class="d-flex justify-content-between">
+														<div class="d-flex flex-row align-items-center">
+															<div>
+																<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+															</div>
+															<div class="ms-3 ml-4">
+																<h5>{{ istanza_biglietto.tipologia_biglietto.gestore_circuito.gestione_circuito.nome }} - {{ istanza_biglietto.tipologia_biglietto.titolo }}</h5>
+																<p class="small mb-0 text-left">Posto {{ istanza_biglietto.numero_posto }}</p>
+															</div>
+														</div>
+														<div class="d-flex flex-row align-items-center">
+															<div style="width: 80px;">
+																<h5 class="mb-0">{{ istanza_biglietto.tipologia_biglietto.prezzo }} €</h5>
+															</div>
+															<a href="#!" style="color: #cecece;">
+																<i class="fa fa-trash ml-4" style="font-size: 25px; color: red;"></i>
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										{% endfor %}
               
 										<div class="card mb-3 card-product-preview">
 											<div class="card-body">
 												<div class="d-flex justify-content-between">
 													<div class="d-flex flex-row align-items-center">
-														<div>
-															<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img2.webp" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-														</div>
-													<div class="ms-3 ml-4">
-														<h5>Samsung galaxy Note 10 </h5>
-														<p class="small mb-0 text-left">256GB, Navy Blue</p>
-													</div>
+
+
 												</div>
 												<div class="d-flex flex-row align-items-center">
 													<div style="width: 80px;">
 														<h5 class="mb-0">999 €</h5>
 													</div>
-													<a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-													<button class="ml-4">x</button>
+													<a href="#!" style="color: #cecece;">
+														<i class="fa fa-trash ml-4" style="font-size: 25px; color: red;"></i>
+													</a>
 												</div>
 											</div>
 										</div>
@@ -92,40 +95,49 @@
                             	</div>
                             	<div class="col-lg-5">
               
-                              		<div class="card card-product-preview text-white rounded-3">
+                              		<div class="card card-product-preview text-white rounded-3" style="overflow-y: auto; max-height:70vh;">
                                 		<div class="card-body">
-                                  			<div class="d-flex justify-content-between align-items-center mb-4">
-                                    			<h5 class="mb-0">Dettagli del pagamento</h5>
+                                  			<div class="d-flex justify-content-between align-items-center" style="padding-bottom: 15px;">
+                                    			<h4 class="mb-0">Dettagli del pagamento</h4>
                                     			<img src="{{ utente.immagine_profilo }}" class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
                                   			</div>
               
-                                  			<form class="mt-4">
-                                    		<div class="form-outline form-white mb-4">
-                                      			<input type="text" id="typeName" class="form-control form-control-lg" siez="17" placeholder="Cardholder's Name" />
-                                      			<label class="form-label" for="typeName">Intestatario carta</label>
-											</div>
-              
-											<div class="form-outline form-white mb-4">
-												<input type="text" id="typeText" class="form-control form-control-lg" siez="17" placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
-												<label class="form-label" for="typeText">Numero carta</label>
-											</div>
-              
-											<div class="row mb-4">
-												<div class="col-md-6">
-													<div class="form-outline form-white">
-														<input type="text" id="typeExp" class="form-control form-control-lg" placeholder="MM/YYYY" size="7" id="exp" minlength="7" maxlength="7" />
-													<label class="form-label" for="typeExp">Scadenza carta</label>
+                                  			<form class="mt-4 mx-auto">
+												<div class="row" style="padding-bottom: 30px;">
+													<div class="col-sm-5">
+														<p class="mb-0 text-left">Intestatario carta</p>
+													</div>
+													<div class="col-sm-7">
+														<p class="text-muted mb-0 text-left" >{{ utente.user.first_name }} {{ utente.user.last_name }}</p>
 													</div>
 												</div>
-											<div class="col-md-6">
-												<div class="form-outline form-white">
-													<input type="password" id="typeText" class="form-control form-control-lg" placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
-													<label class="form-label" for="typeText">CVV</label>
+				
+												<div class="row" style="padding-bottom: 30px;">
+													<div class="col-sm-5" >
+														<p class="mb-0 text-left">Numero carta</p>
+													</div>
+													<div class="col-sm-7">
+														<p class="text-muted mb-0 text-left" >{{ utente.carta_credito }}</p>
+													</div>
 												</div>
-											</div>
-										</div>
-              
-                                  	</form>
+				
+												<div class="row" style="padding-bottom: 30px;">
+													<div class="col-sm-5" >
+														<p class="mb-0 text-left">Scadenza carta</p>
+													</div>
+													<div class="col-sm-7">
+														<p class="text-muted mb-0 text-left" >{{ utente.scadenza_carta }}</p>
+													</div>
+												</div>
+												<div class="row " style="padding-bottom: 30px;">
+													<div class="col-sm-5">
+														<p class="mb-0 text-left">CVV</p>
+													</div>
+													<div class="col-sm-7">
+														<p class="text-muted mb-0 text-left" >{{ utente.cvv }}</p>
+													</div>
+												</div>
+                                  			</form>
               
                                   	<hr class="my-4">
               
@@ -146,17 +158,12 @@
 									</div>
 									<hr class="solid divisore"></hr>
 									<div class="d-flex justify-content-between mb-4">
-										<p class="mb-2">Totale(Iva inclusa)</p>
+										<p class="mb-2">Totale (Iva inclusa)</p>
 										<p class="mb-2">4818.00 €</p>
 									</div>
-              
-									<button type="button" class="btn btn-info btn-block btn-lg">
-										<div class="d-flex justify-content-between">
-											
-											<span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-										</div>
-									</button>
-              
+
+									<button type="button" style="width:175px;">Checkout<i class="fa fa-credit-card ml-2"></i></button>
+
                                 </div>
 							</div>
               

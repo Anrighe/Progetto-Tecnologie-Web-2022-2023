@@ -275,9 +275,11 @@ class CartView(LoginRequiredMixin, ListView):
 
         utente = Utente.objects.get(user=self.request.user)
         carrello_utente = Carrello.objects.get(possedimento_carrello=utente)
+        biglietti_carrello = carrello_utente.istanze_biglietti.all()
 
         context['utente'] = utente
         context['carrello_utente'] = carrello_utente
+        context['biglietti_carrello'] = biglietti_carrello
 
         return context
     
