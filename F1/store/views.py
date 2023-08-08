@@ -312,3 +312,17 @@ class CartView(LoginRequiredMixin, ListView):
 
         return context
     
+
+    @method_decorator(login_required(login_url='/login/?auth=notok'))
+    def post(self, request, *args, **kwargs):
+        '''Controlla i dati dell'utente e se sono corretti crea un ordine, collegando tutti i prodotti acquistati a quell'ordine'''
+
+        utente = Utente.objects.get(user=self.request.user)
+        carrello_utente = Carrello.objects.get(possedimento_carrello=utente)
+        biglietti_carrello = carrello_utente.istanze_biglietti.all()
+
+        for biglietto in biglietti_carrello:
+            carrello_utente.istanze_biglietti.remove(biglietto)
+
+        return redirect(reverse('store:cart') + '?purchase=ok')
+    

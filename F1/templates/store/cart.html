@@ -139,9 +139,10 @@
 										<p class="mb-2">Totale (Iva inclusa)</p>
 										<p class="mb-2">{{ costo_totale_prodotti_tasse|floatformat:2 }} €</p>
 									</div>
-
-									<button type="button" style="width:175px;">Checkout<i class="fa fa-credit-card ml-2"></i></button>
-
+									<form method="post">
+										{% csrf_token %}
+										<button type="submit" style="width:175px;" >Checkout<i class="fa fa-credit-card ml-2"></i></button>
+									</form>
                                 </div>
 							</div>
               
