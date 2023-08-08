@@ -33,9 +33,11 @@
         <a class="navbar-brand d-lg-none text-white ml-2" href="{% url 'store:profile' %}">
           	<i class="fa fa-user"></i>
         </a>
+        {% if not user.gestore_circuito %}
         <a class="navbar-brand d-lg-none text-white ml-1" href="{% url 'store:cart' %}">
           	<i class="fa fa-shopping-cart {% if user.is_authenticated and user.utente.carrello.istanze_biglietti.count > 0 %}notification-color blink{% endif %}"></i>
         </a>
+        {% endif %}
         <a class="navbar-brand d-lg-none text-white ml-1" href="{% url 'store:profile' %}">
             <i class="fa fa-bell {% if user.is_authenticated and user.utente.notifiche %}notification-color blink{% endif %}"></i>
         </a>
@@ -85,9 +87,9 @@
                                 <a href="{% url 'logout' %}">Logout</a>
                             </div>
                         </div>
-                    </li>
+       
                 {% endif %}
-                <li class="nav-item d-none d-lg-block">
+                <li class="nav-item d-none d-lg-block">             </li>
                     <a class="nav-link mr-2" href="{% url 'store:profile' %}">
                         <i class="fa fa-bell {% if user.is_authenticated and user.utente.notifiche %}notification-color blink{% endif %}"></i>
                     </a>
@@ -97,11 +99,13 @@
 						<i class="fa fa-user"></i>
 					</a>
 				</li>
+                {% if not user.gestore_circuito %}
             	<li class="nav-item d-none d-lg-block">
               		<a class="nav-link mr-2" href="{% url 'store:cart' %}">
                 		<i class="fa fa-shopping-cart {% if user.is_authenticated and user.utente.carrello.istanze_biglietti.count > 0 %}notification-color blink{% endif %}"></i>
               		</a>
             	</li>
+                {% endif %}
           	</ul>
         </div>
     </nav>

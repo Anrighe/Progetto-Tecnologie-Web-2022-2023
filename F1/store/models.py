@@ -56,6 +56,7 @@ class Utente(models.Model):
 
 class Ordine(models.Model):
     data = models.DateField(null=False, blank=False, default=date.today)
+    prezzo = models.FloatField(validators=[valida_non_negativi], default=0.00)
 
     # Un ordine si riferisce a uno e un solo utente
     utente = models.ForeignKey(Utente, on_delete=models.PROTECT, null=False, blank=False)

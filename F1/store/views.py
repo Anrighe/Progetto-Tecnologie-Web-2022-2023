@@ -153,49 +153,69 @@ def UserProfile(request):
     ALLOWED_IMAGE_FORMATS = ['JPEG', 'JPG', 'PNG']
     user = request.user
 
+    utente = False
+    gestore = False
     try:
-        utente = Utente.objects.get(user=user)
+        if user.gestore_circuito:
+            gestore = True
+    except Exception as e:
+        print('The current user is an Utente type')
 
-        # Caricamento di una nuova immagine profilo
-        if request.method == 'POST':
+    try:
+        if user.utente:
+            utente = True
+    except Exception as e:
+        print('The current user is a Gestore_Circuito type')
 
-            uploaded_file = request.FILES.get('profile-image-file')
-            
-            # Se è stato effettivamente selezionato e caricato un file 
-            if uploaded_file:
-                try:
-                    image = Image.open(uploaded_file)
+    try:
+        if gestore:
+            print('Gestore circuito')
+            ctx = {'utente': user.gestore_circuito}
+            return render(request, 'store/user_profile.html', ctx)
+        elif utente:
+            utente = Utente.objects.get(user=user)
+            ordini_utente = Ordine.objects.filter(utente=utente).order_by('-data')
 
-                    if image.format in ALLOWED_IMAGE_FORMATS:
+            # Caricamento di una nuova immagine profilo
+            if request.method == 'POST':
 
-                        username = user.username
-                        
-                        path = os.path.join(os.getcwd(), 'static', 'users', username)
+                uploaded_file = request.FILES.get('profile-image-file')
+                
+                # Se è stato effettivamente selezionato e caricato un file 
+                if uploaded_file:
+                    try:
+                        image = Image.open(uploaded_file)
 
-                        # Cancella i file precedentemente presenti nella cartella dell'utente
-                        for file_name in os.listdir(path):
-                            file_path = os.path.join(path, file_name)
-                            if os.path.isfile(file_path):
-                                os.remove(file_path)
+                        if image.format in ALLOWED_IMAGE_FORMATS:
 
-                        fs = FileSystemStorage(location=path)
+                            username = user.username
+                            
+                            path = os.path.join(os.getcwd(), 'static', 'users', username)
 
-                        filename = fs.save(uploaded_file.name, uploaded_file)
-                        
-                        utente.immagine_profilo = f'/static/users/{username}/{filename}'
-                        utente.save()
-                    else:
-                        messages.error(request, 'Formato dell\'immagine non valido. Utilizza un file in formato JPEG, JPG, o PNG.')
-                except Image.UnidentifiedImageError:
-                    print('UnidentifiedImageError')
-                    messages.error(request, 'Il file caricato non sembra essere un\'immagine. Utilizza un file in formato JPEG, JPG, o PNG.')
-            else:
-                messages.error(request, 'Non è stata caricata nessuna immagine.')
+                            # Cancella i file precedentemente presenti nella cartella dell'utente
+                            for file_name in os.listdir(path):
+                                file_path = os.path.join(path, file_name)
+                                if os.path.isfile(file_path):
+                                    os.remove(file_path)
+
+                            fs = FileSystemStorage(location=path)
+
+                            filename = fs.save(uploaded_file.name, uploaded_file)
+                            
+                            utente.immagine_profilo = f'/static/users/{username}/{filename}'
+                            utente.save()
+                        else:
+                            messages.error(request, 'Formato dell\'immagine non valido. Utilizza un file in formato JPEG, JPG, o PNG.')
+                    except Image.UnidentifiedImageError:
+                        print('UnidentifiedImageError')
+                        messages.error(request, 'Il file caricato non sembra essere un\'immagine. Utilizza un file in formato JPEG, JPG, o PNG.')
+                else:
+                    messages.error(request, 'Non è stata caricata nessuna immagine.')
 
     except Utente.DoesNotExist:
         utente = None
 
-    ctx = {'utente': utente}
+    ctx = {'utente': utente, 'ordini_utente': ordini_utente}
 
     return render(request, 'store/user_profile.html', ctx)    
 
@@ -364,8 +384,15 @@ class CartView(LoginRequiredMixin, ListView):
         except Exception as e:
             return redirect(reverse('store:cart') + f'?error={e}')
 
+        # Ricalcola il costo dei prodotti tassati
+        costo_totale_prodotti = 0
+        costo_totale_prodotti_tasse = 0
+        for biglietto in biglietti_carrello:
+            costo_totale_prodotti += biglietto.tipologia_biglietto.prezzo
+        costo_totale_prodotti_tasse = costo_totale_prodotti_tasse + (costo_totale_prodotti * CartView.IVA)
+
         # Crea un nuovo ordine
-        ordine = Ordine.objects.create(data=date.today(), utente=utente)
+        ordine = Ordine.objects.create(data=date.today(), utente=utente, prezzo=costo_totale_prodotti_tasse)
 
         for biglietto in biglietti_carrello:
             biglietto.ordine = ordine

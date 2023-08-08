@@ -22,13 +22,15 @@
 
 		<!-- Dati utente -->
 		<div class="profilo-container text-white f1-font-bold mt-2 ml-2 mr-2">
-			<div id="profile" class="background-profile-darker" style="overflow-x: hidden;">
-				<div class="row">
+			<div id="profile" class="background-profile-darker" style="overflow-x: hidden; {% if user.gestore_circuito %}overflow-y: hidden;{% endif %}">
+				<div class="row" >
 
-					<div class="col-lg-4 background-profile">
+					<div class="col-lg-4 background-profile" {% if user.gestore_circuito %}style="height: 90vh;"{% endif %}>
 						<div class="card-body text-center mt-4 ml-4">
 							<div id="profile-image-container" class="mx-auto">
-								<img id="profile-image" src="{{ utente.immagine_profilo }}" alt="avatar" class="img-fluid">
+								{% if not user.gestore_circuito %}
+									<img id="profile-image" src="{{ utente.immagine_profilo }}" alt="avatar" class="img-fluid">
+								{% endif %}
 							</div>
 							<script src="{%static 'js/user_profile_image_upload_modal.js'%}"></script>
 					
@@ -37,147 +39,205 @@
 							<br>
 							<p class="text-muted mb-0">Ultimo accesso {{ user.last_login }}</p>
 
-							<div id="modifica-profilo"class="d-flex justify-content-center mt-4">		
+							<div id="modifica-profilo"class="d-flex justify-content-center mt-4">	
+								{% if user.gestore_circuito %}
+								<a href="{% url 'store:modify_update' pk=request.user.gestore_circuito.pk %}">
+									<button type="button" class="profile-button">Modifica profilo</button>
+								</a>	
+								{% else %}
 								<a href="{% url 'store:modify_update' pk=request.user.utente.pk %}">
 									<button type="button" class="profile-button">Modifica profilo</button>
 								</a>
+								{% endif %}
 							</div>
 						</div>
 					</div>
-					
-					<div id="user-data" class="col-lg-8 background-profile-darker">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<p class="mb-0">Nome</p>
-								</div>
-								<div class="col-sm-8">
-									<p class="text-muted mb-0" >{{ user.first_name }}</p>
-								</div>
-							</div>
-						</div>
-						<br>
 
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<p class="mb-0">Cognome</p>
-								</div>
-								<div class="col-sm-8">
-									<p class="text-muted mb-0" >{{ user.last_name }}</p>
+					{% if user.gestore_circuito %}
+						<div id="user-data" class="col-lg-8 background-profile-darker" >
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Indirizzo</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" >{{ user.gestore_circuito.indirizzo }}</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<br>
+							<br>
 
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<p class="mb-0">Indirizzo Email</p>
-								</div>
-								<div class="col-sm-8">
-									<p class="text-muted mb-0">{{ user.email }}</p>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Telefono</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" >{{ user.gestore_circuito.telefono }}</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<br>
+							<br>
 
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<p class="mb-0">Data di nascita</p>
-								</div>
-								<div class="col-sm-8">
-									<p class="text-muted mb-0">{{ utente.data_nascita }}</p>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Sito Web</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" >{{ user.gestore_circuito.sito_web }}</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<br>
+							<br>
 
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<p class="mb-0">Sesso</p>
-								</div>
-								<div class="col-sm-8">
-									<p class="text-muted mb-0">{{ utente.get_sesso_display }}</p>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">IBAN</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" style="font-size: 14px;">{{ user.gestore_circuito.iban }}</p>
+									</div>
 								</div>
 							</div>
+							<br>
 						</div>
-						<br>
+					{% else %}
+						<div id="user-data" class="col-lg-8 background-profile-darker">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Nome</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" >{{ user.first_name }}</p>
+									</div>
+								</div>
+							</div>
+							<br>
 
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<p class="mb-0">Paese</p>
-								</div>
-								<div class="col-sm-8">
-									<p class="text-muted mb-0">{{ utente.paese.name }}</p>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Cognome</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" >{{ user.last_name }}</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<br>
+							<br>
 
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<p class="mb-0">Telefono</p>
-								</div>
-								<div class="col-sm-8">
-									<p class="text-muted mb-0">{{ utente.telefono }}</p>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Indirizzo Email</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0">{{ user.email }}</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<br>
+							<br>
 
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<p class="mb-0">Premium</p>
-								</div>
-								<div class="col-sm-8">
-									<p class="text-muted mb-0">{{ utente.premium }}</p>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Data di nascita</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0">{{ utente.data_nascita }}</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<br>
+							<br>
 
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<p class="mb-0">Carta di credito</p>
-								</div>
-								<div class="col-sm-8">
-									<p class="text-muted mb-0">{{ utente.carta_credito }}</p>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Sesso</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0">{{ utente.get_sesso_display }}</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<br>
+							<br>
 
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<p class="mb-0">Scadenza carta</p>
-								</div>
-								<div class="col-sm-8">
-									<p class="text-muted mb-0">{{ utente.scadenza_carta }}</p>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Paese</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0">{{ utente.paese.name }}</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<br>
+							<br>
 
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-4">
-									<p class="mb-0">CVV</p>
-								</div>
-								<div class="col-sm-8">
-									<p class="text-muted mb-0">{% if utente.cvv %}***{% endif %}</p>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Telefono</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0">{{ utente.telefono }}</p>
+									</div>
 								</div>
 							</div>
+							<br>
+
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Premium</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0">{{ utente.premium }}</p>
+									</div>
+								</div>
+							</div>
+							<br>
+
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Carta di credito</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0">{{ utente.carta_credito }}</p>
+									</div>
+								</div>
+							</div>
+							<br>
+
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Scadenza carta</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0">{{ utente.scadenza_carta }}</p>
+									</div>
+								</div>
+							</div>
+							<br>
+
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">CVV</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0">{% if utente.cvv %}***{% endif %}</p>
+									</div>
+								</div>
+							</div>
+							
 						</div>
-						
-					</div>
+					{% endif %}
 				</div>
 
 				
@@ -187,27 +247,18 @@
 			<div class="background-profile-darker card">
 				<h2 class="mx-auto f1-font-bold mt-2">I tuoi ordini</h2>
 				<table class="order-table mt-3 ml-2 mr-2">
-					<tr class="">
-						<th class="order-cell f1-font-bold">Articolo</th>
+					<tr>
+						<th class="order-cell f1-font-bold">Id ordine</th>
 						<th class="order-cell f1-font-bold">Data acquisto</th>
 						<th class="order-cell f1-font-bold">Prezzo</th>
 					</tr>
-					<tr>
-						<th class="order-cell f1-font-regular">BIGLIETTO 1</td>
-						<th class="order-cell f1-font-regular">26/06/2023</td>
-						<th class="order-cell f1-font-regular">59,99€</td>
-					</tr>
-					<tr>
-						<th class="order-cell f1-font-regular">BIGLIETTO 2</td>
-						<th class="order-cell f1-font-regular">26/06/2023</td>
-						<th class="order-cell f1-font-regular">59,99€</td>
-					</tr>
-					<tr>
-						<th class="order-cell f1-font-regular">BIGLIETTO 3</td>
-						<th class="order-cell f1-font-regular">26/06/2023</td>
-						<th class="order-cell f1-font-regular">59,99€</td>
-					</tr>
-
+					{% for ordine in ordini_utente %}
+						<tr>
+							<th class="order-cell f1-font-regular">Ordine {{ ordine.id }}</td>
+							<th class="order-cell f1-font-regular">{{ ordine.data }}</td>
+							<th class="order-cell f1-font-regular">{{ ordine.prezzo|floatformat:2 }} €</td>
+						</tr>
+					{% endfor %}
 				</table>
 			</div>
 		</div>	

@@ -1,6 +1,5 @@
 TODO:
 - Modale errore aggiunta prodotto al carrello (?)
-- Modale per avvenuto acquisto / errore
 - View profilo gestore
 - View Notifiche
 - Premium
