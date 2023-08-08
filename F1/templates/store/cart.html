@@ -50,11 +50,15 @@
 													<div class="d-flex justify-content-between">
 														<div class="d-flex flex-row align-items-center">
 															<div>
-																<img src="{{istanza_biglietto.tipologia_biglietto.gestore_circuito.gestione_circuito.immagine_mappa}}" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px; background-color: white; border-radius: 5px;">
+																<a class="product-info" href="{% url 'store:product' pk=istanza_biglietto.tipologia_biglietto.id %}">
+																	<img src="{{istanza_biglietto.tipologia_biglietto.gestore_circuito.gestione_circuito.immagine_mappa}}" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px; background-color: white; border-radius: 5px;">
+																</a>
 															</div>
 															<div class="ms-3 ml-4">
-																<h5>{{ istanza_biglietto.tipologia_biglietto.gestore_circuito.gestione_circuito.nome }} - {{ istanza_biglietto.tipologia_biglietto.titolo }}</h5>
-																<p class="small mb-0 text-left">Posto {{ istanza_biglietto.numero_posto }}</p>
+																<a class="product-info" href="{% url 'store:product' pk=istanza_biglietto.tipologia_biglietto.id %}">
+																	<h5>{{ istanza_biglietto.tipologia_biglietto.gestore_circuito.gestione_circuito.nome }} - {{ istanza_biglietto.tipologia_biglietto.titolo }}</h5>
+																	<p class="small mb-0 text-left">Posto {{ istanza_biglietto.numero_posto }}</p>
+																</a>
 															</div>
 														</div>
 														<div class="d-flex flex-row align-items-center">
