@@ -56,9 +56,6 @@ class Utente(models.Model):
 
 class Ordine(models.Model):
     data = models.DateField(null=False, blank=False, default=date.today)
-    
-    # Un ordine si riferisce a uno e un solo gestore di un circuito
-    gestore_circuito = models.ForeignKey(Gestore_Circuito, on_delete=models.PROTECT, null=False, blank=False)
 
     # Un ordine si riferisce a uno e un solo utente
     utente = models.ForeignKey(Utente, on_delete=models.PROTECT, null=False, blank=False)
@@ -89,7 +86,7 @@ class TipologiaBiglietto(models.Model):
 
     def get_istanza_biglietto_amount(self):
         '''Restituisce il numero di istanze di biglietti di una precisa tipologia di biglietto'''
-        istanze_biglietti = self.istanzabiglietto_set.all()
+        istanze_biglietti = self.istanzabiglietto_set.filter(ordine=None)
         return istanze_biglietti.count()
 
     class Meta:
@@ -101,7 +98,7 @@ class IstanzaBiglietto(models.Model):
 
     # Se una precisa istanza di biglietto è stata acquistata è contenuta in al più un ordine
     # Se non è stato acquistata non è contenuta in nessun ordine
-    ordine = models.ForeignKey(Ordine, on_delete=models.PROTECT, null=True, blank=True)
+    ordine = models.ForeignKey(Ordine, on_delete=models.PROTECT, null=True, blank=True, default=None)
 
     # Ogni istanza di un biglietto si riferisce a una e una sola tipologia di biglietto
     tipologia_biglietto = models.ForeignKey(TipologiaBiglietto, on_delete=models.PROTECT, blank=False, default=None, null=True)

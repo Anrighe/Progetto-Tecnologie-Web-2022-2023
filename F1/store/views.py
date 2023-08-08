@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
-from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto, Carrello
+from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto, Carrello, Ordine
 from django.core.files.storage import FileSystemStorage
 import os
 from PIL import Image
@@ -130,7 +130,8 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
 
     def check_carta_credito(self):
         if not re.match(r'^[0-9]{10,19}$', self.request.POST.get('carta_credito')):
-            self.form_error_messages = f'{self.form_error_messages}- Il numero di carta di credito inserito non è valido'
+            if not self.request.POST.get('carta_credito') == '':
+                self.form_error_messages = f'{self.form_error_messages}- Il numero di carta di credito inserito non è valido'
 
     def check_scadenza_carta(self):
         if self.request.POST.get('scadenza_carta'):
@@ -143,7 +144,8 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
 
     def check_cvv(self):
         if not re.match(r'^[0-9]{3}$', self.request.POST.get('cvv')):
-            self.form_error_messages = f'{self.form_error_messages}- Il CVV non è valido'
+            if not self.request.POST.get('cvv') == '':
+                self.form_error_messages = f'{self.form_error_messages}- Il CVV non è valido'
 
 
 @login_required
@@ -208,7 +210,7 @@ class StoreView(ListView):
         
         tipologie_biglietti = TipologiaBiglietto.objects.all().order_by('-data_evento')
 
-        istanze_biglietti = IstanzaBiglietto.objects.all()
+        istanze_biglietti = IstanzaBiglietto.objects.filter(ordine=None)
 
         # Aggiunge il conteggio delle istanze di una tipologia per ogni tipologia di prodotto
         for tipologia_biglietto in tipologie_biglietti:
@@ -242,7 +244,7 @@ class ProductView(ListView):
 
         tipologia_biglietto = TipologiaBiglietto.objects.get(pk=pk)
 
-        istanze_biglietti = IstanzaBiglietto.objects.filter(tipologia_biglietto=tipologia_biglietto)
+        istanze_biglietti = IstanzaBiglietto.objects.filter(tipologia_biglietto=tipologia_biglietto,)
         
         context['form'] = TicketForm()
         context['form'].fields['istanze_biglietti'].choices = [(istanza_biglietto.pk, istanza_biglietto.numero_posto) for istanza_biglietto in istanze_biglietti]
@@ -291,6 +293,15 @@ class CartView(LoginRequiredMixin, ListView):
         if remove:
             carrello_utente.istanze_biglietti.remove(IstanzaBiglietto.objects.get(pk=remove))
 
+        purchase = self.request.GET.get('purchase')
+        if purchase:
+            context['purchase'] = purchase   
+
+        error = self.request.GET.get('error')
+        if error:
+            error.replace('%20', ' ')
+            context['error'] = error 
+
         biglietti_carrello = carrello_utente.istanze_biglietti.all()
 
         costo_totale_prodotti = 0
@@ -317,12 +328,54 @@ class CartView(LoginRequiredMixin, ListView):
     def post(self, request, *args, **kwargs):
         '''Controlla i dati dell'utente e se sono corretti crea un ordine, collegando tutti i prodotti acquistati a quell'ordine'''
 
-        utente = Utente.objects.get(user=self.request.user)
+        user = self.request.user 
+        utente = Utente.objects.get(user=user)
         carrello_utente = Carrello.objects.get(possedimento_carrello=utente)
         biglietti_carrello = carrello_utente.istanze_biglietti.all()
 
+        carrelli_totali = Carrello.objects.all()
+
+
+        # Contolla che l'utente abbia fornito tutte le informazioni valide per il pagamento
+        try:
+            if not user.first_name:
+                raise Exception('Nome non inserito')
+            
+            if not user.last_name:
+                raise Exception('Cognome non inserito')
+            
+            if not utente.carta_credito:
+                raise Exception('Numero carta non inserito')
+            elif not re.match(r'^[0-9]{10,19}$', utente.carta_credito):
+                raise Exception('Numero carta non valido')
+            
+            if not utente.scadenza_carta:
+                raise Exception('Scadenza carta non inserita')
+            elif utente.scadenza_carta < date.today():
+                raise Exception('Carta scaduta')
+
+            if not utente.cvv:
+                raise Exception('CVV non inserito')
+            elif not re.match(r'^[0-9]{3}$', utente.cvv):
+                raise Exception('CVV non valido')
+            
+            if not carrello_utente.istanze_biglietti.all():
+                raise Exception('Carrello vuoto')
+        except Exception as e:
+            return redirect(reverse('store:cart') + f'?error={e}')
+
+        # Crea un nuovo ordine
+        ordine = Ordine.objects.create(data=date.today(), utente=utente)
+
         for biglietto in biglietti_carrello:
-            carrello_utente.istanze_biglietti.remove(biglietto)
+            biglietto.ordine = ordine
+            biglietto.save()
+
+        # Rimuove i biglietti comprati dal carrello di ogni utente
+        for biglietto in biglietti_carrello:
+            for carrello in carrelli_totali:
+                carrello.istanze_biglietti.remove(biglietto)
+
 
         return redirect(reverse('store:cart') + '?purchase=ok')
     

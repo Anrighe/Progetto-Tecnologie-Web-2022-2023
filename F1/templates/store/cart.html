@@ -14,6 +14,8 @@
 
 {% block content %}
 
+	{% include 'store/checkout_modal.html' %}
+
 
     <div class="store-container mt-4 ml-4 mr-4 mb-4 text-white">
         <div class="query-page-selector-container" align="right">
@@ -145,7 +147,7 @@
 									</div>
 									<form method="post">
 										{% csrf_token %}
-										<button type="submit" style="width:175px;" >Checkout<i class="fa fa-credit-card ml-2"></i></button>
+										<button type="submit" {% if not biglietti_carrello %}disabled class="disabled-button"{% endif %} style="width:175px;" >Checkout<i class="fa fa-credit-card ml-2"></i></button>
 									</form>
                                 </div>
 							</div>

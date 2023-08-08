@@ -1,0 +1,48 @@
+<!-- Modal l'acquisto dei prodotti nel carrello -->
+<div id="modal-checkout" class="modal modal-background f1-font-regular text-white" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-store">
+            <div class="modal-header background-profile" >
+                <h3 class="modal-title">{% if purchase == "ok" %}Transazione conclusa con successo{% else %}Errore{% endif %}</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                    <span aria-hidden="true" onclick="closeCheckoutModal()">&times;</span>
+                </button>
+                
+            </div>
+            {% if error %}
+                <div class="modal-body background-profile"><h4>{{ error }}<h4></div>
+            {% endif %}
+            <div class="modal-footer">
+                <button type="button" class="" data-dismiss="modal" onclick="closeCheckoutModal()">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function openCheckoutModal() 
+    {
+        let modal = document.getElementById("modal-checkout");
+        modal.style.display = "block";
+    }
+
+    function closeCheckoutModal() 
+    {
+        let modal = document.getElementById("modal-checkout");
+        modal.style.display = "none";
+    }
+
+    {% if purchase == "ok" or error %}
+        openCheckoutModal();
+    {% endif %}
+
+    // Se si effettua un click sullo sfondo quando il modale è visibile, viene chiuso
+    let modal_background = document.getElementById("modal-checkout");
+    modal_background.addEventListener('click', function (e) 
+    {
+        e.preventDefault();
+        closeCheckoutModal();
+    });
+</script>
