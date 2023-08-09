@@ -22,6 +22,7 @@ from django.core.paginator import Paginator, EmptyPage
 
 # Classe che gestisce la modifica dei dati dell'utente
 class UtenteProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
+    '''Classe che gestisce la pagina di modifica dei dati dell'utente'''
     model = Utente
     template_name = 'store/user_profile_data_change.html'
     success_url = '/store/profile/'
@@ -150,6 +151,7 @@ class UtenteProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
 
 @login_required
 def UserProfile(request):
+    '''Gestisce la pagina del profilo dell'utente'''
     ALLOWED_IMAGE_FORMATS = ['JPEG', 'JPG', 'PNG']
     user = request.user
 
@@ -232,6 +234,7 @@ def UserProfile(request):
 
 
 class StoreView(ListView):
+    '''Classe che gestisce la pagina dello store'''
     model = TipologiaBiglietto
     template_name = 'store/store.html'
     NUM_BIGLIETTI_PER_PAGINA = 12
@@ -264,6 +267,7 @@ class StoreView(ListView):
             return redirect('nothing_here')
     
 class ProductView(ListView):
+    '''Classe che gestisce la pagina di un prodotto'''
     model = TipologiaBiglietto
     template_name = 'store/product.html'
     user_data_form = TicketForm()
@@ -308,6 +312,7 @@ class ProductView(ListView):
         return redirect(reverse('store:product', kwargs=kwargs) + '?addproduct=ok')
     
 class CartView(LoginRequiredMixin, ListView):
+    '''Classe che gestisce il carrello dell'utente'''
     model = Carrello
     template_name = 'store/cart.html'
     IVA = 0.22
@@ -417,8 +422,8 @@ class CartView(LoginRequiredMixin, ListView):
         return redirect(reverse('store:cart') + '?purchase=ok')
     
 
-# Classe che gestisce la modifica dei dati del gestore
 class GestoreProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
+    '''Classe che gestisce la modifica dei dati del gestore'''
     model = Gestore_Circuito
     template_name = 'store/gestore_profile_data_change.html'
     success_url = '/store/profile/'
@@ -509,6 +514,7 @@ class GestoreProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
 
 
 class CreateTicketTypeView(LoginRequiredMixin, CreateView):
+    '''Classe per la creazione di una tipologia di biglietto'''
     model = TipologiaBiglietto
     template_name = 'store/create_ticket_type.html'
     success_url = '/store/profile/'
@@ -565,13 +571,21 @@ class CreateTicketTypeView(LoginRequiredMixin, CreateView):
 
 
 class CreateTicketInstanceView(LoginRequiredMixin, CreateView):
+    '''Classe per la creazione dell'istanza di una tipologia di biglietto'''
     model = IstanzaBiglietto
     template_name = 'store/create_ticket_instance.html'
     success_url = '/store/profile/'
     form_error_messages = ''
 
     def get_form(self, form_class=None):
-        return CreateTicketInstanceForm()
+        gestore_circuito = Gestore_Circuito.objects.get(user=self.request.user)
+        tipologia_biglietto = TipologiaBiglietto.objects.filter(gestore_circuito=gestore_circuito)
+
+        self.ticket_data_form = CreateTicketInstanceForm()   
+        choices = [(tipologia_biglietto.pk, f'{gestore_circuito.gestione_circuito.nome} - Settore {tipologia_biglietto.settore}') for tipologia_biglietto in tipologia_biglietto]
+        self.ticket_data_form.fields['tipologia_biglietto'].choices = choices
+
+        return self.ticket_data_form
 
     def post(self, request, *args, **kwargs):
         self.form_error_messages = ''
@@ -579,13 +593,11 @@ class CreateTicketInstanceView(LoginRequiredMixin, CreateView):
         
         if self.are_inputs_correct():
 
-            #tipologia_biglietto = TipologiaBiglietto()
-            #tipologia_biglietto.settore = request.POST.get('settore')
-            #tipologia_biglietto.data_evento = request.POST.get('data_evento')
-            #tipologia_biglietto.prezzo = request.POST.get('prezzo')
-            #tipologia_biglietto.gestore_circuito = gestore
+            istanza_biglietto = IstanzaBiglietto()
+            istanza_biglietto.numero_posto = request.POST.get('numero_posto')
+            istanza_biglietto.tipologia_biglietto = TipologiaBiglietto.objects.get(pk=request.POST.get('tipologia_biglietto'))
 
-            #tipologia_biglietto.save()
+            istanza_biglietto.save()
 
             messages.success(request, 'Istanza biglietto creata con successo')
             return redirect('store:profile')
@@ -602,7 +614,7 @@ class CreateTicketInstanceView(LoginRequiredMixin, CreateView):
             return False
               
     def check_seat(self):
-        if not self.request.POST.get('settore').isdigit():
+        if not re.match(r'^[0-9]+$', self.request.POST.get('numero_posto')):
             self.form_error_messages = f'{self.form_error_messages}- Il posto inserito non è valido. Può solo contentere numeri'
 
     
