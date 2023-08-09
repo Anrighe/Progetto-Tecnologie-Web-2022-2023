@@ -29,7 +29,7 @@
         <form method="post" class="ml-4 mr-4 mx-auto" style="max-width: 55vw;">
             {% csrf_token %}
 
-            <div class="form-group col-md-6 mb-0">
+            <div>
                 {{ form.tipologia_biglietto|as_crispy_field }}
             </div>
 

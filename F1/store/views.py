@@ -15,7 +15,7 @@ from django.shortcuts import redirect, reverse
 from django.core.exceptions import ValidationError
 import re
 from datetime import date
-from store.forms import UtenteProfileFormData, TicketForm, GestoreProfileFormData, CreateTicketTypeForm
+from store.forms import UtenteProfileFormData, TicketForm, GestoreProfileFormData, CreateTicketTypeForm, CreateTicketInstanceForm
 from django.core.paginator import Paginator, EmptyPage
 
 
@@ -562,5 +562,48 @@ class CreateTicketTypeView(LoginRequiredMixin, CreateView):
     def check_price(self):
         if not re.match(r'^[0-9]+\.?[0-9]+$', self.request.POST.get('prezzo')):
             self.form_error_messages = f'{self.form_error_messages}- Il prezzo inserito non è valido'
+
+
+class CreateTicketInstanceView(LoginRequiredMixin, CreateView):
+    model = IstanzaBiglietto
+    template_name = 'store/create_ticket_instance.html'
+    success_url = '/store/profile/'
+    form_error_messages = ''
+
+    def get_form(self, form_class=None):
+        return CreateTicketInstanceForm()
+
+    def post(self, request, *args, **kwargs):
+        self.form_error_messages = ''
+        gestore = Gestore_Circuito.objects.get(user=self.request.user)
+        
+        if self.are_inputs_correct():
+
+            #tipologia_biglietto = TipologiaBiglietto()
+            #tipologia_biglietto.settore = request.POST.get('settore')
+            #tipologia_biglietto.data_evento = request.POST.get('data_evento')
+            #tipologia_biglietto.prezzo = request.POST.get('prezzo')
+            #tipologia_biglietto.gestore_circuito = gestore
+
+            #tipologia_biglietto.save()
+
+            messages.success(request, 'Istanza biglietto creata con successo')
+            return redirect('store:profile')
+        else:
+            messages.error(request, self.form_error_messages)
+            return redirect('store:profile')
+    
+    def are_inputs_correct(self):
+        self.check_seat()
+
+        if self.form_error_messages == '':
+            return True
+        else:
+            return False
+              
+    def check_seat(self):
+        if not self.request.POST.get('settore').isdigit():
+            self.form_error_messages = f'{self.form_error_messages}- Il posto inserito non è valido. Può solo contentere numeri'
+
     
     

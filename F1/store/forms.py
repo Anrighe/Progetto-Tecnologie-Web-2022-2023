@@ -65,3 +65,8 @@ class CreateTicketTypeForm(forms.Form):
     def add_tooltips(self):
         for field_name, field in self.fields.items():
             field.widget.attrs['title'] = field.label
+
+
+class CreateTicketInstanceForm(forms.Form):
+    tipologia_biglietto = forms.ChoiceField(label='Tipologia biglietto', choices=[], required=True, initial="1")
+    numero_posto = forms.IntegerField(label='Numero posto', required=True, help_text='Il numero del posto non può essere negativo')
