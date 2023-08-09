@@ -4,30 +4,31 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
-from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto, Carrello, Ordine
+from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto, Carrello, Ordine, Gestore_Circuito
 from django.core.files.storage import FileSystemStorage
 import os
 from PIL import Image
 from django.contrib import messages
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, CreateView
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect, reverse
 from django.core.exceptions import ValidationError
 import re
 from datetime import date
-from store.forms import UserProfileFormData, TicketForm
+from store.forms import UtenteProfileFormData, TicketForm, GestoreProfileFormData, CreateTicketTypeForm
 from django.core.paginator import Paginator, EmptyPage
 
 
 
 # Classe che gestisce la modifica dei dati dell'utente
-class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
+class UtenteProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
     model = Utente
     template_name = 'store/user_profile_data_change.html'
     success_url = '/store/profile/'
     form_error_messages = ''
 
-    user_data_form = UserProfileFormData()
+    user_data_form = UtenteProfileFormData()
+    
 
     def get_form(self, form_class=None):
 
@@ -47,7 +48,7 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
             'scadenza_carta': user[0].scadenza_carta,
         }
 
-        self.user_data_form = UserProfileFormData(initial=initial_data)        
+        self.user_data_form = UtenteProfileFormData(initial=initial_data)        
 
         return self.user_data_form
     
@@ -69,7 +70,6 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
             utente.data_nascita = request.POST.get('data_nascita')
             utente.sesso = request.POST.get('sesso')
             utente.paese = request.POST.get('paese')
-            print(request.POST.get('paese'))
             utente.telefono = request.POST.get('telefono')
             utente.carta_credito = request.POST.get('carta_credito')
             utente.cvv = request.POST.get('cvv')
@@ -169,9 +169,21 @@ def UserProfile(request):
 
     try:
         if gestore:
-            print('Gestore circuito')
-            ctx = {'utente': user.gestore_circuito}
+            gestore_circuito = Gestore_Circuito.objects.get(user=user)
+            circuito = user.gestore_circuito.gestione_circuito
+
+            ordini_totali = Ordine.objects.filter(utente__isnull=False).order_by('-data')
+
+            # Contiene tutti gli ordini di biglietti per il circuito gestito dal gestore corrente
+            ordini_circuito = ordini_totali.filter(istanzabiglietto__tipologia_biglietto__gestore_circuito=gestore_circuito).distinct() 
+
+            ctx = {
+                'utente': user.gestore_circuito, 
+                'circuito': circuito, 
+                'ordini_circuito': ordini_circuito
+            }
             return render(request, 'store/user_profile.html', ctx)
+        
         elif utente:
             utente = Utente.objects.get(user=user)
             ordini_utente = Ordine.objects.filter(utente=utente).order_by('-data')
@@ -207,7 +219,6 @@ def UserProfile(request):
                         else:
                             messages.error(request, 'Formato dell\'immagine non valido. Utilizza un file in formato JPEG, JPG, o PNG.')
                     except Image.UnidentifiedImageError:
-                        print('UnidentifiedImageError')
                         messages.error(request, 'Il file caricato non sembra essere un\'immagine. Utilizza un file in formato JPEG, JPG, o PNG.')
                 else:
                     messages.error(request, 'Non è stata caricata nessuna immagine.')
@@ -279,7 +290,6 @@ class ProductView(ListView):
         addproduct = self.request.GET.get('addproduct')
         if addproduct:
             context['addproduct'] = addproduct
-
 
 
         return context
@@ -405,4 +415,152 @@ class CartView(LoginRequiredMixin, ListView):
 
 
         return redirect(reverse('store:cart') + '?purchase=ok')
+    
+
+# Classe che gestisce la modifica dei dati del gestore
+class GestoreProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
+    model = Gestore_Circuito
+    template_name = 'store/gestore_profile_data_change.html'
+    success_url = '/store/profile/'
+    form_error_messages = ''
+
+    user_data_form = GestoreProfileFormData()
+
+    
+    def get_form(self, form_class=None):
+
+        gestore = Gestore_Circuito.objects.get(user=self.request.user)
+
+        initial_data = {
+            'indirizzo': gestore.indirizzo,
+            'telefono': gestore.telefono,
+            'email': gestore.user.email,
+            'sito_web': gestore.sito_web,
+            'iban': gestore.iban,
+        }
+
+        self.user_data_form = GestoreProfileFormData(initial=initial_data)        
+
+        return self.user_data_form
+
+    def get_object(self):
+        return get_object_or_404(Gestore_Circuito, user=self.request.user)
+    
+    def post(self, request, *args, **kwargs):
+        # Recupera e aggiorna l'istanza gestore
+        self.form_error_messages = ''
+        gestore = Gestore_Circuito.objects.get(user=self.request.user)
+        
+        if self.are_inputs_correct():
+
+            gestore.indirizzo = request.POST.get('indirizzo')
+            gestore.telefono = request.POST.get('telefono')
+            gestore.user.email = request.POST.get('email')
+            gestore.sito_web = request.POST.get('sito_web')
+            gestore.iban = request.POST.get('iban')
+            
+            
+            gestore.save()
+            gestore.user.save()
+
+            messages.success(request, 'Dati del profilo salvati con successo')
+            return redirect('store:profile')
+        else:
+            messages.error(request, self.form_error_messages)
+            return redirect('store:profile')
+    
+    def are_inputs_correct(self):
+        check_function_list = [
+            self.check_address,
+            self.check_phone,
+            self.check_email,
+            self.check_website,
+            self.check_iban,
+        ]
+        for check_function in check_function_list:
+            check_function()
+
+        if self.form_error_messages == '':
+            return True
+        else:
+            return False
+              
+    def check_address(self):
+        if not re.match(r'[a-z,A-Z,0-9,àèéòùì\'/ ]+$',self.request.POST.get('indirizzo')):
+            self.form_error_messages = f'{self.form_error_messages}- L\'indirizzo non può contenere caratteri speciali'
+
+    def check_email(self):
+        if not re.match(r'[^@]+@[^@]+\.[^@]+', self.request.POST.get('email')):
+            self.form_error_messages = f'{self.form_error_messages}- L\'email inserita non è valida'
+
+    def check_phone(self):
+        if not re.match(r'^\+?[0-9]{7,12}$', self.request.POST.get('telefono')):
+            self.form_error_messages = f'{self.form_error_messages}- Il numero di telefono inserito non è valido'
+
+    def check_iban(self):
+        if not re.match(r'^[A-Z,a-z,0-9]{27}$', self.request.POST.get('iban')):
+            if not self.request.POST.get('iban') == '':
+                self.form_error_messages = f'{self.form_error_messages}- L\'IBAN inserito non è valido'
+
+    def check_website(self):
+        if not re.match(r'^www\.[A-Za-z0-9]+\.[a-z]{2,3}$', self.request.POST.get('sito_web')):
+            if not self.request.POST.get('sito_web') == '':
+                self.form_error_messages = f'{self.form_error_messages}- Il sito web inserito non è valido'
+
+
+class CreateTicketTypeView(LoginRequiredMixin, CreateView):
+    model = TipologiaBiglietto
+    template_name = 'store/create_ticket_type.html'
+    success_url = '/store/profile/'
+    form_error_messages = ''
+
+    def get_form(self, form_class=None):
+        return CreateTicketTypeForm()
+
+    def post(self, request, *args, **kwargs):
+        self.form_error_messages = ''
+        gestore = Gestore_Circuito.objects.get(user=self.request.user)
+        
+        if self.are_inputs_correct():
+
+            tipologia_biglietto = TipologiaBiglietto()
+            tipologia_biglietto.settore = request.POST.get('settore')
+            tipologia_biglietto.data_evento = request.POST.get('data_evento')
+            tipologia_biglietto.prezzo = request.POST.get('prezzo')
+            tipologia_biglietto.gestore_circuito = gestore
+
+            tipologia_biglietto.save()
+
+            messages.success(request, 'Tipologia biglietto creata con successo')
+            return redirect('store:profile')
+        else:
+            messages.error(request, self.form_error_messages)
+            return redirect('store:profile')
+    
+    def are_inputs_correct(self):
+        check_function_list = [
+            self.check_sector,
+            self.check_date,
+            self.check_price,
+        ]
+        for check_function in check_function_list:
+            check_function()
+
+        if self.form_error_messages == '':
+            return True
+        else:
+            return False
+              
+    def check_sector(self):
+        if not self.request.POST.get('settore').isalnum():
+            self.form_error_messages = f'{self.form_error_messages}- Il settore non può contenere caratteri speciali'
+
+    def check_date(self):
+        if not date.fromisoformat(self.request.POST.get('data_evento')) > date.today():
+            self.form_error_messages = f'{self.form_error_messages}- La data non può essere nel passato'
+
+    def check_price(self):
+        if not re.match(r'^[0-9]+\.?[0-9]+$', self.request.POST.get('prezzo')):
+            self.form_error_messages = f'{self.form_error_messages}- Il prezzo inserito non è valido'
+    
     

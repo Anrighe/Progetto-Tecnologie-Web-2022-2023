@@ -83,7 +83,12 @@
                             <a class="nav-link f1-font-regular mr-4" href="{% url 'store:profile' %}">Ciao, {{ user.username }}</a>
                             <div class="dropdown-content" align="left">
                                 <a href="{% url 'store:profile' %}">Profilo</a>
-                                <a href="{% url 'store:modify_update' pk=user.pk %}">Modifica profilo</a>
+                                {% if user.gestore_circuito %}
+                                    <a href="{% url 'store:modify_gestore_update' pk=user.pk %}">Modifica profilo</a>
+                                {% endif %}
+                                {% if user.utente %}
+                                    <a href="{% url 'store:modify_utente_update' pk=user.pk %}">Modifica profilo</a>
+                                {% endif %}
                                 <a href="{% url 'logout' %}">Logout</a>
                             </div>
                         </div>

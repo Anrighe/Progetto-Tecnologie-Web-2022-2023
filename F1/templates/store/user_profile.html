@@ -28,7 +28,9 @@
 					<div class="col-lg-4 background-profile" {% if user.gestore_circuito %}style="height: 90vh;"{% endif %}>
 						<div class="card-body text-center mt-4 ml-4">
 							<div id="profile-image-container" class="mx-auto">
-								{% if not user.gestore_circuito %}
+								{% if user.gestore_circuito %}
+									<img src="{% static 'companies/default.png' %}" alt="avatar" class="img-fluid">
+								{% elif user.utente %}	
 									<img id="profile-image" src="{{ utente.immagine_profilo }}" alt="avatar" class="img-fluid">
 								{% endif %}
 							</div>
@@ -39,17 +41,29 @@
 							<br>
 							<p class="text-muted mb-0">Ultimo accesso {{ user.last_login }}</p>
 
-							<div id="modifica-profilo"class="d-flex justify-content-center mt-4">	
+							<div id="modifica-profilo" class="d-flex justify-content-center mt-4">	
 								{% if user.gestore_circuito %}
-								<a href="{% url 'store:modify_update' pk=request.user.gestore_circuito.pk %}">
-									<button type="button" class="profile-button">Modifica profilo</button>
-								</a>	
-								{% else %}
-								<a href="{% url 'store:modify_update' pk=request.user.utente.pk %}">
-									<button type="button" class="profile-button">Modifica profilo</button>
-								</a>
+									<a href="{% url 'store:modify_gestore_update' pk=request.user.gestore_circuito.pk %}">
+										<button type="button" class="profile-button">Modifica profilo</button>
+									</a>	
+								{% elif user.utente %}
+									<a href="{% url 'store:modify_utente_update' pk=request.user.utente.pk %}">
+										<button type="button" class="profile-button">Modifica profilo</button>
+									</a>
 								{% endif %}
 							</div>
+							{% if user.gestore_circuito %}
+								<div id="crea-tipologia-articolo" class="d-flex justify-content-center mt-4">	
+									<a href="{% url 'store:create_ticket_type' %}">
+										<button type="button" class="profile-button" style="height:150px;">Crea tipologia biglietto</button>
+									</a>
+								</div>
+								<div id="crea-istanza-articolo" class="d-flex justify-content-center mt-4" >
+									<a href="{% url 'store:modify_gestore_update' pk=request.user.gestore_circuito.pk %}">
+										<button type="button" class="profile-button" style="height:150px;">Crea istanza biglietto</button>
+									</a>
+								</div>
+								{% endif %}
 						</div>
 					</div>
 
@@ -82,6 +96,18 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-3">
+										<p class="mb-0">Email</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" >{{ user.gestore_circuito.email }}</p>
+									</div>
+								</div>
+							</div>
+							<br>
+
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
 										<p class="mb-0">Sito Web</p>
 									</div>
 									<div class="col-sm-8">
@@ -102,6 +128,19 @@
 								</div>
 							</div>
 							<br>
+
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Circuito</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" style="font-size: 14px;">{{ circuito.nome }}</p>
+									</div>
+								</div>
+							</div>
+							<br>
+
 						</div>
 					{% else %}
 						<div id="user-data" class="col-lg-8 background-profile-darker">
@@ -252,13 +291,24 @@
 						<th class="order-cell f1-font-bold">Data acquisto</th>
 						<th class="order-cell f1-font-bold">Prezzo</th>
 					</tr>
-					{% for ordine in ordini_utente %}
-						<tr>
-							<th class="order-cell f1-font-regular">Ordine {{ ordine.id }}</td>
-							<th class="order-cell f1-font-regular">{{ ordine.data }}</td>
-							<th class="order-cell f1-font-regular">{{ ordine.prezzo|floatformat:2 }} €</td>
-						</tr>
-					{% endfor %}
+					{% if user.utente %}
+						{% for ordine in ordini_utente %}
+							<tr>
+								<th class="order-cell f1-font-regular">Ordine {{ ordine.id }}</td>
+								<th class="order-cell f1-font-regular">{{ ordine.data }}</td>
+								<th class="order-cell f1-font-regular">{{ ordine.prezzo|floatformat:2 }} €</td>
+							</tr>
+						{% endfor %}
+					{% elif user.gestore_circuito %}
+						{% for ordine in ordini_circuito %}
+							<tr>
+								<th class="order-cell f1-font-regular">Ordine {{ ordine.id }}</td>
+								<th class="order-cell f1-font-regular">{{ ordine.data }}</td>
+								<th class="order-cell f1-font-regular">{{ ordine.prezzo|floatformat:2 }} €</td>
+							</tr>
+						{% endfor %}
+					{% endif %}
+
 				</table>
 			</div>
 		</div>	
