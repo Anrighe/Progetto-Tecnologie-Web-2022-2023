@@ -98,7 +98,7 @@ def get_notifications(request):
             notifiche = [{'id': notification.id, 'descrizione': notification.descrizione, 'order': notification.ordine.id} for notification in data]
 
         elif gestore:
-
+            # Trova tutte le notifiche relative a ordini di prodotti venduti da un gestore
             gestore_circuito = Gestore_Circuito.objects.get(user=request.user)
 
             tipologie_biglietti = TipologiaBiglietto.objects.filter(gestore_circuito=gestore_circuito)
