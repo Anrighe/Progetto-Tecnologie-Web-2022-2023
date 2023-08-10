@@ -18,7 +18,7 @@ from django.views.generic import RedirectView
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
-from .views import UserCreateView, nothing_here, UserCreateSelection, CompanyCreateView
+from .views import UserCreateView, nothing_here, UserCreateSelection, CompanyCreateView, get_notifications
 
 urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='/static/images/icons/favicon.ico')),
@@ -31,5 +31,6 @@ urlpatterns = [
     path('register/gestore/', CompanyCreateView.as_view(), name='register_company'),
     path('', include('media.urls')),
     path('', include('info.urls')),
-    path('', include('store.urls'))
+    path('', include('store.urls')),
+    path('query/notifications/', get_notifications, name='get_notifications'),
 ]

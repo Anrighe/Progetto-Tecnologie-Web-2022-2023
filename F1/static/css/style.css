@@ -5,10 +5,11 @@ body
     overflow-x: hidden; 
     background-size: cover;
     background-attachment: fixed;
-    /*-webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: auto;*/
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
 }
 
 .navbar
@@ -282,4 +283,45 @@ a:active { text-decoration: none; }
 .white-text
 {
     color: white;
+}
+
+.dropdown.show .dropdown-menu {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+    background-color: #5144a0;
+    font-family: "F1-font-regular";
+    width: auto;
+    max-height: 50vh;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    color: white;
+    background-color: #221c43;
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid white;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+#profileDropdown {
+    background-color: transparent;
+    border: 0;
+}
+
+/* opacitá della pagina */
+body.dimmed {
+    filter: brightness(0.3);
+    backdrop-filter: brightness(0.3);
+}
+
+.outer-shadow
+{
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.637);
 }

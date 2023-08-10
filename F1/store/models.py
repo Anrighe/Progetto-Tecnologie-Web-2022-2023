@@ -12,7 +12,7 @@ class Gestore_Circuito(models.Model):
     telefono = models.CharField(max_length=25)
     iban = models.CharField(max_length=34, validators=[valida_iban])
     email = models.CharField(max_length=100, null=True, default='', blank=True)
-    
+    notifiche = models.BooleanField(null=False, default=False)
 
     # Un gestore di un circuito gestisce uno e un solo circuito e un circuito è gestito da uno e un solo gestore
     gestione_circuito = models.OneToOneField(Circuito, on_delete=models.PROTECT, null=True, blank=True)

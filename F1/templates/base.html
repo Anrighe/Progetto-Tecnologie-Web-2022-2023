@@ -78,28 +78,36 @@
           	</ul>
           	<!-- Icona notifiche, utente e carrello (esteso) -->
           	<ul class="navbar-nav">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <div class="dropdown  f1-font-regular">
-                            <a class="nav-link f1-font-regular mr-4" href="{% url 'store:profile' %}">Ciao, {{ user.username }}</a>
-                            <div class="dropdown-content" align="left">
-                                <a href="{% url 'store:profile' %}">Profilo</a>
-                                {% if user.gestore_circuito %}
-                                    <a href="{% url 'store:modify_gestore_update' pk=user.pk %}">Modifica profilo</a>
-                                {% endif %}
-                                {% if user.utente %}
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <div class="dropdown  f1-font-regular">
+                                <a class="nav-link f1-font-regular mr-4" href="{% url 'store:profile' %}">Ciao, {{ user.username }}</a>
+                                <div class="dropdown-content" align="left">
+                                    <a href="{% url 'store:profile' %}">Profilo</a>
                                     <a href="{% url 'store:modify_utente_update' pk=user.pk %}">Modifica profilo</a>
-                                {% endif %}
-                                <a href="{% url 'logout' %}">Logout</a>
+                                    <a href="{% url 'logout' %}">Logout</a>
+                                </div>
                             </div>
-                        </div>
-       
-                {% endif %}
-                <li class="nav-item d-none d-lg-block">             </li>
-                    <a class="nav-link mr-2" href="{% url 'store:profile' %}">
-                        <i class="fa fa-bell {% if user.is_authenticated and user.utente.notifiche %}notification-color blink{% endif %}"></i>
-                    </a>
-                </li>
+                        </li>
+    
+                        <li class="nav-item d-none d-lg-block">
+                            <div class="dropdown">
+                                <a class="nav-link mr-2 dropdown-toggle" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i id="bell" class="fa fa-bell {% if user.utente.notifiche %} notification-color blink {% endif %}"></i>
+                                </a>
+                                <div id="notification-div" class="dropdown-menu dropdown-menu-right outer-shadow" aria-labelledby="profileDropdown">
+                                </div>
+                            </div>
+                        </li>
+    
+                    {% else %}
+    
+                        <a class="nav-link mr-2" href="{% url 'store:profile' %}">
+                            <i class="fa fa-bell"></i>
+                        </a>
+        
+                    {% endif %}
 				<li class="nav-item d-none d-lg-block">
 					<a class="nav-link mr-2" href="{% if user.is_superuser %}/admin/{% else %}{% url 'store:profile' %}{% endif %}">
 						<i class="fa fa-user"></i>

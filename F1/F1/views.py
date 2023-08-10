@@ -3,8 +3,9 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from store.models import Utente, Gestore_Circuito, Carrello
+from store.models import Utente, Gestore_Circuito, Carrello, Notifica, Ordine
 from media.models import PortaleF1
+from django.http import JsonResponse
 import os
 
 
@@ -74,5 +75,29 @@ class CompanyCreateView(CreateView):
 
 def nothing_here(request):
     return render(request, template_name='nothing_here.html')
+
+def get_notifications(request):
+    notifications = None
+    if request.user.is_authenticated:
+
+        if request.user.utente:
+            user_orders = Ordine.objects.filter(utente=request.user.utente)
+
+            # Trova tutte le notifiche relative a ordini che fanno parte di user_orders
+            data = Notifica.objects.filter(ordine__in=user_orders)
+            notifications = [{'id': notification.id, 'descrizione': notification.descrizione, 'order': notification.ordine.id} for notification in data]
+
+
+            print(notifications)
+        elif request.user.gestore_circuito:
+            #circuito = request.user.gestore_circuito.circuito
+            #circuito_orders = Ordine.objects.filter(circuito=circuito)
+
+            # Trova tutte le notifiche relative a ordini che fanno parte di circuito_orders
+            #data = Notifica.objects.filter(ordine__in=circuito_orders)
+            #notifications = [{'id': notification.id, 'descrizione': notification.descrizione, 'order': notification.ordine.id} for notification in data]
+            pass
+
+    return JsonResponse(notifications, safe=False)
 
     

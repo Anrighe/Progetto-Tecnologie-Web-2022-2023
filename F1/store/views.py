@@ -172,6 +172,10 @@ def UserProfile(request):
 
     try:
         if gestore:
+            # Imposta il booleano delle notifiche a False
+            user.gestore_circuito.notifiche = False
+            user.gestore_circuito.save()
+
             gestore_circuito = Gestore_Circuito.objects.get(user=user)
             circuito = user.gestore_circuito.gestione_circuito
 
@@ -225,6 +229,10 @@ def UserProfile(request):
             return render(request, 'store/user_profile.html', ctx)
         
         elif utente:
+            # Imposta il booleano delle notifiche a False
+            user.utente.notifiche = False
+            user.utente.save()
+
             utente = Utente.objects.get(user=user)
             ordini_utente = Ordine.objects.filter(utente=utente).order_by('-id')
 
