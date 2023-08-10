@@ -1,9 +1,10 @@
 TODO:
-- Modale errore aggiunta prodotto al carrello (?)
-- View profilo gestore
+- View profilo gestore (statistiche)
 - View Notifiche
-- Premium
-- Meccanismo di follow + News personalizzate
 - Gestione e creazione dei biglietti comprati
-- Carosello homepage con circuiti in grigio per gli eventi già svolti dopo gli altri che si devono ancora svolgere
+- Meccanismo di follow + News personalizzate
 - Testing
+
+- Carosello homepage con circuiti in grigio per gli eventi già svolti dopo gli altri che si devono ancora svolgere
+- Modale errore aggiunta prodotto al carrello (?)
+- Premium

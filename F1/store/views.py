@@ -177,7 +177,7 @@ def UserProfile(request):
             ordini_totali = Ordine.objects.filter(utente__isnull=False).order_by('-data')
 
             # Contiene tutti gli ordini di biglietti per il circuito gestito dal gestore corrente
-            ordini_circuito = ordini_totali.filter(istanzabiglietto__tipologia_biglietto__gestore_circuito=gestore_circuito).distinct() 
+            ordini_circuito = ordini_totali.filter(istanzabiglietto__tipologia_biglietto__gestore_circuito=gestore_circuito).distinct().order_by('-id')
 
             ctx = {
                 'utente': user.gestore_circuito, 
@@ -188,7 +188,7 @@ def UserProfile(request):
         
         elif utente:
             utente = Utente.objects.get(user=user)
-            ordini_utente = Ordine.objects.filter(utente=utente).order_by('-data')
+            ordini_utente = Ordine.objects.filter(utente=utente).order_by('-id')
 
             # Caricamento di una nuova immagine profilo
             if request.method == 'POST':
@@ -404,7 +404,7 @@ class CartView(LoginRequiredMixin, ListView):
         costo_totale_prodotti_tasse = 0
         for biglietto in biglietti_carrello:
             costo_totale_prodotti += biglietto.tipologia_biglietto.prezzo
-        costo_totale_prodotti_tasse = costo_totale_prodotti_tasse + (costo_totale_prodotti * CartView.IVA)
+        costo_totale_prodotti_tasse = costo_totale_prodotti + (costo_totale_prodotti * CartView.IVA)
 
         # Crea un nuovo ordine
         ordine = Ordine.objects.create(data=date.today(), utente=utente, prezzo=costo_totale_prodotti_tasse)
