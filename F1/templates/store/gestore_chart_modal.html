@@ -1,0 +1,47 @@
+{% load static %}
+
+<!-- Modal l'acquisto dei prodotti nel carrello -->
+<div id="modal-chart" class="modal modal-background f1-font-regular text-white" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content modal-store" style="border-radius: 10px;">
+            <div class="modal-header background-profile">
+                <h3 class="modal-title">Analisi vendite</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                    <span aria-hidden="true" onclick="closeChartModal()">&times;</span>
+                </button>
+                
+            </div>
+                {% include 'store/gestore_chart.html' %}
+            <div class="modal-body background-profile">
+                
+            </div>
+            <div class="modal-footer background-profile">
+                <button type="button" class="" data-dismiss="modal" onclick="closeChartModal()">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function openChartModal() 
+    {
+        let modal = document.getElementById("modal-chart");
+        modal.style.display = "block";
+    }
+
+    function closeChartModal() 
+    {
+        let modal = document.getElementById("modal-chart");
+        modal.style.display = "none";
+    }    
+
+    // Se si effettua un click sullo sfondo quando il modale è visibile, viene chiuso
+    let modal_background = document.getElementById("modal-chart");
+    modal_background.addEventListener('click', function (e) 
+    {
+        e.preventDefault();
+        closeChartModal();
+    });
+</script>

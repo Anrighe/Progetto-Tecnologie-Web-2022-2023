@@ -63,7 +63,14 @@
 										<button type="button" class="profile-button" style="height:150px;">Crea istanza biglietto</button>
 									</a>
 								</div>
-								{% endif %}
+								<div class="d-flex justify-content-center mt-4" >
+
+									<button type="button" class="profile-button" style="height:150px;" onclick="openChartModal()">Statistiche vendite</button>
+
+								</div>
+
+								{% include 'store/gestore_chart_modal.html' %}
+							{% endif %}
 						</div>
 					</div>
 
@@ -141,7 +148,7 @@
 							</div>
 							<br>
 							
-							{% include 'store/gestore_chart.html' %}
+							
 
 						</div>
 					{% else %}

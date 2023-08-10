@@ -83,9 +83,11 @@
                                     </div>   
                                     <div class="col-6"> 
                                         {% if istanze_biglietti_amount %}
+                                            {% if not user.gestore_circuito %}
                                             <div class="text-left" >
                                                 <button type="submit" class="">Aggiungi al carrello</button>
                                             </div>
+                                            {% endif %}
                                         {% endif %}
                                     </div>
                                 </div>
