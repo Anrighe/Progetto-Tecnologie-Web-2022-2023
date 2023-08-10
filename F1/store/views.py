@@ -14,7 +14,8 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect, reverse
 from django.core.exceptions import ValidationError
 import re
-from datetime import date
+from django.utils import timezone
+from datetime import date, timedelta
 from store.forms import UtenteProfileFormData, TicketForm, GestoreProfileFormData, CreateTicketTypeForm, CreateTicketInstanceForm
 from django.core.paginator import Paginator, EmptyPage
 
@@ -175,14 +176,51 @@ def UserProfile(request):
             circuito = user.gestore_circuito.gestione_circuito
 
             ordini_totali = Ordine.objects.filter(utente__isnull=False).order_by('-data')
+            istanze_biglietti_venduti = IstanzaBiglietto.objects.filter()
 
             # Contiene tutti gli ordini di biglietti per il circuito gestito dal gestore corrente
             ordini_circuito = ordini_totali.filter(istanzabiglietto__tipologia_biglietto__gestore_circuito=gestore_circuito).distinct().order_by('-id')
 
+            # Crea un dizionario con chiave l'offset in giorni rispetto alla data odierna e come valore una tupla per il numero di biglietti venduti per settore
+            # Esempio: -7: (1, 2, 5) --> 7 giorni fa sono stati venduti 1 biglietto per il settore 1, 2 biglietti per il settore 2 e 5 biglietti per il settore 3
+            orders_by_day = { offset: (0, 0, 0) for offset in range(-6, 1) }
+
+            for offset in range(-7, 1):
+                ordini = ordini_circuito.filter(data=timezone.now() + timedelta(days=offset)).distinct()
+                settore1 = 0
+                settore2 = 0
+                settore3 = 0
+                for ordine in ordini:
+
+                    for biglietto in istanze_biglietti_venduti:
+
+                        if biglietto.ordine == ordine:
+
+                            match biglietto.tipologia_biglietto.settore:
+                                case '1':
+                                    settore1 += 1
+                                case '2':
+                                    settore2 += 1
+                                case '3':
+                                    settore3 += 1
+                                case _:
+                                    pass
+
+                orders_by_day[offset] = (settore1, settore2, settore3)
+
             ctx = {
                 'utente': user.gestore_circuito, 
                 'circuito': circuito, 
-                'ordini_circuito': ordini_circuito
+                'ordini_circuito': ordini_circuito,
+                '7d': orders_by_day[-7],
+                '6d': orders_by_day[-6],
+                '5d': orders_by_day[-5],
+                '4d': orders_by_day[-4],
+                '3d': orders_by_day[-3],
+                '2d': orders_by_day[-2],
+                '1d': orders_by_day[-1],
+                '0d': orders_by_day[0],
+
             }
             return render(request, 'store/user_profile.html', ctx)
         
@@ -560,13 +598,16 @@ class CreateTicketTypeView(LoginRequiredMixin, CreateView):
     def check_sector(self):
         if not self.request.POST.get('settore').isalnum():
             self.form_error_messages = f'{self.form_error_messages}- Il settore non può contenere caratteri speciali'
+        
+        if not TipologiaBiglietto.objects.filter(settore=self.request.POST.get('settore')).count() == 0:
+            self.form_error_messages = f'{self.form_error_messages}- Il settore inserito è già stato utilizzato'
 
     def check_date(self):
         if not date.fromisoformat(self.request.POST.get('data_evento')) > date.today():
             self.form_error_messages = f'{self.form_error_messages}- La data non può essere nel passato'
 
     def check_price(self):
-        if not re.match(r'^[0-9]+\.?[0-9]+$', self.request.POST.get('prezzo')):
+        if not re.match(r'^[0-9]+\.?[0-9]*$', self.request.POST.get('prezzo')):
             self.form_error_messages = f'{self.form_error_messages}- Il prezzo inserito non è valido'
 
 

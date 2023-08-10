@@ -3,10 +3,10 @@
 </div>
 
 <script>
-	// for a week prior to today's date, iterate through the dates and get the number of orders for each day
-
+	// Trova i giorni della settimana precedenti a oggi
+	// Esempio: se oggi è giovedì dopo il reverse, week_days sarà: [giovedì, venerdì, sabato, domenica, lunedi, martedi, mercoledi, giovedi]
 	week_days = [];
-	for (let i = 0; i < 7; i++) 
+	for (let i = 0; i < 8; i++) 
 	{
 		let date = new Date();
 		date.setDate(date.getDate() - i);
@@ -16,11 +16,7 @@
 		
 		week_days.push(`${dayName} ${dayNumber}`);
 	}
-
 	week_days.reverse();
-	
-
-
     
     const ctx_chart = document.getElementById('myChart');
   
@@ -34,15 +30,15 @@
 			[
 				{
 					label: "Settore 1",
-					data: [3, 7, 4, 5, 2, 3, 4]
+					data: [{{ 7d.0 }}, {{ 6d.0 }}, {{ 5d.0 }}, {{ 4d.0 }}, {{ 3d.0 }}, {{ 2d.0 }}, {{ 1d.0 }}, {{ 0d.0 }}]
 				},
 				{
 					label: "Settore 2",
-					data: [4, 3, 5, 6, 1, 2, 3]
+					data: [{{ 7d.1 }}, {{ 6d.1 }}, {{ 5d.1 }}, {{ 4d.1 }}, {{ 3d.1 }}, {{ 2d.1 }}, {{ 1d.1 }}, {{ 0d.1 }}]
 				},
 				{
 					label: "Settore 3",
-					data: [7, 2, 6, 3, 4, 5, 6]
+					data: [{{ 7d.2 }}, {{ 6d.2 }}, {{ 5d.2 }}, {{ 4d.2 }}, {{ 3d.2 }}, {{ 2d.2 }}, {{ 1d.2 }}, {{ 0d.2 }}]
 				},	
 			]
       	},
