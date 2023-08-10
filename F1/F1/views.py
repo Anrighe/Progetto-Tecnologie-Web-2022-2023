@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from store.models import Utente, Gestore_Circuito, Carrello, Notifica, Ordine
+from store.models import Utente, Gestore_Circuito, Carrello, Notifica, Ordine, TipologiaBiglietto, IstanzaBiglietto
 from media.models import PortaleF1
 from django.http import JsonResponse
 import os
@@ -77,27 +77,42 @@ def nothing_here(request):
     return render(request, template_name='nothing_here.html')
 
 def get_notifications(request):
-    notifications = None
+    '''Ritorna le notifiche dell'utente loggato'''
+    notifiche = None
     if request.user.is_authenticated:
+        
+        try:
+            if request.user.utente:
+                utente = True
+                gestore = False
+        except:
+            utente = False
+            gestore = True
 
-        if request.user.utente:
-            user_orders = Ordine.objects.filter(utente=request.user.utente)
 
-            # Trova tutte le notifiche relative a ordini che fanno parte di user_orders
-            data = Notifica.objects.filter(ordine__in=user_orders)
-            notifications = [{'id': notification.id, 'descrizione': notification.descrizione, 'order': notification.ordine.id} for notification in data]
+        if utente:
+            ordini_utente = Ordine.objects.filter(utente=request.user.utente)
 
+            # Trova tutte le notifiche relative a ordini che fanno parte di ordini_utente
+            data = Notifica.objects.filter(ordine__in=ordini_utente)
+            notifiche = [{'id': notification.id, 'descrizione': notification.descrizione, 'order': notification.ordine.id} for notification in data]
 
-            print(notifications)
-        elif request.user.gestore_circuito:
-            #circuito = request.user.gestore_circuito.circuito
-            #circuito_orders = Ordine.objects.filter(circuito=circuito)
+        elif gestore:
 
-            # Trova tutte le notifiche relative a ordini che fanno parte di circuito_orders
-            #data = Notifica.objects.filter(ordine__in=circuito_orders)
-            #notifications = [{'id': notification.id, 'descrizione': notification.descrizione, 'order': notification.ordine.id} for notification in data]
-            pass
+            gestore_circuito = Gestore_Circuito.objects.get(user=request.user)
 
-    return JsonResponse(notifications, safe=False)
+            tipologie_biglietti = TipologiaBiglietto.objects.filter(gestore_circuito=gestore_circuito)
+            istanze_biglietti = IstanzaBiglietto.objects.filter(tipologia_biglietto__in=tipologie_biglietti, ordine__isnull=False).distinct()
+
+            ordini = []
+            for biglietto in istanze_biglietti:
+                ordini.append(biglietto.ordine)
+
+            notifiche = Notifica.objects.filter(ordine__in=ordini)
+
+            print(notifiche)
+            notifiche = [{'id': notification.id, 'descrizione': notification.descrizione, 'order': notification.ordine.id} for notification in notifiche]
+
+    return JsonResponse(notifiche, safe=False)
 
     
