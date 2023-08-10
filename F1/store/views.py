@@ -4,30 +4,33 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
-from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto, Carrello, Ordine
+from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto, Carrello, Ordine, Gestore_Circuito
 from django.core.files.storage import FileSystemStorage
 import os
 from PIL import Image
 from django.contrib import messages
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, CreateView
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect, reverse
 from django.core.exceptions import ValidationError
 import re
-from datetime import date
-from store.forms import UserProfileFormData, TicketForm
+from django.utils import timezone
+from datetime import date, timedelta
+from store.forms import UtenteProfileFormData, TicketForm, GestoreProfileFormData, CreateTicketTypeForm, CreateTicketInstanceForm
 from django.core.paginator import Paginator, EmptyPage
 
 
 
 # Classe che gestisce la modifica dei dati dell'utente
-class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
+class UtenteProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
+    '''Classe che gestisce la pagina di modifica dei dati dell'utente'''
     model = Utente
     template_name = 'store/user_profile_data_change.html'
     success_url = '/store/profile/'
     form_error_messages = ''
 
-    user_data_form = UserProfileFormData()
+    user_data_form = UtenteProfileFormData()
+    
 
     def get_form(self, form_class=None):
 
@@ -47,7 +50,7 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
             'scadenza_carta': user[0].scadenza_carta,
         }
 
-        self.user_data_form = UserProfileFormData(initial=initial_data)        
+        self.user_data_form = UtenteProfileFormData(initial=initial_data)        
 
         return self.user_data_form
     
@@ -69,7 +72,6 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
             utente.data_nascita = request.POST.get('data_nascita')
             utente.sesso = request.POST.get('sesso')
             utente.paese = request.POST.get('paese')
-            print(request.POST.get('paese'))
             utente.telefono = request.POST.get('telefono')
             utente.carta_credito = request.POST.get('carta_credito')
             utente.cvv = request.POST.get('cvv')
@@ -150,57 +152,135 @@ class UserProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
 
 @login_required
 def UserProfile(request):
+    '''Gestisce la pagina del profilo dell'utente'''
     ALLOWED_IMAGE_FORMATS = ['JPEG', 'JPG', 'PNG']
     user = request.user
 
+    utente = False
+    gestore = False
     try:
-        utente = Utente.objects.get(user=user)
+        if user.gestore_circuito:
+            gestore = True
+    except Exception as e:
+        print('The current user is an Utente type')
 
-        # Caricamento di una nuova immagine profilo
-        if request.method == 'POST':
+    try:
+        if user.utente:
+            utente = True
+    except Exception as e:
+        print('The current user is a Gestore_Circuito type')
 
-            uploaded_file = request.FILES.get('profile-image-file')
-            
-            # Se è stato effettivamente selezionato e caricato un file 
-            if uploaded_file:
-                try:
-                    image = Image.open(uploaded_file)
+    try:
+        if gestore:
+            # Imposta il booleano delle notifiche a False
+            user.gestore_circuito.notifiche = False
+            user.gestore_circuito.save()
 
-                    if image.format in ALLOWED_IMAGE_FORMATS:
+            gestore_circuito = Gestore_Circuito.objects.get(user=user)
+            circuito = user.gestore_circuito.gestione_circuito
 
-                        username = user.username
-                        
-                        path = os.path.join(os.getcwd(), 'static', 'users', username)
+            ordini_totali = Ordine.objects.filter(utente__isnull=False).order_by('-data')
+            istanze_biglietti_venduti = IstanzaBiglietto.objects.filter()
 
-                        # Cancella i file precedentemente presenti nella cartella dell'utente
-                        for file_name in os.listdir(path):
-                            file_path = os.path.join(path, file_name)
-                            if os.path.isfile(file_path):
-                                os.remove(file_path)
+            # Contiene tutti gli ordini di biglietti per il circuito gestito dal gestore corrente
+            ordini_circuito = ordini_totali.filter(istanzabiglietto__tipologia_biglietto__gestore_circuito=gestore_circuito).distinct().order_by('-id')
 
-                        fs = FileSystemStorage(location=path)
+            # Crea un dizionario con chiave l'offset in giorni rispetto alla data odierna e come valore una tupla per il numero di biglietti venduti per settore
+            # Esempio: -7: (1, 2, 5) --> 7 giorni fa sono stati venduti 1 biglietto per il settore 1, 2 biglietti per il settore 2 e 5 biglietti per il settore 3
+            orders_by_day = { offset: (0, 0, 0) for offset in range(-6, 1) }
 
-                        filename = fs.save(uploaded_file.name, uploaded_file)
-                        
-                        utente.immagine_profilo = f'/static/users/{username}/{filename}'
-                        utente.save()
-                    else:
-                        messages.error(request, 'Formato dell\'immagine non valido. Utilizza un file in formato JPEG, JPG, o PNG.')
-                except Image.UnidentifiedImageError:
-                    print('UnidentifiedImageError')
-                    messages.error(request, 'Il file caricato non sembra essere un\'immagine. Utilizza un file in formato JPEG, JPG, o PNG.')
-            else:
-                messages.error(request, 'Non è stata caricata nessuna immagine.')
+            for offset in range(-7, 1):
+                ordini = ordini_circuito.filter(data=timezone.now() + timedelta(days=offset)).distinct()
+                settore1 = 0
+                settore2 = 0
+                settore3 = 0
+                for ordine in ordini:
+
+                    for biglietto in istanze_biglietti_venduti:
+
+                        if biglietto.ordine == ordine:
+
+                            match biglietto.tipologia_biglietto.settore:
+                                case '1':
+                                    settore1 += 1
+                                case '2':
+                                    settore2 += 1
+                                case '3':
+                                    settore3 += 1
+                                case _:
+                                    pass
+
+                orders_by_day[offset] = (settore1, settore2, settore3)
+
+            ctx = {
+                'utente': user.gestore_circuito, 
+                'circuito': circuito, 
+                'ordini_circuito': ordini_circuito,
+                '7d': orders_by_day[-7],
+                '6d': orders_by_day[-6],
+                '5d': orders_by_day[-5],
+                '4d': orders_by_day[-4],
+                '3d': orders_by_day[-3],
+                '2d': orders_by_day[-2],
+                '1d': orders_by_day[-1],
+                '0d': orders_by_day[0],
+
+            }
+            return render(request, 'store/user_profile.html', ctx)
+        
+        elif utente:
+            # Imposta il booleano delle notifiche a False
+            user.utente.notifiche = False
+            user.utente.save()
+
+            utente = Utente.objects.get(user=user)
+            ordini_utente = Ordine.objects.filter(utente=utente).order_by('-id')
+
+            # Caricamento di una nuova immagine profilo
+            if request.method == 'POST':
+
+                uploaded_file = request.FILES.get('profile-image-file')
+                
+                # Se è stato effettivamente selezionato e caricato un file 
+                if uploaded_file:
+                    try:
+                        image = Image.open(uploaded_file)
+
+                        if image.format in ALLOWED_IMAGE_FORMATS:
+
+                            username = user.username
+                            
+                            path = os.path.join(os.getcwd(), 'static', 'users', username)
+
+                            # Cancella i file precedentemente presenti nella cartella dell'utente
+                            for file_name in os.listdir(path):
+                                file_path = os.path.join(path, file_name)
+                                if os.path.isfile(file_path):
+                                    os.remove(file_path)
+
+                            fs = FileSystemStorage(location=path)
+
+                            filename = fs.save(uploaded_file.name, uploaded_file)
+                            
+                            utente.immagine_profilo = f'/static/users/{username}/{filename}'
+                            utente.save()
+                        else:
+                            messages.error(request, 'Formato dell\'immagine non valido. Utilizza un file in formato JPEG, JPG, o PNG.')
+                    except Image.UnidentifiedImageError:
+                        messages.error(request, 'Il file caricato non sembra essere un\'immagine. Utilizza un file in formato JPEG, JPG, o PNG.')
+                else:
+                    messages.error(request, 'Non è stata caricata nessuna immagine.')
 
     except Utente.DoesNotExist:
         utente = None
 
-    ctx = {'utente': utente}
+    ctx = {'utente': utente, 'ordini_utente': ordini_utente}
 
     return render(request, 'store/user_profile.html', ctx)    
 
 
 class StoreView(ListView):
+    '''Classe che gestisce la pagina dello store'''
     model = TipologiaBiglietto
     template_name = 'store/store.html'
     NUM_BIGLIETTI_PER_PAGINA = 12
@@ -233,6 +313,7 @@ class StoreView(ListView):
             return redirect('nothing_here')
     
 class ProductView(ListView):
+    '''Classe che gestisce la pagina di un prodotto'''
     model = TipologiaBiglietto
     template_name = 'store/product.html'
     user_data_form = TicketForm()
@@ -261,7 +342,6 @@ class ProductView(ListView):
             context['addproduct'] = addproduct
 
 
-
         return context
     
     
@@ -278,6 +358,7 @@ class ProductView(ListView):
         return redirect(reverse('store:product', kwargs=kwargs) + '?addproduct=ok')
     
 class CartView(LoginRequiredMixin, ListView):
+    '''Classe che gestisce il carrello dell'utente'''
     model = Carrello
     template_name = 'store/cart.html'
     IVA = 0.22
@@ -364,8 +445,15 @@ class CartView(LoginRequiredMixin, ListView):
         except Exception as e:
             return redirect(reverse('store:cart') + f'?error={e}')
 
+        # Ricalcola il costo dei prodotti tassati
+        costo_totale_prodotti = 0
+        costo_totale_prodotti_tasse = 0
+        for biglietto in biglietti_carrello:
+            costo_totale_prodotti += biglietto.tipologia_biglietto.prezzo
+        costo_totale_prodotti_tasse = costo_totale_prodotti + (costo_totale_prodotti * CartView.IVA)
+
         # Crea un nuovo ordine
-        ordine = Ordine.objects.create(data=date.today(), utente=utente)
+        ordine = Ordine.objects.create(data=date.today(), utente=utente, prezzo=costo_totale_prodotti_tasse)
 
         for biglietto in biglietti_carrello:
             biglietto.ordine = ordine
@@ -378,4 +466,205 @@ class CartView(LoginRequiredMixin, ListView):
 
 
         return redirect(reverse('store:cart') + '?purchase=ok')
+    
+
+class GestoreProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
+    '''Classe che gestisce la modifica dei dati del gestore'''
+    model = Gestore_Circuito
+    template_name = 'store/gestore_profile_data_change.html'
+    success_url = '/store/profile/'
+    form_error_messages = ''
+
+    user_data_form = GestoreProfileFormData()
+
+    
+    def get_form(self, form_class=None):
+
+        gestore = Gestore_Circuito.objects.get(user=self.request.user)
+
+        initial_data = {
+            'indirizzo': gestore.indirizzo,
+            'telefono': gestore.telefono,
+            'email': gestore.user.email,
+            'sito_web': gestore.sito_web,
+            'iban': gestore.iban,
+        }
+
+        self.user_data_form = GestoreProfileFormData(initial=initial_data)        
+
+        return self.user_data_form
+
+    def get_object(self):
+        return get_object_or_404(Gestore_Circuito, user=self.request.user)
+    
+    def post(self, request, *args, **kwargs):
+        # Recupera e aggiorna l'istanza gestore
+        self.form_error_messages = ''
+        gestore = Gestore_Circuito.objects.get(user=self.request.user)
+        
+        if self.are_inputs_correct():
+
+            gestore.indirizzo = request.POST.get('indirizzo')
+            gestore.telefono = request.POST.get('telefono')
+            gestore.user.email = request.POST.get('email')
+            gestore.sito_web = request.POST.get('sito_web')
+            gestore.iban = request.POST.get('iban')
+            
+            
+            gestore.save()
+            gestore.user.save()
+
+            messages.success(request, 'Dati del profilo salvati con successo')
+            return redirect('store:profile')
+        else:
+            messages.error(request, self.form_error_messages)
+            return redirect('store:profile')
+    
+    def are_inputs_correct(self):
+        check_function_list = [
+            self.check_address,
+            self.check_phone,
+            self.check_email,
+            self.check_website,
+            self.check_iban,
+        ]
+        for check_function in check_function_list:
+            check_function()
+
+        if self.form_error_messages == '':
+            return True
+        else:
+            return False
+              
+    def check_address(self):
+        if not re.match(r'[a-z,A-Z,0-9,àèéòùì\'/ ]+$',self.request.POST.get('indirizzo')):
+            self.form_error_messages = f'{self.form_error_messages}- L\'indirizzo non può contenere caratteri speciali'
+
+    def check_email(self):
+        if not re.match(r'[^@]+@[^@]+\.[^@]+', self.request.POST.get('email')):
+            self.form_error_messages = f'{self.form_error_messages}- L\'email inserita non è valida'
+
+    def check_phone(self):
+        if not re.match(r'^\+?[0-9]{7,12}$', self.request.POST.get('telefono')):
+            self.form_error_messages = f'{self.form_error_messages}- Il numero di telefono inserito non è valido'
+
+    def check_iban(self):
+        if not re.match(r'^[A-Z,a-z,0-9]{27}$', self.request.POST.get('iban')):
+            if not self.request.POST.get('iban') == '':
+                self.form_error_messages = f'{self.form_error_messages}- L\'IBAN inserito non è valido'
+
+    def check_website(self):
+        if not re.match(r'^www\.[A-Za-z0-9]+\.[a-z]{2,3}$', self.request.POST.get('sito_web')):
+            if not self.request.POST.get('sito_web') == '':
+                self.form_error_messages = f'{self.form_error_messages}- Il sito web inserito non è valido'
+
+
+class CreateTicketTypeView(LoginRequiredMixin, CreateView):
+    '''Classe per la creazione di una tipologia di biglietto'''
+    model = TipologiaBiglietto
+    template_name = 'store/create_ticket_type.html'
+    success_url = '/store/profile/'
+    form_error_messages = ''
+
+    def get_form(self, form_class=None):
+        return CreateTicketTypeForm()
+
+    def post(self, request, *args, **kwargs):
+        self.form_error_messages = ''
+        gestore = Gestore_Circuito.objects.get(user=self.request.user)
+        
+        if self.are_inputs_correct():
+
+            tipologia_biglietto = TipologiaBiglietto()
+            tipologia_biglietto.settore = request.POST.get('settore')
+            tipologia_biglietto.data_evento = request.POST.get('data_evento')
+            tipologia_biglietto.prezzo = request.POST.get('prezzo')
+            tipologia_biglietto.gestore_circuito = gestore
+
+            tipologia_biglietto.save()
+
+            messages.success(request, 'Tipologia biglietto creata con successo')
+            return redirect('store:profile')
+        else:
+            messages.error(request, self.form_error_messages)
+            return redirect('store:profile')
+    
+    def are_inputs_correct(self):
+        check_function_list = [
+            self.check_sector,
+            self.check_date,
+            self.check_price,
+        ]
+        for check_function in check_function_list:
+            check_function()
+
+        if self.form_error_messages == '':
+            return True
+        else:
+            return False
+              
+    def check_sector(self):
+        if not self.request.POST.get('settore').isalnum():
+            self.form_error_messages = f'{self.form_error_messages}- Il settore non può contenere caratteri speciali'
+        
+        if not TipologiaBiglietto.objects.filter(settore=self.request.POST.get('settore')).count() == 0:
+            self.form_error_messages = f'{self.form_error_messages}- Il settore inserito è già stato utilizzato'
+
+    def check_date(self):
+        if not date.fromisoformat(self.request.POST.get('data_evento')) > date.today():
+            self.form_error_messages = f'{self.form_error_messages}- La data non può essere nel passato'
+
+    def check_price(self):
+        if not re.match(r'^[0-9]+\.?[0-9]*$', self.request.POST.get('prezzo')):
+            self.form_error_messages = f'{self.form_error_messages}- Il prezzo inserito non è valido'
+
+
+class CreateTicketInstanceView(LoginRequiredMixin, CreateView):
+    '''Classe per la creazione dell'istanza di una tipologia di biglietto'''
+    model = IstanzaBiglietto
+    template_name = 'store/create_ticket_instance.html'
+    success_url = '/store/profile/'
+    form_error_messages = ''
+
+    def get_form(self, form_class=None):
+        gestore_circuito = Gestore_Circuito.objects.get(user=self.request.user)
+        tipologia_biglietto = TipologiaBiglietto.objects.filter(gestore_circuito=gestore_circuito)
+
+        self.ticket_data_form = CreateTicketInstanceForm()   
+        choices = [(tipologia_biglietto.pk, f'{gestore_circuito.gestione_circuito.nome} - Settore {tipologia_biglietto.settore}') for tipologia_biglietto in tipologia_biglietto]
+        self.ticket_data_form.fields['tipologia_biglietto'].choices = choices
+
+        return self.ticket_data_form
+
+    def post(self, request, *args, **kwargs):
+        self.form_error_messages = ''
+        gestore = Gestore_Circuito.objects.get(user=self.request.user)
+        
+        if self.are_inputs_correct():
+
+            istanza_biglietto = IstanzaBiglietto()
+            istanza_biglietto.numero_posto = request.POST.get('numero_posto')
+            istanza_biglietto.tipologia_biglietto = TipologiaBiglietto.objects.get(pk=request.POST.get('tipologia_biglietto'))
+
+            istanza_biglietto.save()
+
+            messages.success(request, 'Istanza biglietto creata con successo')
+            return redirect('store:profile')
+        else:
+            messages.error(request, self.form_error_messages)
+            return redirect('store:profile')
+    
+    def are_inputs_correct(self):
+        self.check_seat()
+
+        if self.form_error_messages == '':
+            return True
+        else:
+            return False
+              
+    def check_seat(self):
+        if not re.match(r'^[0-9]+$', self.request.POST.get('numero_posto')):
+            self.form_error_messages = f'{self.form_error_messages}- Il posto inserito non è valido. Può solo contentere numeri'
+
+    
     

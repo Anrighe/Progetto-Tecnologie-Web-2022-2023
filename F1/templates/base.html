@@ -16,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="{%static 'js/wallpaper.js'%}"></script>
     <script src="{%static 'js/navbar.js'%}"></script>
@@ -33,9 +34,11 @@
         <a class="navbar-brand d-lg-none text-white ml-2" href="{% url 'store:profile' %}">
           	<i class="fa fa-user"></i>
         </a>
+        {% if not user.gestore_circuito %}
         <a class="navbar-brand d-lg-none text-white ml-1" href="{% url 'store:cart' %}">
           	<i class="fa fa-shopping-cart {% if user.is_authenticated and user.utente.carrello.istanze_biglietti.count > 0 %}notification-color blink{% endif %}"></i>
         </a>
+        {% endif %}
         <a class="navbar-brand d-lg-none text-white ml-1" href="{% url 'store:profile' %}">
             <i class="fa fa-bell {% if user.is_authenticated and user.utente.notifiche %}notification-color blink{% endif %}"></i>
         </a>
@@ -75,33 +78,48 @@
           	</ul>
           	<!-- Icona notifiche, utente e carrello (esteso) -->
           	<ul class="navbar-nav">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <div class="dropdown  f1-font-regular">
-                            <a class="nav-link f1-font-regular mr-4" href="{% url 'store:profile' %}">Ciao, {{ user.username }}</a>
-                            <div class="dropdown-content" align="left">
-                                <a href="{% url 'store:profile' %}">Profilo</a>
-                                <a href="{% url 'store:modify_update' pk=user.pk %}">Modifica profilo</a>
-                                <a href="{% url 'logout' %}">Logout</a>
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <div class="dropdown  f1-font-regular">
+                                <a class="nav-link f1-font-regular mr-4" href="{% url 'store:profile' %}">Ciao, {{ user.username }}</a>
+                                <div class="dropdown-content" align="left">
+                                    <a href="{% url 'store:profile' %}">Profilo</a>
+                                    <a href="{% url 'store:modify_utente_update' pk=user.pk %}">Modifica profilo</a>
+                                    <a href="{% url 'logout' %}">Logout</a>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                {% endif %}
-                <li class="nav-item d-none d-lg-block">
-                    <a class="nav-link mr-2" href="{% url 'store:profile' %}">
-                        <i class="fa fa-bell {% if user.is_authenticated and user.utente.notifiche %}notification-color blink{% endif %}"></i>
-                    </a>
-                </li>
+                        </li>
+    
+                        <li class="nav-item d-none d-lg-block">
+                            <div class="dropdown">
+                                <a class="nav-link mr-2 dropdown-toggle" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i id="bell" class="fa fa-bell {% if user.utente.notifiche %} notification-color blink {% endif %}"></i>
+                                </a>
+                                <div id="notification-div" class="dropdown-menu dropdown-menu-right outer-shadow" aria-labelledby="profileDropdown">
+                                </div>
+                            </div>
+                        </li>
+    
+                    {% else %}
+    
+                        <a class="nav-link mr-2" href="{% url 'store:profile' %}">
+                            <i class="fa fa-bell"></i>
+                        </a>
+        
+                    {% endif %}
 				<li class="nav-item d-none d-lg-block">
 					<a class="nav-link mr-2" href="{% if user.is_superuser %}/admin/{% else %}{% url 'store:profile' %}{% endif %}">
 						<i class="fa fa-user"></i>
 					</a>
 				</li>
+                {% if not user.gestore_circuito %}
             	<li class="nav-item d-none d-lg-block">
               		<a class="nav-link mr-2" href="{% url 'store:cart' %}">
                 		<i class="fa fa-shopping-cart {% if user.is_authenticated and user.utente.carrello.istanze_biglietti.count > 0 %}notification-color blink{% endif %}"></i>
               		</a>
             	</li>
+                {% endif %}
           	</ul>
         </div>
     </nav>

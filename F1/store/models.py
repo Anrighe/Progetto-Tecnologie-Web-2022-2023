@@ -11,6 +11,8 @@ class Gestore_Circuito(models.Model):
     indirizzo = models.CharField(max_length=50)
     telefono = models.CharField(max_length=25)
     iban = models.CharField(max_length=34, validators=[valida_iban])
+    email = models.CharField(max_length=100, null=True, default='', blank=True)
+    notifiche = models.BooleanField(null=False, default=False)
 
     # Un gestore di un circuito gestisce uno e un solo circuito e un circuito è gestito da uno e un solo gestore
     gestione_circuito = models.OneToOneField(Circuito, on_delete=models.PROTECT, null=True, blank=True)
@@ -56,6 +58,7 @@ class Utente(models.Model):
 
 class Ordine(models.Model):
     data = models.DateField(null=False, blank=False, default=date.today)
+    prezzo = models.FloatField(validators=[valida_non_negativi], default=0.00)
 
     # Un ordine si riferisce a uno e un solo utente
     utente = models.ForeignKey(Utente, on_delete=models.PROTECT, null=False, blank=False)
@@ -76,10 +79,9 @@ class Notifica(models.Model):
 
 
 class TipologiaBiglietto(models.Model):
-    titolo = models.CharField(max_length=50)
+    settore = models.CharField(max_length=50)
     data_evento = models.DateField(null=False, blank=False, default=date.today)
     prezzo = models.FloatField(validators=[valida_non_negativi], default=0.00)
-    totale_posti = models.PositiveIntegerField()
 
     # Una precisa tipologia di biglietto viene pubblicata nello store da uno e un solo gestore di un circuito
     gestore_circuito = models.ForeignKey(Gestore_Circuito, on_delete=models.PROTECT, null=False, blank=False)

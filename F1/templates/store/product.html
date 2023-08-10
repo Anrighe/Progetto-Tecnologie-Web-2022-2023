@@ -18,7 +18,7 @@
         {% include 'store/add_product_to_cart_modal.html' %}
         <div class="store-container mt-4 ml-4 mr-4 mb-4 text-white">
             <div class="query-page-selector-container" align="right">
-                <h1 class="ml-4 mt-2 f1-font-bold mt-2">{{ tipologia_biglietto.gestore_circuito.gestione_circuito.nome }} - {{ tipologia_biglietto.titolo }}</h1> 
+                <h1 class="ml-4 mt-2 f1-font-bold mt-2">{{ tipologia_biglietto.gestore_circuito.gestione_circuito.nome }} - Settore {{ tipologia_biglietto.settore }}</h1> 
                 <div class="query-page-selector-container mt-2" align="right">    
                     <a href="{% url 'store:store' %}">
                         <button class="mr-4 mt-2 f1-font-regular">Torna allo Store</button> 
@@ -83,9 +83,11 @@
                                     </div>   
                                     <div class="col-6"> 
                                         {% if istanze_biglietti_amount %}
+                                            {% if not user.gestore_circuito %}
                                             <div class="text-left" >
                                                 <button type="submit" class="">Aggiungi al carrello</button>
                                             </div>
+                                            {% endif %}
                                         {% endif %}
                                     </div>
                                 </div>

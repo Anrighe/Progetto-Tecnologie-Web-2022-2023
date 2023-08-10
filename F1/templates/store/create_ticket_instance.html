@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %} 
+
+{% block head %} 
+
+	<link rel="stylesheet" type="text/css" href="{%static 'css/style_profilo.css'%}">
+
+{% endblock %}
+
+{% block title %} F1 - Creazione istanza biglietto {{ form.user_group_name }} {% endblock %} 
+
+{% block header1 %}
+	<h1>Creazione istanza biglietto</h1>
+{% endblock %}
+
+{% block content %} 
+
+
+<div class="card f1-font-regular ml-4 mr-4 mt-4 mx-auto text-white background-data-form">
+    
+    <div class="ml-4 mr-4 mt-2 mx-auto white-text" style="display: flex;" align="center">
+        <h1 class="mt-2 mb-2 f1-font-bold">Creazione istanza biglietto</h1>
+    </div>
+
+    <hr class="solid divisore mr-4 ml-4"></hr>
+    
+    <div class="background-profile-darker profile-data-form mx-auto">
+        <form method="post" class="ml-4 mr-4 mx-auto" style="max-width: 55vw;">
+            {% csrf_token %}
+
+            <div>
+                {{ form.tipologia_biglietto|as_crispy_field }}
+            </div>
+
+            <div>
+                {{ form.numero_posto|as_crispy_field }}
+            </div>
+
+            <div class="mx-auto" style="width: 150px;">
+                <button type="submit" class="profile-button mt-2" style="width: 150px;">Crea</button>   
+            </div>
+        </form>
+    </div>
+    
+</div>
+
+{% endblock %}
+
+{% block footer %} {% endblock %}
