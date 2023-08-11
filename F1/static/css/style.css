@@ -285,7 +285,8 @@ a:active { text-decoration: none; }
     color: white;
 }
 
-.dropdown.show .dropdown-menu {
+.dropdown.show .dropdown-menu 
+{
     display: block;
     opacity: 1;
     transform: translateY(0);
@@ -299,7 +300,8 @@ a:active { text-decoration: none; }
     overflow-y: auto;
 }
 
-.dropdown-item {
+.dropdown-item 
+{
     color: white;
     background-color: #221c43;
     padding: 10px 0 10px 0;

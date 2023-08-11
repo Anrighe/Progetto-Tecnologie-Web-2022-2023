@@ -1,5 +1,5 @@
 from django.db import models
-
+from info.models import Scuderia
 
 class PortaleF1(models.Model):
     
@@ -9,7 +9,7 @@ class PortaleF1(models.Model):
 class News(models.Model):
     titolo = models.CharField(max_length=100)
     data = models.DateField()
-    tags = models.CharField(max_length=250)  # I tag sono separati dal carattere ,
+    tags = models.ManyToManyField(Scuderia, blank=True, default=None)
     link_news = models.CharField(max_length=250, default='')
     immagine = models.CharField(max_length=250, default='')
 

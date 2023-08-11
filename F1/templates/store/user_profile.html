@@ -293,13 +293,16 @@
 			</div>
 		
 			<!-- Ordini -->
-			<div class="background-profile-darker card">
+			<div class="background-profile-darker card" style="overflow-y: auto;">
 				<h2 class="mx-auto f1-font-bold mt-2">I tuoi ordini</h2>
 				<table class="order-table mt-3 ml-2 mr-2">
 					<tr>
 						<th class="order-cell f1-font-bold">Id ordine</th>
 						<th class="order-cell f1-font-bold">Data acquisto</th>
 						<th class="order-cell f1-font-bold">Prezzo</th>
+						{% if user.utente %}
+							<th class="order-cell f1-font-bold">Download</th>
+						{% endif %}
 					</tr>
 					{% if user.utente %}
 						{% for ordine in ordini_utente %}
@@ -307,6 +310,13 @@
 								<th class="order-cell f1-font-regular">Ordine {{ ordine.id }}</td>
 								<th class="order-cell f1-font-regular">{{ ordine.data }}</td>
 								<th class="order-cell f1-font-regular">{{ ordine.prezzo|floatformat:2 }} €</td>
+								{% if user.utente %}
+									<th class="order-cell f1-font-bold">
+										<a target="_blank" href="/static/tickets/Ordine_{{ordine.id}}_{{user.first_name}}_{{user.last_name}}.pdf" style="color: white;">
+											<i class="fa fa-cloud-download" style=""></i>
+										<a>
+									</th>
+								{% endif %}
 							</tr>
 						{% endfor %}
 					{% elif user.gestore_circuito %}

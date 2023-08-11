@@ -1,7 +1,7 @@
 from django.db import models
 from F1.validators import valida_non_negativi, valida_iban, valida_carta_credito, valida_cvv
 from django.contrib.auth.models import User
-from info.models import Circuito
+from info.models import Circuito, Scuderia
 from media.models import PortaleF1
 from datetime import date
 from django_countries.fields import CountryField
@@ -45,6 +45,7 @@ class Utente(models.Model):
     cvv = models.CharField(max_length=3, validators=[valida_cvv], null=True, default=None, blank=True)
     scadenza_carta = models.DateField(null=True, default=date.today, blank=True)
     notifiche = models.BooleanField(null=False, default=False)
+    follow = models.ManyToManyField(Scuderia, blank=True, default=None)
 
     # Connette gli utenti con la table User
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -59,6 +60,7 @@ class Utente(models.Model):
 class Ordine(models.Model):
     data = models.DateField(null=False, blank=False, default=date.today)
     prezzo = models.FloatField(validators=[valida_non_negativi], default=0.00)
+    biglietto_digitale = models.CharField(max_length=100, null=False, default='', blank=False)
 
     # Un ordine si riferisce a uno e un solo utente
     utente = models.ForeignKey(Utente, on_delete=models.PROTECT, null=False, blank=False)

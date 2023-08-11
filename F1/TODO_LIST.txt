@@ -1,8 +1,7 @@
 TODO:
-- View profilo gestore (statistiche)
-- View Notifiche
-- Gestione e creazione dei biglietti comprati
-- Meccanismo di follow + News personalizzate
+- Meccanismo di follow + News personalizzate:
+    In caso in cui l'utente segua una o più scuderie, 
+    mostrare in homepage prima le news delle scuderie in questione e poi le altre news (ordine cronologico)
 - Testing
 - Filtri store
 
