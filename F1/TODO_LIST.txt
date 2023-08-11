@@ -1,6 +1,4 @@
 TODO:
-- View Notifiche
-- Gestione e creazione dei biglietti comprati
 - Meccanismo di follow + News personalizzate
 - Testing
 - Filtri store
