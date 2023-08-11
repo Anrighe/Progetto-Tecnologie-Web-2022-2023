@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
-from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto, Carrello, Ordine, Gestore_Circuito
+from store.models import Utente, TipologiaBiglietto, IstanzaBiglietto, Carrello, Ordine, Gestore_Circuito, Notifica
 from django.core.files.storage import FileSystemStorage
 import os
 from PIL import Image
@@ -18,6 +18,7 @@ from django.utils import timezone
 from datetime import date, timedelta
 from store.forms import UtenteProfileFormData, TicketForm, GestoreProfileFormData, CreateTicketTypeForm, CreateTicketInstanceForm
 from django.core.paginator import Paginator, EmptyPage
+from store.ticket_generator import generate_ticket
 
 
 
@@ -325,7 +326,7 @@ class ProductView(ListView):
 
         tipologia_biglietto = TipologiaBiglietto.objects.get(pk=pk)
 
-        istanze_biglietti = IstanzaBiglietto.objects.filter(tipologia_biglietto=tipologia_biglietto,)
+        istanze_biglietti = IstanzaBiglietto.objects.filter(tipologia_biglietto=tipologia_biglietto, ordine=None)
         
         context['form'] = TicketForm()
         context['form'].fields['istanze_biglietti'].choices = [(istanza_biglietto.pk, istanza_biglietto.numero_posto) for istanza_biglietto in istanze_biglietti]
@@ -445,19 +446,29 @@ class CartView(LoginRequiredMixin, ListView):
         except Exception as e:
             return redirect(reverse('store:cart') + f'?error={e}')
 
-        # Ricalcola il costo dei prodotti tassati
-        costo_totale_prodotti = 0
-        costo_totale_prodotti_tasse = 0
         for biglietto in biglietti_carrello:
-            costo_totale_prodotti += biglietto.tipologia_biglietto.prezzo
-        costo_totale_prodotti_tasse = costo_totale_prodotti + (costo_totale_prodotti * CartView.IVA)
+            prezzo_tassato = biglietto.tipologia_biglietto.prezzo + (biglietto.tipologia_biglietto.prezzo * CartView.IVA)
+            ordine = Ordine.objects.create(data=date.today(), utente=utente, prezzo=prezzo_tassato)
+            ordine.biglietto_digitale = generate_ticket(ordine.id, 
+                                                        user.first_name, 
+                                                        user.last_name, 
+                                                        biglietto.tipologia_biglietto.gestore_circuito.gestione_circuito.nome, 
+                                                        biglietto.tipologia_biglietto.settore, 
+                                                        biglietto.tipologia_biglietto.data_evento, 
+                                                        biglietto.numero_posto)
+            ordine.save()
 
-        # Crea un nuovo ordine
-        ordine = Ordine.objects.create(data=date.today(), utente=utente, prezzo=costo_totale_prodotti_tasse)
-
-        for biglietto in biglietti_carrello:
             biglietto.ordine = ordine
             biglietto.save()
+
+            # Imposta il booleano delle notifiche a True per l'utente
+            biglietto.tipologia_biglietto.gestore_circuito.notifiche = True
+            Notifica.objects.create(descrizione=f'Ordine {ordine.pk} effettuato con successo', data=date.today(), ordine=ordine)
+
+        # Imposta il booleano delle notifiche a True per l'Utente
+        utente.notifiche = True
+        utente.save()
+
 
         # Rimuove i biglietti comprati dal carrello di ogni utente
         for biglietto in biglietti_carrello:

@@ -1,5 +1,4 @@
 TODO:
-- View profilo gestore (statistiche)
 - View Notifiche
 - Gestione e creazione dei biglietti comprati
 - Meccanismo di follow + News personalizzate

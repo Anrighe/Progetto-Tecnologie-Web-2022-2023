@@ -11,6 +11,8 @@ django-bootstrap4 = "*"
 crispy-bootstrap4 = "*"
 pillow = "*"
 django-countries = "*"
+reportlab = "*"
+qrcode = "*"
 
 [dev-packages]
 

@@ -94,7 +94,7 @@ def get_notifications(request):
             ordini_utente = Ordine.objects.filter(utente=request.user.utente)
 
             # Trova tutte le notifiche relative a ordini che fanno parte di ordini_utente
-            data = Notifica.objects.filter(ordine__in=ordini_utente)
+            data = Notifica.objects.filter(ordine__in=ordini_utente).order_by('-id')[0:15]
             notifiche = [{'id': notification.id, 'descrizione': notification.descrizione, 'order': notification.ordine.id} for notification in data]
 
         elif gestore:
