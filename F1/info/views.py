@@ -64,6 +64,18 @@ class TeamView(ListView):
 
         context['scuderia'] = scuderia
         context['piloti'] = piloti
+        context['pk'] = pk
+
+        try:
+            context['follow'] = False
+            if self.request.user.is_authenticated:
+                utente = Utente.objects.get(user=self.request.user)
+                if scuderia in utente.follow.all():
+                    context['follow'] = True
+                    
+        except Utente.DoesNotExist:
+            return context
+        
         return context
     
 
@@ -133,12 +145,15 @@ def follow(request, **kwargs):
     '''
     pk = kwargs.get('pk')
     if request.user.is_authenticated:
-        utente = Utente.objects.get(user=request.user)
-        scuderia = Scuderia.objects.get(pk=pk)
+        try:
+            utente = Utente.objects.get(user=request.user)
+            scuderia = Scuderia.objects.get(pk=pk)
 
-        if scuderia:
-            utente.follow.add(scuderia)
-            utente.save()
+            if scuderia:
+                utente.follow.add(scuderia)
+                utente.save()
+        except Utente.DoesNotExist:
+            return redirect('info:team', pk=pk)
 
     return redirect('info:team', pk=pk)
 
@@ -152,11 +167,14 @@ def unfollow(request, **kwargs):
     '''
     pk = kwargs.get('pk')
     if request.user.is_authenticated:
-        utente = Utente.objects.get(user=request.user)
-        scuderia = Scuderia.objects.get(pk=pk)
+        try:
+            utente = Utente.objects.get(user=request.user)
+            scuderia = Scuderia.objects.get(pk=pk)
 
-        if scuderia:
-            utente.follow.remove(scuderia)
-            utente.save()
+            if scuderia:
+                utente.follow.remove(scuderia)
+                utente.save()
+        except Utente.DoesNotExist:
+            return redirect('info:team', pk=pk)
 
     return redirect('info:team', pk=pk)

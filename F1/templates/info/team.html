@@ -18,7 +18,22 @@
 <div class="container-title mt-4 mb-4 mx-auto">
     <div class="row">
         <a class="font-title text-white">{{scuderia.nome}}</a>
+
+        {% if user.is_authenticated %}
+            {% if user.utente %}
+                {% if follow %}
+                    <a href="{% url 'info:unfollow' pk=pk %}">
+                        <button class="fa fa-heart inverted-follow-button"></button>
+                    </a>
+                {% else %}
+                    <a href="{% url 'info:follow' pk=pk %}">
+                        <button class="fa fa-heart follow-button"></button>
+                    </a>
+                {% endif %} 
+            {% endif %} 
+        {% endif %} 
     </div>
+
 </div>
 
 <div class="container-team mt-4 mb-4 mx-auto">

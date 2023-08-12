@@ -27,6 +27,8 @@ class HomePageView(ListView):
         context = super().get_context_data()
 
         data_ultima_sessione = HomePageView.trova_data_ultima_sessione()
+        user = self.request.user
+
 
         if data_ultima_sessione:
             partecipazioni = Partecipazione.objects.filter(data=data_ultima_sessione).order_by('posizione')
@@ -36,10 +38,33 @@ class HomePageView(ListView):
             context['partecipazioni'] = partecipazioni
             context['tipo_sessione'] = sessione.tipo
             context['nome_circuito'] = circuito.nome
+        
+        utente_regolare = False
+        gestore_circuito = False
 
-        # aggiungere [:n] con n = numero massimo di elementi da mostrare per ridurre le news caricate
-        news = News.objects.filter().order_by('-data')
-        context['news'] = news
+        if user.is_authenticated:
+            try:
+                if user.utente:
+                    utente_regolare = True
+                    gestore_circuito = False
+                    utente = Utente.objects.get(user=user)
+            except:
+                utente_regolare = False
+                gestore_circuito = True
+
+        if utente_regolare and utente.follow:
+            news = News.objects.filter(tags__in=utente.follow.all()).order_by('-data')[:5]
+
+            # fai il negato della query news
+            unfollowed_news = News.objects.exclude(tags__in=utente.follow.all()).order_by('-data')[:5]
+
+            context['news'] = news
+            context['unfollowed_news'] = unfollowed_news
+
+        else:
+            # aggiungere [:n] con n = numero massimo di elementi da mostrare per ridurre le news caricate
+            news = News.objects.filter().order_by('-data')[:10]
+            context['news'] = news
 
         circuiti = Circuito.objects.all().order_by('data_evento')
         context['circuiti'] = circuiti
