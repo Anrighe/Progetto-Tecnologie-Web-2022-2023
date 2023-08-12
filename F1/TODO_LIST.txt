@@ -1,6 +1,5 @@
 TODO:
 - Testing
-- Filtri store
 
 - Carosello homepage con circuiti in grigio per gli eventi già svolti dopo gli altri che si devono ancora svolgere
 - Modale errore aggiunta prodotto al carrello (?)

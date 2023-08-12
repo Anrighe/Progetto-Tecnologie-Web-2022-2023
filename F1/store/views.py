@@ -288,22 +288,45 @@ class StoreView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        print(kwargs)
+        filter = None
+        try:
+            filter = self.request.GET.get('filter')
+            print("FILTER:", filter)
+        except Exception as e:
+            print("EXCEPTION:", e)
         
-        tipologie_biglietti = TipologiaBiglietto.objects.all().order_by('-data_evento')
+        match filter:
+            case 'price_asc':
+                #hide tipologia biglietto tickets where instance.order is not null
+                
+                tipologie_biglietti = TipologiaBiglietto.objects.all().order_by('prezzo')
+            case 'price_desc':
+                tipologie_biglietti = TipologiaBiglietto.objects.all().order_by('-prezzo')
+            case 'date_asc':
+                tipologie_biglietti = TipologiaBiglietto.objects.all().order_by('data_evento')
+            case 'date_desc':
+                tipologie_biglietti = TipologiaBiglietto.objects.all().order_by('-data_evento')
+            case _:
+                tipologie_biglietti = TipologiaBiglietto.objects.all().order_by('-data_evento')
 
         istanze_biglietti = IstanzaBiglietto.objects.filter(ordine=None)
 
+        paginator = Paginator(tipologie_biglietti, StoreView.NUM_BIGLIETTI_PER_PAGINA)
+        
         # Aggiunge il conteggio delle istanze di una tipologia per ogni tipologia di prodotto
         for tipologia_biglietto in tipologie_biglietti:
             tipologia_biglietto.amount = tipologia_biglietto.get_istanza_biglietto_amount()
 
         context['istanze_biglietti'] = istanze_biglietti
 
-        paginator = Paginator(tipologie_biglietti, StoreView.NUM_BIGLIETTI_PER_PAGINA)
         numero_pagina = self.request.GET.get('page', 1)
         pagina = paginator.page(numero_pagina)
 
         context['tipologie_biglietti'] = pagina
+
+        context['filter'] = filter
 
         return context
     

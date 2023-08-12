@@ -21,17 +21,15 @@
             <div class="dropdown f1-font-regular">
                 <button class="mt-2 mr-4">Filtra articoli ▼</button>
                 <div class="dropdown-content top-dropdown-content" align="left">         
-                    <a href="">Prezzo ▲</a>
-                    <a href="">Prezzo ▼</a>
-                    <a href="">Data ▲</a>
-                    <a href="">Data ▼</a>
-                    <a href="">Disponibili ☑</a>
-                    <a href="">Mostra tutti ☒</a>
+                    <a href="{% url 'store:store' %}?filter=price_asc">Prezzo ▲</a>
+                    <a href="{% url 'store:store' %}?filter=price_desc">Prezzo ▼</a>
+                    <a href="{% url 'store:store' %}?filter=date_asc">Data ▲</a>
+                    <a href="{% url 'store:store' %}?filter=date_desc">Data ▼</a>
                 </div>
             </div>
 
             {% if tipologie_biglietti.has_previous %}
-                <a href="{% url 'store:store' %}?page={{ request.GET.page|add:-1 }}">        
+                <a href="{% url 'store:store' %}?page={{ request.GET.page|add:-1 }}{% if filter %}&filter={{filter}}{% endif %}">        
                     <button class="mr-2 mt-2 f1-font-regular">Precedente</button>  
                 </a>
             {% else %}
@@ -47,7 +45,7 @@
             <h2 class="ml-auto mt-2 mr-2 f1-font-regular"> ]</h2>
             
             {% if tipologie_biglietti.has_next %}
-                <a href="{% url 'store:store' %}?page={% if request.GET.page %}{{ request.GET.page|add:1 }}{% else %}2{% endif %}">
+                <a href="{% url 'store:store' %}?page={% if request.GET.page %}{{ request.GET.page|add:1 }}{% else %}2{% endif %}{% if filter %}&filter={{filter}}{% endif %}">
                     <button class="ml-auto mr-4 mt-2 f1-font-regular">Prossimo</button>    
                 </a>
             {% else %}
