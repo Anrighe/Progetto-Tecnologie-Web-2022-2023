@@ -1,5 +1,6 @@
 from django.urls import path
 from .models import *
+from info.views import follow, unfollow
 
 from info.views import SessioniView, CircuitiView, ScuderieView, RisultatoSessioneView, TeamView, PilotaView, CircuitoView
 
@@ -12,5 +13,7 @@ urlpatterns = [
     path('circuiti/<pk>/', CircuitoView.as_view(), name='circuito'),
     path('scuderie/', ScuderieView.as_view(), name='scuderie' ),
     path('scuderie/team/<pk>/', TeamView.as_view(), name='team'),
+    path('scuderie/team/<pk>/follow/', follow, name='follow'),
+    path('scuderie/team/<pk>/unfollow/', unfollow, name='unfollow'),
     path('pilota/<pk>/', PilotaView.as_view(), name='pilota'),
 ]

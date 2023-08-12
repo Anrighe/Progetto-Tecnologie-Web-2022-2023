@@ -2,8 +2,12 @@ from django.views.generic.list import ListView
 from info.models import Circuito, Partecipazione, Scuderia, Sessione, Pilota
 
 from media.forms import FormUtente
+from store.models import Utente
 
 from django.shortcuts import get_object_or_404, render
+from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
 
 class CircuitiView(ListView):
@@ -118,3 +122,41 @@ class RisultatoSessioneView(ListView):
         context['pk'] = pk
         
         return context
+
+@login_required
+def follow(request, **kwargs):
+    '''
+    Aggiunge una scuderia alla lista dei preferiti dell'utente corrente e, se l'utente non è autenticato, 
+    viene reindirizzato alla pagina di login.
+    Valido solamente per gli utenti -> nel caso in cui un gestore provi ad accedere a questa view,
+    verrebbe reindirizzato alla pagina della scuderia senza alcuna modifica al suo stato
+    '''
+    pk = kwargs.get('pk')
+    if request.user.is_authenticated:
+        utente = Utente.objects.get(user=request.user)
+        scuderia = Scuderia.objects.get(pk=pk)
+
+        if scuderia:
+            utente.follow.add(scuderia)
+            utente.save()
+
+    return redirect('info:team', pk=pk)
+
+@login_required
+def unfollow(request, **kwargs):
+    '''
+    Rimuove una scuderia alla lista dei preferiti dell'utente corrente, e se l'utente non è autenticato,
+    viene reindirizzato alla pagina di login.
+    Valido solamente per gli utenti -> nel caso in cui un gestore provi ad accedere a questa view,
+    verrebbe reindirizzato alla pagina della scuderia senza alcuna modifica al suo stato
+    '''
+    pk = kwargs.get('pk')
+    if request.user.is_authenticated:
+        utente = Utente.objects.get(user=request.user)
+        scuderia = Scuderia.objects.get(pk=pk)
+
+        if scuderia:
+            utente.follow.remove(scuderia)
+            utente.save()
+
+    return redirect('info:team', pk=pk)
