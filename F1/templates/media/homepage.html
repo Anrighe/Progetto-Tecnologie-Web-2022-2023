@@ -24,10 +24,12 @@
 					{% for circuito in circuiti %}
 						<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 {% if forloop.counter == 1 %}active{% endif %}">
 							<a href="{% url 'info:circuito' pk=circuito.id %}">
-								<img src="{{ circuito.preview }}" class="img-fluid d-block carousel-image" alt="img{{forloop.counter}}">
+								<img src="{{ circuito.preview }}" class="img-fluid d-block carousel-image" alt="img{{forloop.counter}}" {% if data > circuito.data_evento %}style="filter: grayscale(100%);"{% endif %}>
 							</a>
 						</div>
+						{{first_for_counter|add:1}}
 					{% endfor %}
+
 				</div>
 				<a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
