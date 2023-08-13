@@ -112,10 +112,21 @@ class VideoHighlightPageView(ListView):
     template_name = 'media/video_highlight.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        pk = self.kwargs.get('pk')
-        video = Highlight.objects.get(pk=pk)
-        video.visualizzazioni += 1
-        video.save()
-        context['video'] = video
-        return context
+        try:
+            context = super().get_context_data(**kwargs)
+            pk = self.kwargs.get('pk')
+            video = Highlight.objects.get(pk=pk)
+            video.visualizzazioni += 1
+            video.save()
+            context['video'] = video
+            return context
+        except Highlight.DoesNotExist:
+            return {}
+        
+    def get(self, request, *args, **kwargs):
+        try:
+            pk = self.kwargs.get('pk')
+            video = Highlight.objects.get(pk=pk)
+            return super().get(request, *args, **kwargs)
+        except Exception:
+            return redirect('nothing_here')

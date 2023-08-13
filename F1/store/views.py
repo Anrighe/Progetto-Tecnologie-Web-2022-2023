@@ -22,7 +22,6 @@ from store.ticket_generator import generate_ticket
 
 
 
-# Classe che gestisce la modifica dei dati dell'utente
 class UtenteProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
     '''Classe che gestisce la pagina di modifica dei dati dell'utente'''
     model = Utente
@@ -57,7 +56,7 @@ class UtenteProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
     
     def get_object(self):
         return get_object_or_404(Utente, user=self.request.user)
-
+    
     def post(self, request, *args, **kwargs):
         # Recupera e aggiorna l'istanza utente e user
         self.form_error_messages = ''
@@ -111,7 +110,7 @@ class UtenteProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
             self.form_error_messages = f'{self.form_error_messages}- Il nome non può contenere numeri o caratteri speciali'
 
     def check_last_name(self):
-        if not (self.request.POST.get('cognome').isalpha() or self.request.POST.get('nome') == ''):
+        if not (self.request.POST.get('cognome').isalpha() or self.request.POST.get('cognome') == ''):
             self.form_error_messages = f'{self.form_error_messages}- Il cognome non può contenere numeri o caratteri speciali'
 
     def check_email(self):
