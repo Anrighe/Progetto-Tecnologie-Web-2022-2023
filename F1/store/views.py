@@ -570,7 +570,7 @@ class GestoreProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
             return False
               
     def check_address(self):
-        if not re.match(r'[a-z,A-Z,0-9,àèéòùì\'/ ]+$',self.request.POST.get('indirizzo')):
+        if not re.match(r'[a-z,A-Z,0-9,àèéòùì\'/ ]+$', self.request.POST.get('indirizzo')):
             self.form_error_messages = f'{self.form_error_messages}- L\'indirizzo non può contenere caratteri speciali'
 
     def check_email(self):
