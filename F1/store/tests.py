@@ -15,9 +15,7 @@ class UtenteProfileDataChangeTestCase(TestCase):
         self.client = Client()
         self.client.login(username='testuser', password='12345')
 
-        #get a reference to the class view currently used in store:modify_utente_update
-        self.profile_data_change = UtenteProfileDataChangeViewUpdate()
-        
+        self.profile_data_change = UtenteProfileDataChangeViewUpdate()      
 
     def test_utente_data_form_found(self):
         self.reverse_profile_data_change = reverse('store:modify_utente_update', kwargs={'pk': self.user.id})
@@ -85,16 +83,16 @@ class UtenteProfileDataChangeTestCase(TestCase):
         self.response = self.client.post(self.reverse_profile_data_change, {
             'nome': 'John', 
             'cognome': 'Rossi', 
-            'email': 'email@email.com', # cognome non valido
-            'data_nascita': '2199-09-09', 
+            'email': 'email@email.com',
+            'data_nascita': '2199-09-09', # Data non valida
             'telefono': 3333333333, 
             'carta_credito': 12345678912345, 
             'cvv': 123, 'scadenza_carta': 
-            '2029-09-09' # Data non valida
+            '2029-09-09' 
             }, follow=True)
         self.assertContains(self.response, 'La data di nascita non può essere nel futuro')
         
-    def test_utente_data_change_request_invalid_future_birth_date(self):
+    def test_utente_data_change_request_invalid_birth_date(self):
         self.reverse_profile_data_change = reverse('store:modify_utente_update', kwargs={'pk': self.user.id})
         self.response = self.client.post(self.reverse_profile_data_change, {
             'nome': 'John', 

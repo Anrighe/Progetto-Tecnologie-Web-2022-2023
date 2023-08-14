@@ -1,5 +1,2 @@
 TODO:
 - Modificare view admin(?)
-- Modale errore aggiunta prodotto al carrello (?)
-
-- Testing
