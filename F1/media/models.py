@@ -13,12 +13,8 @@ class News(models.Model):
     link_news = models.CharField(max_length=250, default='')
     immagine = models.CharField(max_length=250, default='')
 
-    
     # Il portale di F1 contiene da 0 a N news e una news è contenuta nel portale di F1
     portale_f1 = models.ForeignKey(PortaleF1, on_delete=models.PROTECT, null=True, blank=True)
-
-    #def __str__(self):
-        #return f'{self.titolo} - {self.contenuto} - {self.data}'
 
     class Meta:
         verbose_name_plural = 'News'

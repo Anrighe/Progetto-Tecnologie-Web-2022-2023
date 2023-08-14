@@ -39,7 +39,6 @@ class Utente(models.Model):
     paese = CountryField(null=True, blank=True, default=None)
     telefono = models.CharField(max_length=25, null=True, default=None, blank=True)
     immagine_profilo = models.CharField(max_length=100, null=True, default='/static/users/default/default.jpg', blank=True)
-    premium = models.DateField(null=True, blank=True, default=date.today) # TODO: DA TOGLIERE?
     carta_credito = models.CharField(max_length=19, validators=[valida_carta_credito], null=True, default=None, blank=True)
     cvv = models.CharField(max_length=3, validators=[valida_cvv], null=True, default=None, blank=True)
     scadenza_carta = models.DateField(null=True, default=date.today, blank=True)
