@@ -359,11 +359,9 @@ class ProductView(ListView):
 
         context['istanze_biglietti_amount'] = tipologia_biglietto.get_istanza_biglietto_amount()
 
-
         addproduct = self.request.GET.get('addproduct')
         if addproduct:
             context['addproduct'] = addproduct
-
 
         return context
     
@@ -371,13 +369,19 @@ class ProductView(ListView):
     @method_decorator(login_required(login_url='/login/?auth=notok'))
     def post(self, request, *args, **kwargs):
         '''Aggiunge un biglietto al carrello dell'utente'''
-        user_pk = request.user.pk
-        utente_pk = Utente.objects.get(user=request.user)
-        carrello_utente = Carrello.objects.get(possedimento_carrello=utente_pk)
-        istanza_biglietto_selezionato = IstanzaBiglietto.objects.get(pk=request.POST.get('istanze_biglietti'))
+        try:
+            istanza_biglietto_selezionato = IstanzaBiglietto.objects.get(pk=request.POST.get('istanze_biglietti'))
+            tipologia_biglietto_selezionato = istanza_biglietto_selezionato.tipologia_biglietto
 
-        carrello_utente.istanze_biglietti.add(istanza_biglietto_selezionato)
+            user_pk = request.user.pk
+            utente_pk = Utente.objects.get(user=request.user)
+            carrello_utente = Carrello.objects.get(possedimento_carrello=utente_pk)
 
+            carrello_utente.istanze_biglietti.add(istanza_biglietto_selezionato)
+
+        except Utente.DoesNotExist:
+            return redirect('store:product', pk=tipologia_biglietto_selezionato.id)
+        
         return redirect(reverse('store:product', kwargs=kwargs) + '?addproduct=ok')
     
 class CartView(LoginRequiredMixin, ListView):
