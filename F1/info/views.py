@@ -113,14 +113,7 @@ class SessioniView(ListView):
 class RisultatoSessioneView(ListView):
     model = Partecipazione
     template_name = 'info/risultato_sessione.html' 
-
-    #TODO: implementare il sistema dei punti
-    #The winner receives 25 points, the second-place finisher 18 points, 
-    # with 15, 12, 10, 8, 6, 4, 2 and 1 points for positions 
-    # 3 through 10, respectively. One additional point is awarded 
-    # to the driver and team with the fastest lap of the race, 
-    # but only if this driver finishes in the top 10 positions.
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
 
