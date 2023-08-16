@@ -19,7 +19,7 @@ class CircuitiView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        circuiti = Circuito.objects.all()
+        circuiti = Circuito.objects.all().order_by('-data_evento')
         context['circuiti'] = circuiti
         return context
     
