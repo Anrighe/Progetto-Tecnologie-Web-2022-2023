@@ -1,5 +1,4 @@
 from django.views.generic.list import ListView
-from django.views.generic import DetailView
 from django.core.paginator import Paginator, EmptyPage
 from media.models import News, Highlight
 from store.models import Utente
