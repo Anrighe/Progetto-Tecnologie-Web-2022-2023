@@ -1,10 +1,12 @@
 from django.db import models
 from info.models import Scuderia
 
+
 class PortaleF1(models.Model):
     
     class Meta:
         verbose_name_plural = 'PortaliF1'
+
 
 class News(models.Model):
     titolo = models.CharField(max_length=100)

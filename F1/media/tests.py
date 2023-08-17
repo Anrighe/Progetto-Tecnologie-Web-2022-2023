@@ -12,6 +12,7 @@ from django.urls.exceptions import NoReverseMatch
 
 
 class HighlightTestCase(TestCase):
+    '''Unit test per la view HighlightPageView'''
     def setUp(self):
 
         self.user = User.objects.create_user(username='testuser', password='12345')
@@ -91,7 +92,6 @@ class HighlightTestCase(TestCase):
         self.response = self.client.get(self.reverse_highlight)
         self.assertEqual(self.response.status_code, 302)
         self.assertEqual(self.response.url, '/nothing_here/')
-
 
     def tearDown(self):
         self.user.delete()

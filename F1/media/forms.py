@@ -2,6 +2,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
+
 class FormUtente(forms.Form):
 
     def __init__(self, *args, **kwargs):

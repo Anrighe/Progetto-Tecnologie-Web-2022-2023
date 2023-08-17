@@ -23,7 +23,7 @@ from store.ticket_generator import generate_ticket
 
 
 class UtenteProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
-    '''Classe che gestisce la pagina di modifica dei dati dell'utente'''
+    '''Gestisce la pagina di modifica dei dati dell'utente'''
     model = Utente
     template_name = 'store/user_profile_data_change.html'
     success_url = '/store/profile/'
@@ -162,13 +162,13 @@ def UserProfile(request):
         if user.gestore_circuito:
             gestore = True
     except Exception as e:
-        print('The current user is an Utente type')
+        gestore = False
 
     try:
         if user.utente:
             utente = True
     except Exception as e:
-        print('The current user is a Gestore_Circuito type')
+        utente = False
 
     try:
         if gestore:
@@ -280,7 +280,7 @@ def UserProfile(request):
 
 
 class StoreView(ListView):
-    '''Classe che gestisce la pagina dello store'''
+    '''Gestisce la pagina dello store'''
     model = TipologiaBiglietto
     template_name = 'store/store.html'
     NUM_BIGLIETTI_PER_PAGINA = 12
@@ -288,11 +288,9 @@ class StoreView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        print(kwargs)
         filter = None
         try:
             filter = self.request.GET.get('filter')
-            print("FILTER:", filter)
         except Exception as e:
             print("EXCEPTION:", e)
         
@@ -334,7 +332,7 @@ class StoreView(ListView):
             return redirect('nothing_here')
     
 class ProductView(ListView):
-    '''Classe che gestisce la pagina di un prodotto'''
+    '''Gestisce la pagina di un prodotto'''
     model = TipologiaBiglietto
     template_name = 'store/product.html'
     user_data_form = TicketForm()

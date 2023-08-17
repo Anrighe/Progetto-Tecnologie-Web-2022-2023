@@ -1,7 +1,6 @@
-from django.urls import path
-from .models import *
 from . import views
-
+from .models import *
+from django.urls import path
 from media.views import HomePageView, HighlightPageView, VideoHighlightPageView
 
 app_name = 'media'

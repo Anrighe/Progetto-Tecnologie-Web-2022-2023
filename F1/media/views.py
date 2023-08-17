@@ -1,16 +1,20 @@
+from datetime import date
+from store.models import Utente
+from media.forms import FormUtente
+from django.shortcuts import render
+from django.shortcuts import redirect
+from media.models import News, Highlight
 from django.views.generic.list import ListView
 from django.core.paginator import Paginator, EmptyPage
-from media.models import News, Highlight
-from store.models import Utente
 from info.models import Partecipazione, Sessione, Circuito
-from media.forms import FormUtente
-from django.shortcuts import redirect
-
-from datetime import date
-from django.shortcuts import render
 
 
 class HomePageView(ListView):
+    '''Gestisce la homepage del sito fornendo:
+    * Le informazioni relative all'ultima sessione disputata 
+    * Gli ultimi articoli pubblicati (fino a un massimo di 10) nel caso l'utente non sia loggato o non sia un utente regolare o sia un utente regolare che non segue nessuna scuderia
+    * Gli ultimi articoli pubblicati dalle scuderie seguite (fino a un massimo di 5) dall'utente nel caso l'utente sia loggato e sia un utente regolare che segue almeno una scuderia più altri 5 articoli pubblicati dalle scuderie non seguite dall'utente
+    * Lista dei gran premi passati apposta a quella dei gran premi futuri'''
     model = News
     template_name = 'media/homepage.html' 
 
@@ -28,7 +32,6 @@ class HomePageView(ListView):
 
         data_ultima_sessione = HomePageView.trova_data_ultima_sessione()
         user = self.request.user
-
 
         if data_ultima_sessione:
             partecipazioni = Partecipazione.objects.filter(data=data_ultima_sessione).order_by('posizione')
@@ -65,7 +68,7 @@ class HomePageView(ListView):
             context['news'] = news
 
         circuiti_futuri = Circuito.objects.filter(data_evento__gte=date.today()).order_by('data_evento')
-        
+
         circuiti_passati = Circuito.objects.exclude(pk__in=circuiti_futuri).order_by('-data_evento')
 
         circuiti = [circuito for circuito in circuiti_futuri]
@@ -78,6 +81,7 @@ class HomePageView(ListView):
     
     
 class HighlightPageView(ListView):
+    '''Gestisce la pagina degli highlight, mostrando un massimo di 6 highlight per pagina, in ordine cronologico decrescente'''
     model = Highlight
     template_name = 'media/highlight.html' 
     NUM_VIDEO_PER_PAGINA = 6
@@ -107,6 +111,7 @@ class HighlightPageView(ListView):
     
 
 class VideoHighlightPageView(ListView):
+    '''Gestisce la pagina di un singolo highlight'''
     model = Highlight
     template_name = 'media/video_highlight.html'
 
