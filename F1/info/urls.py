@@ -1,7 +1,6 @@
-from django.urls import path
 from .models import *
+from django.urls import path
 from info.views import follow, unfollow
-
 from info.views import SessioniView, CircuitiView, ScuderieView, RisultatoSessioneView, TeamView, PilotaView, CircuitoView
 
 app_name = 'info'

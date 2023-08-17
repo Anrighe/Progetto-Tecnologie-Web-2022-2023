@@ -3,7 +3,6 @@ from F1.validators import valida_non_negativi
 from django_countries.fields import CountryField
 
 
-
 class Scuderia(models.Model):
     nome = models.CharField(max_length=50, default='')
     nome_completo = models.CharField(max_length=50, default='')

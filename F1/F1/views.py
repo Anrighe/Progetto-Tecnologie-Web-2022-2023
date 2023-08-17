@@ -1,19 +1,23 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView
-from django.views.generic.list import ListView
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from store.models import Utente, Gestore_Circuito, Carrello, Notifica, Ordine, TipologiaBiglietto, IstanzaBiglietto
-from media.models import PortaleF1
-from django.http import JsonResponse
 import os
-
+from media.models import PortaleF1
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
+from store.models import Utente, Gestore_Circuito, Carrello, Notifica, Ordine, TipologiaBiglietto, IstanzaBiglietto
 
 def UserCreateSelection(request):
+    '''Ritorna la pagina di selezione del tipo di utente da registrare'''
     return render(request, template_name='registration/user_type_selection.html')
 
 
 class UserCreateView(CreateView):
+    '''
+    * Crea un'istanza di User e la connette al suo corrispettivo "Utente" e al "PortaleF1
+    * Crea un'istanza di Carrello e la connette al suo corrispettivo "Utente"
+    * Crea una cartella con il nome dell'utente nel percorso F1/static/users/
+    '''
     form_class = UserCreationForm
     template_name = 'registration/user_create.html'
     success_url = reverse_lazy('media:homepage')
@@ -44,6 +48,10 @@ class UserCreateView(CreateView):
     
 
 class CompanyCreateView(CreateView):
+    '''
+    * Crea un'istanza di User e la connette al suo corrispettivo "Gestore_Circuito" e al "PortaleF1
+    * Crea una cartella con il nome del gestore nel percorso F1/static/companies/
+    '''
     form_class = UserCreationForm
     template_name = 'registration/company_create.html'
     success_url = reverse_lazy('media:homepage')
@@ -61,9 +69,6 @@ class CompanyCreateView(CreateView):
 
         path = os.path.join(os.getcwd(), 'static', 'companies', username)
 
-        #TODO: Trovare una soluzione nel caso la cartella esista già 
-        # PermissionError: [WinError 5] Access is denied: 'C:\\Python\\Progetto-Tecnologie-Web-2022-2023\\F1\\static\\companies\\provagestore1'
-
         # Se esiste una cartella chiamata come il gestore nel percorso F1\static\users la elimina e poi la crea nuovamente
         if os.path.exists(path):
             os.remove(path)
@@ -74,10 +79,11 @@ class CompanyCreateView(CreateView):
     
 
 def nothing_here(request):
+    '''Ritorna la pagina per l'errore 404'''
     return render(request, template_name='nothing_here.html')
 
 def get_notifications(request):
-    '''Ritorna le notifiche dell'utente loggato'''
+    '''Ritorna le notifiche dell'utente loggato in formato JSON'''
     notifiche = None
     if request.user.is_authenticated:
         

@@ -297,9 +297,7 @@ class StoreView(ListView):
             print("EXCEPTION:", e)
         
         match filter:
-            case 'price_asc':
-                #hide tipologia biglietto tickets where instance.order is not null
-                
+            case 'price_asc':              
                 tipologie_biglietti = TipologiaBiglietto.objects.all().order_by('prezzo')
             case 'price_desc':
                 tipologie_biglietti = TipologiaBiglietto.objects.all().order_by('-prezzo')

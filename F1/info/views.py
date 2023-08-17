@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 
 class CircuitiView(ListView):
+    '''Gestisce la pagina dei circuiti, mostrando i circuiti in ordine di data di evento'''
     model = Circuito
     template_name = 'info/menu_circuito.html' 
 
@@ -25,6 +26,7 @@ class CircuitiView(ListView):
     
 
 class CircuitoView(ListView):
+    '''Gestisce la pagina di un specifico circuito, mostrando le informazioni relative ad esso'''
     model = Circuito
     template_name = 'info/circuito.html'
 
@@ -38,6 +40,7 @@ class CircuitoView(ListView):
 
 
 class ScuderieView(ListView):
+    '''Gestisce la pagina delle scuderie, mostrando le scuderie in ordine di punti'''
     model = Scuderia
     template_name = 'info/scuderia.html'
 
@@ -53,6 +56,7 @@ class ScuderieView(ListView):
     
 
 class TeamView(ListView):
+    '''Gestisce la pagina di una specifica scuderia, mostrando le informazioni relative ad essa'''
     model = Scuderia
     template_name = 'info/team.html'
 
@@ -80,6 +84,7 @@ class TeamView(ListView):
     
 
 class PilotaView(ListView):
+    '''Gestisce la pagina di un specifico pilota, mostrando le informazioni relative ad esso'''
     model = Pilota
     template_name = 'info/pilota.html'
 
@@ -95,6 +100,7 @@ class PilotaView(ListView):
 
 
 class SessioniView(ListView):
+    '''Gestisce la pagina delle sessioni, mostrando le sessioni in ordine di data'''
     model = Partecipazione
     template_name = 'info/sessioni.html' 
 
@@ -111,6 +117,7 @@ class SessioniView(ListView):
     
 
 class RisultatoSessioneView(ListView):
+    '''Gestisce la pagina dei risultati di una specifica sessione, mostrando le informazioni relative ad essa'''
     model = Partecipazione
     template_name = 'info/risultato_sessione.html' 
     
