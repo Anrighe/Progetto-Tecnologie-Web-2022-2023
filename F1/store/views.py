@@ -152,7 +152,17 @@ class UtenteProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
 
 @login_required
 def UserProfile(request):
-    '''Gestisce la pagina del profilo dell'utente'''
+    '''
+    Gestisce la pagina del profilo personale. 
+    \nIn caso di Utente regolare:
+    * Recupera i dati dell'utente
+    * Recupera gli ordini effettuati dall'utente
+    * Gestisce i le immagini profilo caricate dall'utente e se sono valide (PNG, JPG) le salva nella cartella "static/users/username_utente" cambiando anche il path del file nel database
+    \nIn caso di Gestore_Circuito:
+    * Recupera i dati del gestore
+    * Recupera gli ordini effettuati per il circuito gestito dal gestore
+    * Formatta i dati degli ordini per visualizzarli nel grafico
+    '''
     ALLOWED_IMAGE_FORMATS = ['JPEG', 'JPG', 'PNG']
     user = request.user
 
@@ -224,8 +234,8 @@ def UserProfile(request):
                 '2d': orders_by_day[-2],
                 '1d': orders_by_day[-1],
                 '0d': orders_by_day[0],
-
             }
+
             return render(request, 'store/user_profile.html', ctx)
         
         elif utente:
@@ -605,6 +615,7 @@ class CreateTicketTypeView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         self.form_error_messages = ''
         gestore = Gestore_Circuito.objects.get(user=self.request.user)
+        circuito = gestore.gestione_circuito
         
         if self.are_inputs_correct():
 
@@ -640,7 +651,7 @@ class CreateTicketTypeView(LoginRequiredMixin, CreateView):
         if not self.request.POST.get('settore').isalnum():
             self.form_error_messages = f'{self.form_error_messages}- Il settore non può contenere caratteri speciali'
         
-        if not TipologiaBiglietto.objects.filter(settore=self.request.POST.get('settore')).count() == 0:
+        if not TipologiaBiglietto.objects.filter(gestore_circuito=Gestore_Circuito.objects.get(user=self.request.user), settore=self.request.POST.get('settore')).count() == 0:
             self.form_error_messages = f'{self.form_error_messages}- Il settore inserito è già stato utilizzato'
 
     def check_date(self):
@@ -698,6 +709,9 @@ class CreateTicketInstanceView(LoginRequiredMixin, CreateView):
     def check_seat(self):
         if not re.match(r'^[0-9]+$', self.request.POST.get('numero_posto')):
             self.form_error_messages = f'{self.form_error_messages}- Il posto inserito non è valido. Può solo contentere numeri'
+
+        if not IstanzaBiglietto.objects.filter(tipologia_biglietto=TipologiaBiglietto.objects.get(pk=self.request.POST.get('tipologia_biglietto')), numero_posto=self.request.POST.get('numero_posto')).count() == 0:
+            self.form_error_messages = f'{self.form_error_messages}- Il posto inserito è già stato utilizzato'
 
     
     

@@ -1,9 +1,8 @@
-from reportlab.lib.pagesizes import letter
+import os
+import qrcode
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-import qrcode
-import os
 
 
 def generate_ticket(id_ordine, nome, cognome, nome_circuito, settore, data_evento, posto):
@@ -15,7 +14,7 @@ def generate_ticket(id_ordine, nome, cognome, nome_circuito, settore, data_event
 
     ticket_canvas = canvas.Canvas(ticket_path)
 
-    # Importing custom F1 font #C:\\Python\\Progetto-Tecnologie-Web-2022-2023\\F1\\static\\font\\Formula1-Regular_web_0.ttf
+    # Importa il font custom "F1-font-regular"
     pdfmetrics.registerFont(TTFont('F1-font-regular', f'{current_path}/static/font/Formula1-Regular_web_0.ttf'))
 
     ticket_canvas.setPageSize((360, 720))
@@ -44,7 +43,16 @@ def generate_ticket(id_ordine, nome, cognome, nome_circuito, settore, data_event
     ticket_canvas.drawString(30, 275, f'Numero posto: {posto}')
     ticket_canvas.setFont('F1-font-regular', 16)
     ticket_canvas.drawString(30, 200, f'Nominativo: {nome} {cognome}')
-    ticket_canvas.drawString(30, 125, f'Circuito: {nome_circuito} - Settore {settore}')
+    if len(f'Circuito: {nome_circuito} - Settore {settore}') > 35:
+        ticket_canvas.drawString(30, 125, 'Circuito: ')
+        if len(f'{nome_circuito} - Settore {settore}') > 35:
+            ticket_canvas.drawString(30, 100, f'{nome_circuito}')
+            ticket_canvas.drawString(30, 75, f'Settore {settore}')
+        else:
+            ticket_canvas.drawString(30, 100, f'{nome_circuito} - Settore {settore}')
+        
+    else:
+        ticket_canvas.drawString(30, 125, f'Circuito: {nome_circuito} - Settore {settore}')
     ticket_canvas.drawString(30, 50, f'Data: {data_evento}')
 
     ticket_canvas.drawImage(logo_path, 35, 700-42, width=76, height=42, preserveAspectRatio=True, mask='auto')
@@ -60,5 +68,3 @@ def generate_ticket(id_ordine, nome, cognome, nome_circuito, settore, data_event
     ticket_canvas.save()
 
     return ticket_path
-
-#generate_ticket(1, 'Enrico', 'Marras', 'Circuito 1', '1', '10/08/2023', 55)
