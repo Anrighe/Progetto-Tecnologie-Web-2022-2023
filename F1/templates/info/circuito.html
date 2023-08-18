@@ -32,77 +32,77 @@
     <!-- titolo Circuito-->
     <div class="container mt-4 mb-4" id="hub">
 
-            <div class="row">
-                <div class="col-xl-6 col-lg-10 col-md-10 col-12">
-                    <p class="f1-font-r text-white">FORMULA 1 GRAND PRIX DE {{ circuito.paese.name }} 2023</p>
-                </div>
-                <div class="col-xl-6 col-lg-10 col-md-10 col-12" style="text-align: right;">
-                    <a href="{% url 'info:circuiti' %}" class="mt-2">
-                        <button class="query-page-selector-button mr-2 f1-font-regular">Torna ai Circuiti</button>
-                    </a>
-                </div>
+        <div class="row">
+            <div class="col-xl-6 col-lg-10 col-md-10 col-12">
+                <p class="f1-font-r text-white">FORMULA 1 GRAND PRIX DE {{ circuito.paese.name }} 2023</p>
             </div>
+            <div class="col-xl-6 col-lg-10 col-md-10 col-12" style="text-align: right;">
+                <a href="{% url 'info:circuiti' %}" class="mt-2">
+                    <button class="query-page-selector-button mr-2 f1-font-regular">Torna ai Circuiti</button>
+                </a>
+            </div>
+        </div>
 
-            <fieldset class="f1-border--top-right">
-                <legend class="f1-font-leg">
-                    <span class="text-white">{{ circuito.nome }}</span>
-                </legend>
-                    <div class="row">
-                        <div class="col-xl-8 col-lg-10 col-md-10 col-12">
-                            <p class="f1-font-r text-white"><img src="{{ circuito.immagine_mappa }}" id="img-p"></p>
-                        </div>
-                        <div class="col-xl-4 col-lg-10 col-md-10 col-12 text-white ml-auto margin-top" >
-                            <div class="row"> 
-                                <div class="col-lg-8 col-xl-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="f1-stat">
-                                                <p class="misc--label">Capienza</p>
-                                                <p class="f1-bold-stat">{{ circuito.capienza_persone }}</p>
-                                            </div>
+        <fieldset class="f1-border--top-right">
+            <legend class="f1-font-leg">
+                <span class="text-white">{{ circuito.nome }}</span>
+            </legend>
+                <div class="row">
+                    <div class="col-xl-8 col-lg-10 col-md-10 col-12">
+                        <p class="f1-font-r text-white"><img src="{{ circuito.immagine_mappa }}" id="img-p"></p>
+                    </div>
+                    <div class="col-xl-4 col-lg-10 col-md-10 col-12 text-white ml-auto margin-top" >
+                        <div class="row"> 
+                            <div class="col-lg-8 col-xl-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="f1-stat">
+                                            <p class="misc--label">Capienza</p>
+                                            <p class="f1-bold-stat">{{ circuito.capienza_persone }}</p>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="f1-stat">
-                                                <p class="misc--label">Lunghezza</p>
-                                                <p class="f1-bold-stat">{{ circuito.lunghezza }}<span class="misc--label"> km</span></p>
-                                            </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="f1-stat">
+                                            <p class="misc--label">Lunghezza</p>
+                                            <p class="f1-bold-stat">{{ circuito.lunghezza }}<span class="misc--label"> km</span></p>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="f1-stat">
-                                                <p class="misc--label">Numero giri</p>
-                                                <p class="f1-bold-stat">{{ circuito.numero_giri }}</p>
-                                            </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="f1-stat">
+                                            <p class="misc--label">Numero giri</p>
+                                            <p class="f1-bold-stat">{{ circuito.numero_giri }}</p>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="f1-stat">
-                                                <p class="misc--label">Giro veloce</p>
-                                                <p class="f1-bold-stat">{{ circuito.giro_veloce }}<span class="misc--label"></span></p>
-                                            </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="f1-stat">
+                                            <p class="misc--label">Giro veloce</p>
+                                            <p class="f1-bold-stat">{{ circuito.giro_veloce }}<span class="misc--label"></span></p>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="f1-stat ">
-                                                <p class="misc--label">Inaugurazione</p>
-                                                <p class="f1-bold-stat">{{ circuito.inaugurazione }}</p>
-                                                
-                                            </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="f1-stat ">
+                                            <p class="misc--label">Inaugurazione</p>
+                                            <p class="f1-bold-stat">{{ circuito.inaugurazione }}</p>
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </fieldset>
-
-                <div class="row">
-                    <div class="col-md-8">
-                        <fieldset class="font-story text-white">
-                            <legend class="leg-story">
-                                <span class="text-white">Storia</span>
-                            </legend>
-                            {{ circuito.storia }}
-                        </fieldset>
-                    </div>
                 </div>
+            </fieldset>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <fieldset class="font-story text-white">
+                        <legend class="leg-story">
+                            <span class="text-white">Storia</span>
+                        </legend>
+                        {{ circuito.storia }}
+                    </fieldset>
+                </div>
+            </div>
     </div>
 
 {% endblock %}
