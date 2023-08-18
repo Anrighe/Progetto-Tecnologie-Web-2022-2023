@@ -8,20 +8,19 @@
     <link rel="stylesheet" type="text/css" href="{%static 'css/style_pilota.css'%}">
     <link rel="stylesheet" type="text/css" href="{%static 'css/style_highlight.css'%}">
     
-
 {% endblock %}
 
-{% block title %}F1 - {{pilota.nome}}{% endblock %}
+{% block title %}F1 - {{ pilota.nome }}{% endblock %}
 
 {% block content %}
 
     
 <div class="container-title mt-4 mb-4 mx-auto">
     <div class="row padb">
-        <a class="font-title-r text-white">{{pilota.numero_pilota}}</a>
+        
     </div>
     <div class="row">
-        <a class="font-title text-white">{{pilota.nome}}</a>
+        <a class="font-title text-white mb-2">{{ pilota.nome }} - {{ pilota.numero_pilota }}</a>
     </div>
 </div>
 
@@ -52,52 +51,52 @@
                     <p class="font-textb text-white" style="text-align: left;">Team</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{pilota.scuderia}}</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{ pilota.scuderia }}</p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-6 padl">
-                    <p class="font-textb text-white" style="text-align: left;">Country</p>
+                    <p class="font-textb text-white" style="text-align: left;">Paese</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{pilota.paese.name}}</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{ pilota.paese.name }}</p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-6 padl">
-                    <p class="font-textb text-white" style="text-align: left;">Date of birth</p>
+                    <p class="font-textb text-white" style="text-align: left;">Data di nascita</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{pilota.data}}</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{ pilota.data }}</p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-6 padl">
-                    <p class="font-textb text-white" style="text-align: left;">Podiums</p>
+                    <p class="font-textb text-white" style="text-align: left;">Podi</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{pilota.podi}}</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{ pilota.podi }}</p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-6 padl">
-                    <p class="font-textb text-white" style="text-align: left;">Grands Prix entered</p>
+                    <p class="font-textb text-white" style="text-align: left;">Partecipazioni</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{pilota.numero_gare}}</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{ pilota.numero_gare }}</p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-6 padl">
-                    <p class="font-textb text-white" style="text-align: left;">World Championships</p>
+                    <p class="font-textb text-white" style="text-align: left;">Campionati vinti</p>
                 </div>
                 <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{pilota.campionati_vinti}}</p>
+                    <p class="font-textr text-white" style="text-align: left;">{{ pilota.campionati_vinti }}</p>
                 </div>
             </div>
         </div>
@@ -112,10 +111,10 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                        <img class="d-block w-100" src="{{pilota.scuderia.immagine2}}" alt="First slide">
+                        <img class="d-block w-100" src="{{ pilota.scuderia.immagine2 }}" alt="First slide">
                 </div>
                 <div class="carousel-item">
-                        <img class="d-block w-100" src="{{pilota.scuderia.immagine1}}" alt="Second slide">
+                        <img class="d-block w-100" src="{{ pilota.scuderia.immagine1 }}" alt="Second slide">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -136,7 +135,7 @@
                     <span class="text-white">Biografia</span>
                 </legend>
                 <div class="pads font-s">
-                    {{pilota.biografia}}
+                    {{ pilota.biografia }}
                 </div>
     </div>
 </div>

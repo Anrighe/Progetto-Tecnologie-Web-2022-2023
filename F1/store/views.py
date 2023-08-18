@@ -679,6 +679,7 @@ class CreateTicketInstanceView(LoginRequiredMixin, CreateView):
     form_error_messages = ''
 
     def get_form(self, form_class=None):
+        '''Recupera le tipologie di biglietto disponibili per il gestore corrente e le aggiunge al form'''
         gestore_circuito = Gestore_Circuito.objects.get(user=self.request.user)
         tipologia_biglietto = TipologiaBiglietto.objects.filter(gestore_circuito=gestore_circuito)
 
@@ -689,6 +690,7 @@ class CreateTicketInstanceView(LoginRequiredMixin, CreateView):
         return self.ticket_data_form
 
     def post(self, request, *args, **kwargs):
+        '''Controlla i dati inseriti dal gestore, e se sono corretti crea un'istanza di biglietto'''
         self.form_error_messages = ''
         gestore = Gestore_Circuito.objects.get(user=self.request.user)
         
@@ -715,6 +717,7 @@ class CreateTicketInstanceView(LoginRequiredMixin, CreateView):
             return False
               
     def check_seat(self):
+        '''Controlla che il posto inserito sia valido e non sia già stato utilizzato'''
         if not re.match(r'^[0-9]+$', self.request.POST.get('numero_posto')):
             self.form_error_messages = f'{self.form_error_messages}- Il posto inserito non è valido. Può solo contentere numeri'
 

@@ -26,7 +26,6 @@
                         <a href="{% url 'info:risultato_sessione' pk=pk tipo_sessione=sessione_effettuata %}">{{ sessione_effettuata }}</a>
                     {% endfor %}
 
-
                 </div>
             </div>
 
@@ -36,29 +35,28 @@
         </div>
     </div>
     <hr class="solid ml-4 mr-4 divisore"></hr>
-        <!-- Tabella sessioni -->
-        <div id="sessioni-table-div" class="card ml-4 mr-4 mb-4 mt-4">
-            <table class="risultati-sessioni">
-                <tr>
-                    <th class="sessioni-cell f1-font-bold"><h3>POSIZIONE</h3></th>
-                    <th class="sessioni-cell f1-font-bold"><h3>PILOTA<h3></th>
-                    <th class="sessioni-cell f1-font-bold"><h3>SCUDERIA</h3></th>
-                    <th class="sessioni-cell f1-font-bold"><h3>PUNTI</h3></th>
-                    <th class="sessioni-cell f1-font-bold"><h3>GIRO VELOCE</h3></th>
-                </tr>
-                {% for partecipazione in partecipazioni %}
-                    <tr>
-                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.posizione }}</td>
-                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.nome }}</td>
-                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.scuderia.nome }}</td>
-                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.punti }}</td>
-                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.miglior_tempo }}</td>
-                    </tr>
-                {% endfor %}
-                
 
-            </table>
-        </div>  
+    <!-- Tabella sessioni -->
+    <div id="sessioni-table-div" class="card ml-4 mr-4 mb-4 mt-4">
+        <table class="risultati-sessioni">
+            <tr>
+                <th class="sessioni-cell f1-font-bold"><h3>POSIZIONE</h3></th>
+                <th class="sessioni-cell f1-font-bold"><h3>PILOTA<h3></th>
+                <th class="sessioni-cell f1-font-bold"><h3>SCUDERIA</h3></th>
+                <th class="sessioni-cell f1-font-bold"><h3>PUNTI</h3></th>
+                <th class="sessioni-cell f1-font-bold"><h3>GIRO VELOCE</h3></th>
+            </tr>
+            {% for partecipazione in partecipazioni %}
+                <tr>
+                    <th class="sessioni-cell f1-font-regular">{{ partecipazione.posizione }}</td>
+                    <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.nome }}</td>
+                    <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.scuderia.nome }}</td>
+                    <th class="sessioni-cell f1-font-regular">{{ partecipazione.punti }}</td>
+                    <th class="sessioni-cell f1-font-regular">{{ partecipazione.miglior_tempo }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>  
 </div>
     
 {% endblock %}

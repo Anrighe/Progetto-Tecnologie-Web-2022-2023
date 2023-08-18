@@ -7,158 +7,155 @@
 	<link rel="stylesheet" type="text/css" href="{%static 'css/style.css'%}">
     <link rel="stylesheet" type="text/css" href="{%static 'css/style_team.css'%}">
     
-
 {% endblock %}
 
 {% block title %}F1 - {{scuderia.nome}}{% endblock %}
 
 {% block content %}
 
-    
-<div class="container-title mt-4 mb-4 mx-auto">
-    <div class="row">
-        <a class="font-title text-white">{{scuderia.nome}}</a>
+    <div class="container-title mt-4 mb-4 mx-auto">
+        <div class="row">
+            <a class="font-title text-white mt-4">{{scuderia.nome}}</a>
 
-        {% if user.is_authenticated %}
-            {% if user.utente %}
-                {% if follow %}
-                    <a href="{% url 'info:unfollow' pk=pk %}">
-                        <button class="fa fa-heart inverted-follow-button"></button>
-                    </a>
-                {% else %}
-                    <a href="{% url 'info:follow' pk=pk %}">
-                        <button class="fa fa-heart follow-button"></button>
-                    </a>
+            {% if user.is_authenticated %}
+                {% if user.utente %}
+                    {% if follow %}
+                        <a href="{% url 'info:unfollow' pk=pk %}">
+                            <button class="fa fa-heart inverted-follow-button"></button>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'info:follow' pk=pk %}">
+                            <button class="fa fa-heart follow-button"></button>
+                        </a>
+                    {% endif %} 
                 {% endif %} 
             {% endif %} 
-        {% endif %} 
+        </div>
+
     </div>
 
-</div>
+    <div class="container-team mt-4 mb-4 mx-auto">
+        <div class="row">
 
-<div class="container-team mt-4 mb-4 mx-auto">
-    <div class="row">
+            <div class="col-6 mt-4 mb-4">
+                <h2 class="col-6" style="text-align: left;"><img src="{{scuderia.logo}}" width="500px" height="300px" style="border-radius: 10px;"></h2>
 
-        <div class="col-6 mt-4 mb-4">
-            <h2 class="col-6" style="text-align: left;"><img src="{{scuderia.logo}}" width="500px" height="300px" style="border-radius: 10px;"></h2>
-
-            <div class="row padu">
-                <div class="col-6 padl">
-                    <p class="font-textb text-white" style="text-align: left;">Full Team Name</p>
+                <div class="row padu">
+                    <div class="col-6 padl">
+                        <p class="font-textb text-white" style="text-align: left;">Nome completo team</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="font-textr text-white" style="text-align: left;">{{ scuderia.nome_completo }}</p>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.nome_completo}}</p>
+
+                <div class="row">
+                    <div class="col-6 padl">
+                        <p class="font-textb text-white" style="text-align: left;">Sede</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="font-textr text-white" style="text-align: left;">{{ scuderia.sede }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 padl">
+                        <p class="font-textb text-white" style="text-align: left;">Team Principal</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="font-textr text-white" style="text-align: left;">{{scuderia.team_principal}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 padl">
+                        <p class="font-textb text-white" style="text-align: left;">Modello vettura</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="font-textr text-white" style="text-align: left;">{{ scuderia.modello_vettura }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 padl">
+                        <p class="font-textb text-white" style="text-align: left;">Power Unit</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="font-textr text-white" style="text-align: left;">{{scuderia.modello_power_unit}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 padl">
+                        <p class="font-textb text-white" style="text-align: left;">Campionati vinti</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="font-textr text-white" style="text-align: left;">{{scuderia.campionati_vinti}}</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-6 padl">
-                    <p class="font-textb text-white" style="text-align: left;">Base</p>
-                </div>
-                <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.sede}}</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-6 padl">
-                    <p class="font-textb text-white" style="text-align: left;">Team Chief</p>
-                </div>
-                <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.team_principal}}</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-6 padl">
-                    <p class="font-textb text-white" style="text-align: left;">Chassis</p>
-                </div>
-                <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.modello_vettura}}</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-6 padl">
-                    <p class="font-textb text-white" style="text-align: left;">Power Unit</p>
-                </div>
-                <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.modello_power_unit}}</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-6 padl">
-                    <p class="font-textb text-white" style="text-align: left;">World Championships</p>
-                </div>
-                <div class="col-6">
-                    <p class="font-textr text-white" style="text-align: left;">{{scuderia.campionati_vinti}}</p>
+            <div class="col-6 mt-4 mb-4">
+                <div class="row" id="alt">
+                    {% for pilota in piloti %}
+                        {% if pilota.scuderia == scuderia %}
+                            <div class="col-6 padlf driver">
+                                <a href="{% url 'info:pilota' pk=pilota.id %}" class="mt-2">
+                                    <figure class="driver">
+                                                <p class="driver-img" style="background-image: url('{{pilota.foto_pilota}}');" >
+                                            <figcaption>
+                                                <div class="font-num text-white padl">
+                                                    <span>{{pilota.numero_pilota}}</span>
+                                                </div>
+                                                <h1 class="font-textr text-white padl">
+                                                    {{pilota.nome}}
+                                                </h1>
+                                            </figcaption>
+                                    </figure>
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
 
-        <div class="col-6 mt-4 mb-4">
-            <div class="row" id="alt">
-                {% for pilota in piloti %}
-                    {% if pilota.scuderia == scuderia %}
-                        <div class="col-6 padlf driver">
-                            <a href="{% url 'info:pilota' pk=pilota.id %}" class="mt-2">
-                                <figure class="driver">
-                                            <p class="driver-img" style="background-image: url('{{pilota.foto_pilota}}');" >
-                                        <figcaption>
-                                            <div class="font-num text-white padl">
-                                                <span>{{pilota.numero_pilota}}</span>
-                                            </div>
-                                            <h1 class="font-textr text-white padl">
-                                                {{pilota.nome}}
-                                            </h1>
-                                        </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                    {% endif %}
-                {% endfor %}
+        <div class="row">
+            <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
+                <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="{{scuderia.immagine1}}" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{scuderia.immagine2}}" alt="Second slide">
+                </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="{{scuderia.immagine1}}" alt="First slide">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="{{scuderia.immagine2}}" alt="Second slide">
-              </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset class="font-story text-white">
+                    <legend class="leg-story">
+                        <span class="text-white">Descrizione</span>
+                    </legend>
+                    <div class="pads font-s">
+                        {{scuderia.descrizione}}
+                    </div>
+        </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <fieldset class="font-story text-white">
-                <legend class="leg-story">
-                    <span class="text-white">Descrizione</span>
-                </legend>
-                <div class="pads font-s">
-                    {{scuderia.descrizione}}
-                </div>
-    </div>
-</div>
     
-
 {% endblock %}
     
