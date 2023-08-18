@@ -7,7 +7,10 @@
 . Lorenzo Colli – 153063 
 
 ---
+
 #### Versione di python utilizzata: 3.10.7
+
+---
 
 #### Librerie utilizzate:
 . asgiref             3.7.2
@@ -31,6 +34,8 @@
 . typing_extensions   4.7.1
 . tzdata              2023.3
 . wheel               0.40.0 
+
+---
 
 #### Istruzioni di utilizzo (Windows 10):
 .1 cd .\F1\
