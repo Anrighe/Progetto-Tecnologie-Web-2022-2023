@@ -327,3 +327,16 @@ body.dimmed {
 {
     box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.637);
 }
+
+.de-link
+{
+    text-decoration: none;
+    color: white;
+}
+
+.de-link:hover
+{
+    text-decoration: none;
+    color: white;
+    filter: brightness(70%);
+}

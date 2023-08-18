@@ -27,10 +27,18 @@ class HomePageView(ListView):
         else:
             return None
     
+    def trova_circuito_ultima_sessione():
+        circuito_ultima_sessione = Partecipazione.objects.order_by('-data').first()
+        if circuito_ultima_sessione:
+            return circuito_ultima_sessione.circuito
+        else:
+            return None
+
     def get_context_data(self):
         context = super().get_context_data()
 
         data_ultima_sessione = HomePageView.trova_data_ultima_sessione()
+        circuito_ultima_sessione = HomePageView.trova_circuito_ultima_sessione()
         user = self.request.user
 
         if data_ultima_sessione:
@@ -41,6 +49,9 @@ class HomePageView(ListView):
             context['partecipazioni'] = partecipazioni
             context['tipo_sessione'] = sessione.tipo
             context['nome_circuito'] = circuito.nome
+
+        if circuito_ultima_sessione:
+            context['circuito_ultima_sessione'] = circuito_ultima_sessione
         
         utente_regolare = False
         gestore_circuito = False
