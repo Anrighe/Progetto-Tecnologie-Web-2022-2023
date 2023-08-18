@@ -77,14 +77,13 @@ button:hover
 {
     display: none;
     position: absolute;
-     /* Position the dropdown above the button */
     left: 0;
     background-color: #f9f9f9;
     min-width: 160px;
     border: 1px solid #ddd;
     overflow-y: auto; 
     max-height: 300px; 
-    z-index: 9999; /* Set a high z-index value to make it appear over everything */
+    z-index: 9999;
 }
 
 .bottom-dropdown-content
@@ -97,7 +96,7 @@ button:hover
     top: 100%;
 }
 
-/* Show the dropdown content when the button is hovered or focused */
+/* Mostra il contenuto del dropdown quando è in hover e in focus */
 .dropdown:hover .dropdown-content,
 .dropdown:focus .dropdown-content 
 {

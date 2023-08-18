@@ -21,9 +21,8 @@ from django.core.paginator import Paginator, EmptyPage
 from store.ticket_generator import generate_ticket
 
 
-
 class UtenteProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
-    '''Gestisce la pagina di modifica dei dati dell'utente'''
+    '''Gestisce la pagina di modifica dei dati dell'utente verificando la correttezza di ogni parametro inserito nel form e salvando i dati nel database'''
     model = Utente
     template_name = 'store/user_profile_data_change.html'
     success_url = '/store/profile/'
@@ -290,7 +289,10 @@ def UserProfile(request):
 
 
 class StoreView(ListView):
-    '''Gestisce la pagina dello store'''
+    '''
+    Gestisce la pagina dello store, fornendo le informazioni relative alle tipologie di 
+    biglietti e alle istanze disponibili in base ai filtri selezionati dall'utente
+    '''
     model = TipologiaBiglietto
     template_name = 'store/store.html'
     NUM_BIGLIETTI_PER_PAGINA = 12
@@ -342,7 +344,10 @@ class StoreView(ListView):
             return redirect('nothing_here')
     
 class ProductView(ListView):
-    '''Gestisce la pagina di un prodotto'''
+    '''
+    Gestisce la pagina di un prodotto, fornendo le relative informazioni della tipologie, delle istanze disponibili 
+    e permettendo all'utente di aggiungere il biglietto al carrello
+    '''
     model = TipologiaBiglietto
     template_name = 'store/product.html'
     user_data_form = TicketForm()
@@ -391,7 +396,10 @@ class ProductView(ListView):
         return redirect(reverse('store:product', kwargs=kwargs) + '?addproduct=ok')
     
 class CartView(LoginRequiredMixin, ListView):
-    '''Classe che gestisce il carrello dell'utente'''
+    '''
+    Gestisce il carrello dell'utente, fornendo le istanze presenti nel carrello, calcolando i costi totali 
+    (tassati e non) e permettendo all'utente di rimuovere o di acquistare i prodotti
+    '''
     model = Carrello
     template_name = 'store/cart.html'
     IVA = 0.22
@@ -512,7 +520,7 @@ class CartView(LoginRequiredMixin, ListView):
     
 
 class GestoreProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
-    '''Classe che gestisce la modifica dei dati del gestore'''
+    '''Gestisce la modifica dei dati del gestore, verificando la correttezza di ogni parametro inserito nel form e salvando i dati nel database'''
     model = Gestore_Circuito
     template_name = 'store/gestore_profile_data_change.html'
     success_url = '/store/profile/'
@@ -603,7 +611,7 @@ class GestoreProfileDataChangeViewUpdate(LoginRequiredMixin, UpdateView):
 
 
 class CreateTicketTypeView(LoginRequiredMixin, CreateView):
-    '''Classe per la creazione di una tipologia di biglietto'''
+    '''Gestisce la creazione di una tipologia di biglietto'''
     model = TipologiaBiglietto
     template_name = 'store/create_ticket_type.html'
     success_url = '/store/profile/'
@@ -664,7 +672,7 @@ class CreateTicketTypeView(LoginRequiredMixin, CreateView):
 
 
 class CreateTicketInstanceView(LoginRequiredMixin, CreateView):
-    '''Classe per la creazione dell'istanza di una tipologia di biglietto'''
+    '''Gestisce la creazione dell'istanza di una tipologia di biglietto'''
     model = IstanzaBiglietto
     template_name = 'store/create_ticket_instance.html'
     success_url = '/store/profile/'

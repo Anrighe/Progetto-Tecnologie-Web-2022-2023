@@ -5,7 +5,10 @@ from store.models import Utente
 from django.test.client import Client
 from store.views import UtenteProfileDataChangeViewUpdate
 
+
 class UtenteProfileDataChangeTestCase(TestCase):
+    '''Testa la funzionalità di modifica dei dati del profilo di un utente'''
+
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='12345')
         self.user.save()
@@ -84,7 +87,7 @@ class UtenteProfileDataChangeTestCase(TestCase):
             'nome': 'John', 
             'cognome': 'Rossi', 
             'email': 'email@email.com',
-            'data_nascita': '2199-09-09', # Data non valida
+            'data_nascita': '2199-09-09', # Data futura non valida
             'telefono': 3333333333, 
             'carta_credito': 12345678912345, 
             'cvv': 123, 'scadenza_carta': 
@@ -98,11 +101,11 @@ class UtenteProfileDataChangeTestCase(TestCase):
             'nome': 'John', 
             'cognome': 'Rossi', 
             'email': 'email@email.com', 
-            'data_nascita': '21adsa99-0//*9-09999', 
+            'data_nascita': '21adsa99-0//*9-09999', # Formato data non valido
             'telefono': 3333333333, 
             'carta_credito': 12345678912345, 
             'cvv': 123, 'scadenza_carta': 
-            '2029-09-09' # Data non valida
+            '2029-09-09' 
             }, follow=True)
         self.assertContains(self.response, 'La data di nascita inserita non è valida')
 
@@ -113,7 +116,7 @@ class UtenteProfileDataChangeTestCase(TestCase):
             'cognome': 'Rossi', 
             'email': 'email@email.com', 
             'data_nascita': '2199-09-09', 
-            'telefono': '++398860000000', # Numero di telefono non valido
+            'telefono': '++398860000000', # Formato numero di telefono non valido
             'carta_credito': 12345678912345, 
             'cvv': 123, 'scadenza_carta': 
             '2029-09-09' 
@@ -158,7 +161,7 @@ class UtenteProfileDataChangeTestCase(TestCase):
             'telefono': 3333333333, 
             'carta_credito': 12345678912345, 
             'cvv': 123, 
-            'scadenza_carta': '2011232-0%%-09' # Data non valida
+            'scadenza_carta': '2011232-0%%-09' # Formato data non valido
             }, follow=True)
         self.assertContains(self.response, 'La data inserita di scadenza della carta non è valida')      
 
@@ -176,7 +179,6 @@ class UtenteProfileDataChangeTestCase(TestCase):
             'scadenza_carta': '2012-09-09' 
             }, follow=True)
         self.assertContains(self.response, 'Il CVV non è valido')     
-
 
     def tearDown(self):
         self.user.delete()

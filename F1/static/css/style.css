@@ -110,7 +110,7 @@ body
   
 #news 
 {
-    height: calc(65vh); /* Adjust padding value as needed */
+    height: calc(65vh);
     overflow-y: auto;
 }
 

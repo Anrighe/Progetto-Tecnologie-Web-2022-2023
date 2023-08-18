@@ -72,8 +72,9 @@
 
 @media screen and (min-width: 1001px)
 {
-    .font-title {
-      font-size: 70px;
+    .font-title 
+    {
+        font-size: 70px;
     }
     
     .container-team
@@ -86,27 +87,33 @@
         max-width: 70%;
     }
 
-    .font-textb {
+    .font-textb 
+    {
         font-size: 25px;
     }
 
-    .font-textr {
+    .font-textr 
+    {
         font-size: 25px;
     }
 
-    .leg-story {
+    .leg-story 
+    {
         font-size: 45px;
     }
 
-    .font-num {
+    .font-num 
+    {
         font-size: 50px;
     }
 
-    .font-s {
+    .font-s 
+    {
         font-size: 20px;
     }
 
-    .carousel-item>img {
+    .carousel-item>img 
+    {
         overflow: hidden;
         position: relative;
         height: 800px;
@@ -117,8 +124,9 @@
   
 @media screen and (max-width: 1000px)
 {
-    .font-title {
-      font-size: 30px;
+    .font-title 
+    {
+        font-size: 30px;
     }
 
     .container-team
@@ -131,32 +139,37 @@
         max-width: 95%;
     }
 
-    .font-textb {
+    .font-textb 
+    {
         font-size: 15px;
     }
 
-    .font-textr {
+    .font-textr 
+    {
         font-size: 15px;
     }
 
-    .leg-story {
+    .leg-story 
+    {
         font-size: 25px;
     }
 
-    .font-num {
+    .font-num 
+    {
         font-size: 25px;
     }
 
-    .font-s {
+    .font-s 
+    {
         font-size: 15px;
     }
 
-    .carousel-item>img {
+    .carousel-item>img 
+    {
         overflow: hidden;
         position: relative;
         height: 500px;
     }
-
 }
 
 .padu

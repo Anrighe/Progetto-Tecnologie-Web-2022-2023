@@ -86,30 +86,38 @@
 }
 
 
-@media screen and (min-width: 1001px) {
-    .font-title {
-      font-size: 70px;
+@media screen and (min-width: 1001px) 
+{
+    .font-title 
+    {
+        font-size: 70px;
     }
     
-    .font-num {
+    .font-num 
+    {
         font-size: 25px;
     }
 
-    .font-name {
+    .font-name 
+    {
         font-size: 25px;
     }
-  }
+}
   
-  @media screen and (max-width: 1000px) {
-    .font-title {
-      font-size: 30px;
+  @media screen and (max-width: 1000px) 
+  {
+    .font-title 
+    {
+        font-size: 30px;
     }
 
-    .font-num {
+    .font-num 
+    {
         font-size: 19px;
     }
 
-    .font-name {
+    .font-name 
+    {
         font-size: 10px;
     }
 }

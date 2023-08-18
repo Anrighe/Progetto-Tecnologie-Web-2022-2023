@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 
 class CircuitiView(ListView):
-    '''Gestisce la pagina dei circuiti, mostrando i circuiti in ordine di data di evento'''
+    '''Gestisce la pagina dei circuiti, fornendo i circuiti in ordine di data di evento'''
     model = Circuito
     template_name = 'info/menu_circuito.html' 
 
@@ -26,7 +26,7 @@ class CircuitiView(ListView):
     
 
 class CircuitoView(ListView):
-    '''Gestisce la pagina di un specifico circuito, mostrando le informazioni relative ad esso'''
+    '''Gestisce la pagina di un specifico circuito, fornendo le informazioni relative ad esso'''
     model = Circuito
     template_name = 'info/circuito.html'
 
@@ -40,7 +40,7 @@ class CircuitoView(ListView):
 
 
 class ScuderieView(ListView):
-    '''Gestisce la pagina delle scuderie, mostrando le scuderie in ordine di punti'''
+    '''Gestisce la pagina delle scuderie, fornendo le scuderie in ordine di punti'''
     model = Scuderia
     template_name = 'info/scuderia.html'
 
@@ -56,7 +56,7 @@ class ScuderieView(ListView):
     
 
 class TeamView(ListView):
-    '''Gestisce la pagina di una specifica scuderia, mostrando le informazioni relative ad essa'''
+    '''Gestisce la pagina di una specifica scuderia fornendo le informazioni relative e verifica se l'utente attuale segue la scuderia'''
     model = Scuderia
     template_name = 'info/team.html'
 
@@ -84,7 +84,7 @@ class TeamView(ListView):
     
 
 class PilotaView(ListView):
-    '''Gestisce la pagina di un specifico pilota, mostrando le informazioni relative ad esso'''
+    '''Gestisce la pagina di un specifico pilota, fornendo le informazioni relative ad esso'''
     model = Pilota
     template_name = 'info/pilota.html'
 
@@ -117,7 +117,7 @@ class SessioniView(ListView):
     
 
 class RisultatoSessioneView(ListView):
-    '''Gestisce la pagina dei risultati di una specifica sessione, mostrando le informazioni relative ad essa'''
+    '''Gestisce la pagina dei risultati di una specifica sessione, fornendo le informazioni relative alle partecipazioni di ogni pilota'''
     model = Partecipazione
     template_name = 'info/risultato_sessione.html' 
     

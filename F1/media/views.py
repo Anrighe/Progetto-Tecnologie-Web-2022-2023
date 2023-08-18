@@ -81,7 +81,7 @@ class HomePageView(ListView):
     
     
 class HighlightPageView(ListView):
-    '''Gestisce la pagina degli highlight, mostrando un massimo di 6 highlight per pagina, in ordine cronologico decrescente'''
+    '''Gestisce la pagina degli highlight, mostrando un massimo di 6 highlight per pagina in ordine cronologico decrescente'''
     model = Highlight
     template_name = 'media/highlight.html' 
     NUM_VIDEO_PER_PAGINA = 6
@@ -111,7 +111,7 @@ class HighlightPageView(ListView):
     
 
 class VideoHighlightPageView(ListView):
-    '''Gestisce la pagina di un singolo highlight'''
+    '''Gestisce la pagina di un singolo highlight fornendo le sue informazioni e incrementando il numero di visualizzazioni di 1 per ogni accesso alla pagina'''
     model = Highlight
     template_name = 'media/video_highlight.html'
 

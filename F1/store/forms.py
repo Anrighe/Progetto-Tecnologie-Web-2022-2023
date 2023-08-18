@@ -1,6 +1,7 @@
 from django import forms
 from django_countries import countries
 
+
 class UtenteProfileFormData(forms.Form):
     nome = forms.CharField(label='Nome', required=False, max_length=100, help_text='Caratteri validi per il nome (a-z, A-Z)')
     cognome = forms.CharField(label='Cognome', required=False, max_length=100, help_text='Caratteri validi per il cognome (a-z, A-Z)')

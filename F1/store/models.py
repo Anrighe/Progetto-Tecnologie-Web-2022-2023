@@ -6,6 +6,7 @@ from media.models import PortaleF1
 from datetime import date
 from django_countries.fields import CountryField
 
+
 class Gestore_Circuito(models.Model):
     sito_web = models.CharField(max_length=100)
     indirizzo = models.CharField(max_length=50)
@@ -30,7 +31,7 @@ class Utente(models.Model):
     
     SESSO_CHOICES = [
         ('M', 'Maschio'),
-        ('F', 'Femmina'),
+        ('F', 'Femmina')
     ]
 
     indirizzo = models.CharField(max_length=50, null=True, default=None, blank=True)
