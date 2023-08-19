@@ -61,7 +61,7 @@
             {% for tipologia_biglietto in tipologie_biglietti %}
                 
                 {% with forloop_id=forloop.counter %}
-                <div class="col-sm-3 mb-4 {% if tipologia_biglietto.amount <= 0 %}not-available{% endif %}" style="height: 43vh; padding: 10px;" style="display: block;">
+                <div class="col-sm-3 mb-2 {% if tipologia_biglietto.amount <= 0 %}not-available{% endif %}" style="height: 43vh; padding: 10px;" style="display: block;">
                     
                     <div class="product-item mx-auto  card-product-preview f1-font-regular " style="">
                        
