@@ -43,7 +43,9 @@
                 <th class="sessioni-cell f1-font-bold"><h3>POSIZIONE</h3></th>
                 <th class="sessioni-cell f1-font-bold"><h3>PILOTA<h3></th>
                 <th class="sessioni-cell f1-font-bold"><h3>SCUDERIA</h3></th>
-                <th class="sessioni-cell f1-font-bold"><h3>PUNTI</h3></th>
+                {% if partecipazioni.0.sessione.tipo != "qualifiche" %}
+                    <th class="sessioni-cell f1-font-bold"><h3>PUNTI</h3></th>
+                {% endif %}
                 <th class="sessioni-cell f1-font-bold"><h3>GIRO VELOCE</h3></th>
             </tr>
             {% for partecipazione in partecipazioni %}
@@ -51,7 +53,9 @@
                     <th class="sessioni-cell f1-font-regular">{{ partecipazione.posizione }}</td>
                     <th class="sessioni-cell f1-font-regular"><a class="de-link" href="{% url 'info:pilota' pk=partecipazione.pilota.id %}">{{ partecipazione.pilota.nome }}</a></td>
                     <th class="sessioni-cell f1-font-regular"><a class="de-link" href="{% url 'info:team' pk=partecipazione.pilota.scuderia.id %}">{{ partecipazione.pilota.scuderia.nome }}</a></td>
-                    <th class="sessioni-cell f1-font-regular">{{ partecipazione.punti }}</td>
+                    {% if partecipazione.sessione.tipo != "qualifiche" %}
+                        <th class="sessioni-cell f1-font-regular">{{ partecipazione.punti }}</td>
+                    {% endif %}
                     <th class="sessioni-cell f1-font-regular">{{ partecipazione.miglior_tempo }}</td>
                 </tr>
             {% endfor %}
