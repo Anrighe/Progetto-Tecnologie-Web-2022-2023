@@ -49,8 +49,8 @@
             {% for partecipazione in partecipazioni %}
                 <tr>
                     <th class="sessioni-cell f1-font-regular">{{ partecipazione.posizione }}</td>
-                    <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.nome }}</td>
-                    <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.scuderia.nome }}</td>
+                    <th class="sessioni-cell f1-font-regular"><a class="de-link" href="{% url 'info:pilota' pk=partecipazione.pilota.id %}">{{ partecipazione.pilota.nome }}</a></td>
+                    <th class="sessioni-cell f1-font-regular"><a class="de-link" href="{% url 'info:team' pk=partecipazione.pilota.scuderia.id %}">{{ partecipazione.pilota.scuderia.nome }}</a></td>
                     <th class="sessioni-cell f1-font-regular">{{ partecipazione.punti }}</td>
                     <th class="sessioni-cell f1-font-regular">{{ partecipazione.miglior_tempo }}</td>
                 </tr>

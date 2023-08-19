@@ -39,8 +39,8 @@
                     </td>
                     
                     <th class="sessioni-cell f1-font-regular">{{ partecipazione.data }}</td>
-                    <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.nome }}</td>
-                    <th class="sessioni-cell f1-font-regular">{{ partecipazione.pilota.scuderia.nome }}</td>
+                    <th class="sessioni-cell f1-font-regular"><a class="de-link" href="{% url 'info:pilota' pk=partecipazione.pilota.id %}">{{ partecipazione.pilota.nome }}</a></td>
+                    <th class="sessioni-cell f1-font-regular"><a class="de-link" href="{% url 'info:team' pk=partecipazione.pilota.scuderia.id %}">{{ partecipazione.pilota.scuderia.nome }}</a></td>
                     <th class="sessioni-cell f1-font-regular">{{ partecipazione.circuito.numero_giri }}</td>
                 </tr>
             {% endfor %}

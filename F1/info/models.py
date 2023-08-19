@@ -33,8 +33,7 @@ class Pilota(models.Model):
     campionati_vinti = models.PositiveIntegerField(default=0)
     numero_pilota = models.PositiveIntegerField(default=0)
     biografia = models.CharField(max_length=10000, default='')
-    immagine1 = models.CharField(max_length=100, default='', blank=True)
-    immagine2 = models.CharField(max_length=100, default='', blank=True)
+    immagine = models.CharField(max_length=100, default='', blank=True)
 
     # Un pilota è ingaggiato da una sola scuderia
     scuderia = models.ForeignKey(Scuderia, on_delete=models.PROTECT, null=True, blank=True)
