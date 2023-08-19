@@ -114,6 +114,12 @@ body
     overflow-y: auto;
 }
 
+#risultati-ultima-sessione
+{
+    height: calc(65vh);
+    overflow-y: auto;
+}
+
 .divisore
 {
     background: white;

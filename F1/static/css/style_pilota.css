@@ -115,15 +115,7 @@
 
     .font-s {
         font-size: 20px;
-    }
-
-    .carousel-item>img {
-        overflow: hidden;
-        position: relative;
-        height: 800px;
-    }
-
-    
+    }    
 }
   
 @media screen and (max-width: 1000px)
@@ -163,12 +155,6 @@
 
     .font-s {
         font-size: 15px;
-    }
-
-    .carousel-item>img {
-        overflow: hidden;
-        position: relative;
-        height: 500px;
     }
 
 }
