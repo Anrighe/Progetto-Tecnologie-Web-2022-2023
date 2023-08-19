@@ -38,9 +38,9 @@
 ---
 
 #### Istruzioni di utilizzo (Windows 10):
-.1 cd .\F1\
-.2 pipenv shell
-.3 pipenv sync
-.4 py .\manage.py runserver
+1. cd .\F1\
+2. pipenv shell
+3. pipenv sync
+4. py .\manage.py runserver
 
 
