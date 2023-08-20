@@ -43,4 +43,24 @@
 3. pipenv sync
 4. py .\manage.py runserver
 
+---
+
+#### Username account gestori di circuiti:
+- gestoremonaco
+- gestorespagna
+- gestorecanada
+- gestoreaustria
+- gestoreuk
+- gestoreungheria
+- gestorebelgio
+- gestoreolanda
+
+#### Username account utenti:
+- utente1
+
+#### Account admin:
+- Username: admin
+- Password: admin
+
+#### Le password per tutti gli account sono uguali: "123pass123"
 
