@@ -496,13 +496,18 @@ class CartView(LoginRequiredMixin, ListView):
                                                         biglietto.tipologia_biglietto.settore, 
                                                         biglietto.tipologia_biglietto.data_evento, 
                                                         biglietto.numero_posto)
+            
             ordine.save()
 
             biglietto.ordine = ordine
             biglietto.save()
 
-            # Imposta il booleano delle notifiche a True per l'utente
-            biglietto.tipologia_biglietto.gestore_circuito.notifiche = True
+            # Imposta il booleano delle notifiche a True per il gestore
+            gestore = biglietto.tipologia_biglietto.gestore_circuito
+            gestore.notifiche = True
+            gestore.save()
+
+            # Crea una notifica per il gestore
             Notifica.objects.create(descrizione=f'Ordine {ordine.pk} effettuato con successo', data=date.today(), ordine=ordine)
 
         # Imposta il booleano delle notifiche a True per l'Utente

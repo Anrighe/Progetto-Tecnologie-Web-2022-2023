@@ -114,9 +114,11 @@ def get_notifications(request):
             for biglietto in istanze_biglietti:
                 ordini.append(biglietto.ordine)
 
-            notifiche = Notifica.objects.filter(ordine__in=ordini)
+            notifiche = Notifica.objects.filter(ordine__in=ordini).order_by('-id')[0:15]
+        
 
-            print(notifiche)
+
+
             notifiche = [{'id': notification.id, 'descrizione': notification.descrizione, 'order': notification.ordine.id} for notification in notifiche]
 
     return JsonResponse(notifiche, safe=False)

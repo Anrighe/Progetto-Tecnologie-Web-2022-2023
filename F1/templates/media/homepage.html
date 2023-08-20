@@ -95,11 +95,11 @@
 					<th class="white-cell f1-font-bold">MIGLIOR TEMPO</th>
 				</tr>
 				{% for partecipazione in partecipazioni %}
-				<tr>
-					<th class="white-cell f1-font-regular">{{ partecipazione.posizione }}</td>
-					<th class="white-cell f1-font-regular"><a class="de-link" href="{% url 'info:pilota' pk=partecipazione.pilota.id %}">{{ partecipazione.pilota.nome }}</a></td>
-					<th class="white-cell f1-font-regular">{{ partecipazione.miglior_tempo }}</td>
-				</tr>
+					<tr>
+						<th class="white-cell f1-font-regular">{{ partecipazione.posizione }}</td>
+						<th class="white-cell f1-font-regular"><a class="de-link" href="{% url 'info:pilota' pk=partecipazione.pilota.id %}">{{ partecipazione.pilota.nome }}</a></td>
+						<th class="white-cell f1-font-regular">{{ partecipazione.miglior_tempo }}</td>
+					</tr>
 				{% endfor %}
 			</table>
 		</div>

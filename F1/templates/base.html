@@ -40,7 +40,7 @@
         </a>
         {% endif %}
         <a class="navbar-brand d-lg-none text-white ml-1" href="{% url 'store:profile' %}">
-            <i class="fa fa-bell {% if user.is_authenticated and user.utente.notifiche %}notification-color blink{% endif %}"></i>
+            <i class="fa fa-bell {% if user.is_authenticated and user.utente.notifiche %}notification-color blink{% elif user.is_authenticated and user.gestore_circuito.notifiche %}notification-color blink{% endif %}"></i>
         </a>
 
         <!-- Logo -->
@@ -94,7 +94,7 @@
                         <li class="nav-item d-none d-lg-block">
                             <div class="dropdown">
                                 <a class="nav-link mr-2 dropdown-toggle" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i id="bell" class="fa fa-bell {% if user.utente.notifiche %} notification-color blink {% endif %}"></i>
+                                    <i id="bell" class="fa fa-bell {% if user.is_authenticated and user.utente.notifiche %}notification-color blink{% elif user.is_authenticated and user.gestore_circuito.notifiche %}notification-color blink{% endif %}"></i>
                                 </a>
                                 <div id="notification-div" class="dropdown-menu dropdown-menu-right outer-shadow" aria-labelledby="profileDropdown">
                                 </div>
@@ -124,12 +124,8 @@
         </div>
     </nav>
 
-    
     {% block content %}
     {% endblock %}
-
-
-
 
 </body>
 </html>

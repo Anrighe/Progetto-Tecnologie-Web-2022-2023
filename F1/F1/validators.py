@@ -6,9 +6,9 @@ def valida_non_negativi(valore):
         raise ValidationError('Il valore non può essere negativo')
     
 def valida_iban(val):
-    '''Controlla che l'IBAN inserito sia lungo 34 caratteri, e se non lo è solleva un ValidationError'''
-    if len(val) != 34:
-        raise ValidationError("L'IBAN inseriro non contiene 34 caratteri")
+    '''Controlla che l'IBAN inserito sia lungo al più 34 caratteri, e se non lo è solleva un ValidationError'''
+    if len(val) >= 34:
+        raise ValidationError("L'IBAN inseriro è più lungo di 34 caratteri")
     
 def valida_carta_credito(val):
     '''
