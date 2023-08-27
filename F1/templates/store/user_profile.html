@@ -290,6 +290,8 @@
 						<th class="order-cell f1-font-bold">Prezzo</th>
 						{% if user.utente %}
 							<th class="order-cell f1-font-bold">Download</th>
+						{% elif user.gestore_circuito %}
+							<th class="order-cell f1-font-bold">Acquirente</th>
 						{% endif %}
 					</tr>
 					{% if user.utente %}
@@ -313,6 +315,7 @@
 								<th class="order-cell f1-font-regular">Ordine {{ ordine.id }}</td>
 								<th class="order-cell f1-font-regular">{{ ordine.data }}</td>
 								<th class="order-cell f1-font-regular">{{ ordine.prezzo|floatformat:2 }} €</td>
+								<th class="order-cell f1-font-regular">{{ ordine.utente.user.username }}</td>
 							</tr>
 						{% endfor %}
 					{% endif %}

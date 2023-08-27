@@ -63,4 +63,3 @@
 - Password: admin
 
 #### Le password per tutti gli account sono uguali: "123pass123"
-
